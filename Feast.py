@@ -18,14 +18,13 @@ class FeastApp:
             icon = PhotoImage(master=self.root, file='Icona.png')
             self.root.wm_iconphoto(True, icon)
         self.root.update_idletasks()
-        self.root.geometry("960x900")
         self.root.resizable(False, False)
         self.root.update()
 
         # Create a Labels widget
         # 1st label
         label1 = tk.Label(self.root, text="Welcome to The Feast paragraph!", font=("Lobster", 32))
-        label1.pack()
+        label1.pack(side = "top")
         # 2nd label
         label2 = tk.Label(self.root, text="- Grandfather Ivan: He is your mother's father, and he is very old and wise.\n He likes to tell stories and legends, and he knows a lot about Slavic culture and traditions. \nHe is also very strict and conservative, \nand often scolds guests who do not follow the rules or respect the customs.", font=("Lobster", 16))
         label2.pack()
@@ -56,13 +55,11 @@ class FeastApp:
             pass
         
     def center_window(self, root):
-            width = 960
-            height = 860
-            screen_width = root.winfo_screenwidth()
-            screen_height = root.winfo_screenheight()
-            x = (screen_width/2) - (width/2)
-            y = (screen_height/2) - (height/2)
+            width,height = 980, 1080
+            screen_width,screen_height = root.winfo_screenwidth(), root.winfo_screenheight()
+            x,y = (screen_width/2) - (width/2), (screen_height/2) - (height)
             self.root.geometry(f'{width}x{height}+{int(x)}+{int(y)}')
+    
     def run(self):
             # Run the application
             self.root.mainloop()       
