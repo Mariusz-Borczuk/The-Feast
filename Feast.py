@@ -1,20 +1,15 @@
 import tkinter as tk
-from tkinter import ttk,TkVersion
-import customtkinter as ctk
-from tkinter import Button
-from PIL import ImageTk, Image
 import os
-from sys import platform, version_info, exit
+from PIL import ImageTk, Image
 from platform import system
-from sys import version_info
-from tkinter import Tk, PhotoImage
+from sys import platform, version_info
+from tkinter import PhotoImage, Button
 
 class FeastApp: 
     def __init__(self):
         # Create fundamental elements of the application
         self.root = tk.Tk()
         self.root.title("Feast")
-        print("Tkinter version:", TkVersion)
         icondir = os.path.join(os.path.dirname(__file__))
         if system() == 'Windows':
             iconfile = os.path.join(icondir, 'Icona.ico')
@@ -39,26 +34,17 @@ class FeastApp:
         # 1st image
         image1 = Image.open("pierwsi.png")
         image1 = ImageTk.PhotoImage(image1)
-        label1 = tk.Label(image=image1)
+        label1 = tk.Label(image=image1)     
         label1.image = image1
         label1.pack( padx="10", pady="10")
 
 
         # Create buttons
-        # 1st button
-        ButtonV = Button(self.root, text="Vasilisa", font=("Lobster", 20, 'bold'), bg="red")
-        ButtonV.pack(side="left", padx="10", pady="10")
-
-        # 2nd button
-        ButtonM = Button(self.root, text="Masha", font=("Lobster", 20, 'bold'), bg="blue")
-        ButtonM.pack(side="right", padx="10", pady="10")
-
+        ButtonV = Button(self.root, text="Vasilisa", font=("Lobster", 20, 'bold'), bg="red").pack(side="left", padx="10", pady="10")
+        ButtonM = Button(self.root, text="Masha", font=("Lobster", 20, 'bold'), bg="blue").pack(side="right", padx="10", pady="10")
+       
         # Exit button
-        ButtonExit = Button(self.root, text="Exit", font=("Lobster", 20, 'bold'), command=self.root.quit, bg="green")
-        ButtonExit.pack(side="bottom", padx="10", pady="50")
-
-        
-        
+        ButtonExit = Button(self.root, text="Exit", font=("Lobster", 20, 'bold'), command=self.root.quit, bg="green").pack(side="bottom", padx="10", pady="50")
 
         def __del__(self):
             # Destroy the application
@@ -68,6 +54,7 @@ class FeastApp:
     def nextParagraph(self):
             # Create a new paragraph
             pass
+        
     def center_window(self, root):
             width = 960
             height = 860
