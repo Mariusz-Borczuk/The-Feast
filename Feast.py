@@ -31,7 +31,7 @@ class FeastApp:
 
         # images
         # 1st image
-        image1 = Image.open("pierwsi.png")
+        image1 = Image.open("Images/pierwsi.png")
         image1 = ImageTk.PhotoImage(image1)
         label1 = tk.Label(image=image1)     
         label1.image = image1
