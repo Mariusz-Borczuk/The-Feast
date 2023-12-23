@@ -10,6 +10,8 @@ class FeastApp:
         # Create fundamental elements of the application
         self.root = tk.Tk()
         self.root.title("Feast")
+        #change background colour to page like
+        self.root.configure(background="#BAA391")
         icondir = os.path.join(os.path.dirname(__file__))
         if system() == 'Windows':
             iconfile = os.path.join(icondir, 'Icona.ico')
@@ -31,17 +33,14 @@ class FeastApp:
         label2.pack()
 
         # Images
-        Images =set()
-        for i in range(1, 11):
-            subset_name = f"image{i}"
-            Images.add(subset_name)
+        
         
 
         image1 = Image.open("Images/pierwsi.png")
         image1 = ImageTk.PhotoImage(image1)
-        image2 = Image.open("Images/Vasilisa.jpeg")
+        image2 = Image.open("Images/Aunt_Vasilisa.jpeg")
         image2 = ImageTk.PhotoImage(image2)
-        image3 = Image.open('Images/Masha.jpeg')
+        image3 = Image.open('Images/Dad_sis_Masha.jpeg')
         image3 = ImageTk.PhotoImage(image3)
         Imagesz = tk.Label(image=image1)     
         Imagesz.image = image1
