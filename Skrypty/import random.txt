@@ -70,7 +70,7 @@ root.configure(bg="white")
 title_frame = tk.Frame(root, bg="white")
 title_frame.pack(side="top", fill="both", expand=True)
 #Create a label for the title
-title_label = tk.Label(title_frame, text="Feast", font=("Helvetica", 20), bg="white")
+title_label = tk.Label(title_frame, text="Feast", font=("   Helvetica", 20), bg="white")
 title_label.pack(side="top", fill="both", expand=True)
 
 #Create a frame for the text

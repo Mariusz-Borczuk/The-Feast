@@ -1,0 +1,4 @@
+
+- Mieszko: 'He is your father\'s brother. He is very intelligent and well-read, and he likes to talk about politics and philosophy. He is also very opinionated and stubborn, and he likes to argue with others.'
+COUSIN_LEO = 'He is your cousin. He is very athletic and competitive, and he likes to show off his strength and skills. He is also very arrogant and cocky, and he likes to brag about his accomplishments.'
+
