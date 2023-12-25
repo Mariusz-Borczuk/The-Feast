@@ -50,7 +50,7 @@ class FeastApp:
         Guest2 = Image.open('Images/Guests/Dad_sis_Masha.jpeg')
         Guest3 = Image.open('Images/Guests/Luba_Ludmila.jpeg')
         Guest4 = Image.open('Images/Guests/BF_Boris.jpeg')
-        Guest5 = Image.open('Images/Guests/BF_\Katya.jpeg')
+        Guest5 = Image.open('Images/Guests/BF_Katya.jpeg')
         Guest6 = Image.open('Images/Guests/Cousin_Olga.jpeg')
         Guest7 = Image.open('Images/Guests/Dad_Yaroslav.jpeg')
         Guest8 = Image.open('Images/Guests/Grandma_Marzanna.jpeg')
