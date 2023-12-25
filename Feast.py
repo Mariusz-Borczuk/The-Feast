@@ -4,7 +4,6 @@ from PIL import ImageTk, Image
 from platform import system
 from sys import platform, version_info
 from tkinter import PhotoImage, Button
-import time
 
 class FeastApp: 
     def __init__(self):
@@ -30,50 +29,33 @@ class FeastApp:
         label1.pack(side = "top")
         # 2nd label
                
-        label2 = tk.Label(self.root, text="Please meet the family members and get to know them." , font=("Helvetica", 16),background="#BAA391")
-        label2.pack()
+       
 
         # Images
         
         #make buttons smaller
-        BImageB = Image.open("Images/buttons/Blue button.jpeg")
-        size = (BImageB.width // 2, BImageB.height // 2)  # Change the size as needed
-        m_bib = BImageB.copy()
-        m_bib.thumbnail(size)
-
-        sm_bib = ImageTk.PhotoImage(m_bib)
-        
+        BImageB = Image.open("Images/buttons/Blue button.jpeg")      
         BImageR = Image.open("Images/buttons/LeftButton.jpeg")
         OpeningImage = Image.open("Images/pierwsi.png")
 
-        Guest1 = Image.open('Images/Guests/Aunt_Vasilisa.jpeg')
-        Guest2 = Image.open('Images/Guests/Dad_sis_Masha.jpeg')
-        Guest3 = Image.open('Images/Guests/Luba_Ludmila.jpeg')
-        Guest4 = Image.open('Images/Guests/BF_Boris.jpeg')
-        Guest5 = Image.open('Images/Guests/BF_Katya.jpeg')
-        Guest6 = Image.open('Images/Guests/Cousin_Olga.jpeg')
-        Guest7 = Image.open('Images/Guests/Dad_Yaroslav.jpeg')
-        Guest8 = Image.open('Images/Guests/Grandma_Marzanna.jpeg')
-        Guest9 = Image.open('Images/Guests/Grandpa_Gnevomir.jpeg')
-        Guest10 = Image.open('Images/Guests/Mom_Borzena.jpeg')
-        Guest11 = Image.open('Images/Guests/Sis_Zlata.jpeg')
-        Guest12 = Image.open('Images/Guests/Uncle_Mieszko.jpeg')
-        ### add-ons
-        Addon1 = Image.open('Images/addons/Auntie_tea.jpeg')
-        Addon2 = Image.open('Images/addons/Beer.jpeg')
-        Addon3 = Image.open('Images/addons/Honey.jpeg')
-        Addon4 = Image.open('Images/addons/Juices.jpeg')
-        Addon5 = Image.open('Images/addons/Lemon.jpeg')
-        Addon6 = Image.open('Images/addons/Salt.jpeg')
-        Addon7 = Image.open('Images/addons/Sugar.jpeg')
-        Addon8 = Image.open('Images/addons/Tea.jpeg')
-        Addon9 = Image.open('Images/addons/Vodka.jpeg')
-        Addon10 = Image.open('Images/addons/Wine.jpeg')
-        #Tables
-        Table1 = Image.open('Images/Table/FishyTable.jpeg')
-        Table2 = Image.open('Images/Table/MeatyTable.jpeg')
-        Table3 = Image.open('Images/Table/VeganTable.jpeg')
-        Table4 = Image.open('Images/Table/VegeTable.jpeg')
+        list_of_paths_Guests = ["Images/Guests/Aunt_Vasilisa.jpeg", "Images/Guests/Dad_sis_Masha.jpeg", "Images/Guests/Luba_Ludmila.jpeg", "Images/Guests/BF_Boris.jpeg", "Images/Guests/BF_Katya.jpeg", "Images/Guests/Cousin_Olga.jpeg", "Images/Guests/Dad_Yaroslav.jpeg", "Images/Guests/Grandma_Marzanna.jpeg", "Images/Guests/Grandpa_Gnevomir.jpeg", "Images/Guests/Mom_Borzena.jpeg", "Images/Guests/Sis_Zlata.jpeg", "Images/Guests/Uncle_Mieszko.jpeg"]
+        list_of_paths_Tables = ["Images/Table/FishyTable.jpeg", "Images/Table/MeatyTable.jpeg", "Images/Table/VeganTable.jpeg", "Images/Table/VegeTable.jpeg"]
+        list_of_paths_Addons = ["Images/addons/Auntie_tea.jpeg", "Images/addons/Beer.jpeg", "Images/addons/Honey.jpeg", "Images/addons/Juices.jpeg", "Images/addons/Lemon.jpeg", "Images/addons/Salt.jpeg", "Images/addons/Sugar.jpeg", "Images/addons/Tea.jpeg", "Images/addons/Vodka.jpeg", "Images/addons/Wine.jpeg"]
+        
+        #read from list Guests 1-12 and write it to variable make them in order
+        for i ,path in enumerate(list_of_paths_Guests, start=1):
+            var_name = f"Guest{i}" 
+            globals()[var_name] = Image.open(path)
+        #read from list Tables 1-4 and write it to variable make them in order
+        for i ,path in enumerate(list_of_paths_Tables, start=1):
+            var_name = f"Table{i}" 
+            globals()[var_name] = Image.open(path)
+        #read from list addons 1-10 and write it to variable make them in order
+        for i ,path in enumerate(list_of_paths_Addons, start=1):
+            var_name = f"Addon{i}" 
+            globals()[var_name] = Image.open(path)
+        
+            
         
         
 
@@ -102,9 +84,8 @@ class FeastApp:
         Imagesz.image = OpeningImage
         Imagesz.pack( padx="10", pady="10")
         
-        #read from Folder descriptions  string and write it to variable make them in ordervasilia masha ludmila boris katya olga yaroslav marzanna gnevomir borzena zlata mieszko
-        # Wait for a second after each assignment
-
+        label2 = tk.Label(self.root, text="Please meet the family members and get to know them." , font=("Helvetica", 16),background="#BAA391")
+        label2.pack()
         file_path = "True Descriptions.txt"  # Replace with the actual path to your text file
 
         with open(file_path, 'r') as file:
@@ -112,14 +93,17 @@ class FeastApp:
 
 # Split the content into individual descriptions
         descriptions = content.split('- ')
+        #make sure descriptions is at least 12
+        while len(descriptions) < 13:
+            descriptions.append("")
+       
+
 
 # Remove empty strings and leading/trailing whitespace
         descriptions = [desc.strip() for desc in descriptions if desc.strip()]
 
-            
-            
-
         vasilisa = descriptions[0]
+        print(vasilisa)
         masha = descriptions[1]
         ludmila = descriptions[2]
         boris = descriptions[3]
@@ -131,59 +115,34 @@ class FeastApp:
         borzena = descriptions[9]
         zlata = descriptions[10]
         mieszko = descriptions[11]
-
-        print("Vasilisa: ",vasilisa)
-        print()
-        print("Masha: ",masha)
-        print()
-        print("Boris: ",boris)
-        print()
-        print("Olga: ",olga)
-        print()
-        print("Marzanna: ",marzanna)
-        print()
-        print("Borzena: ",borzena)
-        print()
-        print("Ludmila: ",ludmila)
-        print()
-        print("Katya: ",katya)
-        print()
-        print("Yaroslav: ",yaroslav)
-        print()
-        print("Gnevomir: ",gnevomir)
-        print()
-        print("Zlata: ",zlata)
-        print()
-        print("Mieszko: ",mieszko)
-
-
+     
         
-
         # Create buttons
         def Backvard():
-            label2.config(text="- Vasilisa: She is your mother's sister, and she is very kind and caring. \nShe loves to cook and bake, and she always makes delicious meals for the family. \nShe is also very creative and loves to make crafts and descriptions for special occasions.")
-            
-            Imagesz.config(image=Guest1)
+            label1.config(text='''Please meet the family members 
+                and get to know them.''')
+            Imagesz.pack( side ="top",padx="10", pady="10")
+            label2.config(text=vasilisa)
+            Imagesz.config(image=Guests_list[0])
             Imagesz.image = Guest1
-            Imagesz.pack( padx="10", pady="10")
             
 
         def Forvard(nmbr):
-            
-            
-            label2.config(text="- Masha: She is your father's sister, and she is very adventurous and outgoing. \nShe loves to travel and explore new places, and she always has exciting stories to share. \nShe is also very athletic and enjoys playing sports and outdoor activities.")            
+            label1.config(text='''Please meet the family members 
+                and get to know them.''')
             Imagesz.config(image=Guests_list[nmbr-1])
             Imagesz.image = Guest2
-            Imagesz.pack(padx="10", pady="10")
+            Imagesz.pack(side ="top",padx="10", pady="10")
+            label2.config(text=masha)
 
-        ButtonV = Button(self.root, text="<<",command=Backvard, font=("Helvetica", 20, 'bold'), bg="red").pack(side="left", padx="50", pady="50")
-        ButtonM = Button(self.root, text=">>", command=lambda: Forvard(2), font=("Helvetica", 20, 'bold'), bg="blue").pack(side="right", padx="50", pady="50")
+        ButtonV = Button(self.root, text="<<",command= Backvard, font=("Helvetica", 20, 'bold'), bg="red").pack(side="left", padx="10", pady="10")
+        ButtonM = Button(self.root, text=">>", command=lambda: Forvard(2), font=("Helvetica", 20, 'bold'), bg="blue").pack(side="right", padx="10", pady="10")
         #make checkboxes
 
         # Exit button
-        ButtonExit = Button(self.root, text="Exit", font=("Helvetica", 20, 'bold'), command=self.root.quit, bg="green").pack(side="bottom",padx="10", pady="50")
-        ButtonNext = Button(self.root, text="Next", font=("Helvetica", 20, 'bold'), command=self.nextParagraph, bg="yellow").pack( side="bottom",padx="10", pady="50")
-        ButtonSelect = Button(self.root, text="Select", font=("Helvetica", 20, 'bold'), bg="green").pack(side="bottom",padx="10", pady="10")
+        ButtonNext = Button(self.root, text="Next", font=("Helvetica", 20, 'bold'), command=self.nextParagraph, bg="yellow").pack( side="right",padx="10", pady="10")
+        ButtonSelect = Button(self.root, text="Select", font=("Helvetica", 20, 'bold'), bg="green").pack(side="left",padx="10", pady="10")
+        ButtonExit = Button(self.root, text="Exit", font=("Helvetica", 20, 'bold'), command=self.root.quit, bg="green").pack(side="bottom",padx="10", pady="10")
         def __del__(self):
             # Destroy the application
             self.root.destroy()
@@ -197,7 +156,16 @@ class FeastApp:
             width,height = 980, 1080
             screen_width,screen_height = root.winfo_screenwidth(), root.winfo_screenheight()
             x,y = (screen_width/2) - (width/2), (screen_height/2) - (height)
-            self.root.geometry(f'{width}x{height}+{int(x)}+{int(y)}')
+            if platform == "linux" :
+                self.root.geometry(f'{width}x{height}+{int(x)}+{int(y)}')
+            else:
+                # move the window to the center of the screen for Windows 
+                x,y = (screen_width/2) - (width/2), (screen_height/2) - (height//2.5)
+
+                self.root.geometry(f'{width}x{height}+{int(x)}+{int(y)}')
+
+
+
     
     def run(self):
             # Run the application
