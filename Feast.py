@@ -4,7 +4,6 @@ from PIL import ImageTk, Image
 from platform import system
 from sys import platform, version_info
 from tkinter import PhotoImage, Button
-import os
 import time
 
 class FeastApp: 
