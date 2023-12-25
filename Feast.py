@@ -28,7 +28,7 @@ class FeastApp:
         # 1st label
         label1 = tk.Label(self.root, text="Welcome to The Feast paragraph game!", font=("Helvetica", 32),background="#BAA391")
         label1.pack(side = "top")
-        # 2nd label
+        # 2nd 
                
         label2 = tk.Label(self.root, text="Please meet the family members and get to know them." , font=("Helvetica", 16),background="#BAA391")
         label2.pack()
