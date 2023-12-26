@@ -26,7 +26,8 @@ class FeastApp:
         # Create a Labels widget
         # 1st label
         label1 = tk.Label(self.root, text="Welcome to The Feast paragraph game!", font=("Helvetica", 32),background="#BAA391")
-        label1.pack(side = "top")
+        #change it to grid
+        label1.pack()
         # 2nd label
                
 
@@ -78,7 +79,7 @@ class FeastApp:
         
         Imagesz = tk.Label(image=OpeningImage)     
         Imagesz.image = OpeningImage
-        Imagesz.pack( padx="10", pady="10")
+        Imagesz.pack()
         
         label2 = tk.Label(self.root, text="Please meet the family members and get to know them." , font=("Helvetica", 16),background="#BAA391")
         label2.pack()
@@ -108,31 +109,47 @@ class FeastApp:
      
         
         # Create buttons
-        def Backvard():
+        def Backvard(nmbr):
             label1.config(text='''Please meet the family members 
                 and get to know them.''')
-            Imagesz.pack( side ="top",padx="10", pady="10")
-            label2.config(text=vasilisa)
-            Imagesz.config(image=guests["Guest1"])
-            Imagesz.image = guests["Guest1"]
+            label2.config(text=descriptions[nmbr-1])
+            Imagesz.config(image=guests[f"Guest{nmbr}"])
+            Imagesz.image = guests[f"Guest{nmbr}"]
+            label2.pack()
+            Imagesz.pack()
+            BackvardButton.config(command=lambda: Backvard(nmbr-1))
+            ForwardButton.config(command=lambda: Forvard(nmbr+1))
+            if nmbr == 1:
+                BackvardButton.config(state="disabled")
             
 
         def Forvard(nmbr):
+            
+
             label1.config(text='''Please meet the family members 
                 and get to know them.''')
-            Imagesz.config(image=guests.get(f"Guest{nmbr}"))
-            Imagesz.image = guests.get(f"Guest{nmbr}")
-            Imagesz.pack(side ="top",padx="10", pady="10")
-            label2.config(text=masha)
+            label2.config(text=descriptions[nmbr-1])
+            Imagesz.config(image=guests[f"Guest{nmbr}"])
+            Imagesz.image = guests[f"Guest{nmbr}"]
+            label2.pack()
+            Imagesz.pack()
 
-        ButtonV = Button(self.root, text="<<",command= Backvard, font=("Helvetica", 20, 'bold'), bg="red").pack(side="left", padx="10", pady="10")
-        ButtonM = Button(self.root, text=">>", command=lambda: Forvard(2), font=("Helvetica", 20, 'bold'), bg="blue").pack(side="right", padx="10", pady="10")
-        #make checkboxes
-
+            BackvardButton.config(command=lambda: Backvard(nmbr-1))
+            ForwardButton.config(command=lambda: Forvard(nmbr+1))
+            if nmbr == 12:
+                ForwardButton.config(state="disabled")
+            # Configure the button commands
+        
+        
+        
+        ForwardButton = Button(self.root, text=">>", command=lambda: Forvard(2), font=("Helvetica", 20, 'bold'), bg="blue")
+        ForwardButton.pack(side="right", padx=10, pady=10, anchor="e")
+        BackvardButton = Button(self.root, text="<<",command= lambda: Backvard(), font=("Helvetica", 20, 'bold'), bg="red")
+        BackvardButton.pack(side="left", padx=10, pady=10, anchor="w")
         # Exit button
-        ButtonNext = Button(self.root, text="Next", font=("Helvetica", 20, 'bold'), command=self.nextParagraph, bg="yellow").pack( side="right",padx="10", pady="10")
-        ButtonSelect = Button(self.root, text="Select", font=("Helvetica", 20, 'bold'), bg="green").pack(side="left",padx="10", pady="10")
-        ButtonExit = Button(self.root, text="Exit", font=("Helvetica", 20, 'bold'), command=self.root.quit, bg="green").pack(side="bottom",padx="10", pady="10")
+        ButtonExit = Button(self.root, text="Exit", font=("Helvetica", 20, 'bold'), command=self.root.quit, bg="green").pack(side="bottom", padx=10, pady=10, anchor="s")
+        ButtonSelect = Button(self.root, text="Select", font=("Helvetica", 20, 'bold'), bg="green").pack(side="bottom", padx=10, pady=10, anchor="s")
+        ButtonNext = Button(self.root, text="Next", font=("Helvetica", 20, 'bold'), command=self.nextParagraph, bg="yellow").pack(side="bottom", padx=10, pady=10, anchor="s")
         def __del__(self):
             # Destroy the application
             self.root.destroy()
