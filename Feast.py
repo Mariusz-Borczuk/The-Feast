@@ -3,7 +3,7 @@ import os
 from PIL import ImageTk, Image
 from platform import system
 from sys import platform, version_info
-from tkinter import PhotoImage, Button
+from tkinter import PhotoImage, Button, Text, Scrollbar
 
 class FeastApp: 
     def __init__(self):
@@ -29,7 +29,6 @@ class FeastApp:
         label1.pack(side = "top")
         # 2nd label
                
-       
 
         # Images
         
@@ -37,44 +36,41 @@ class FeastApp:
         BImageB = Image.open("Images/buttons/Blue button.jpeg")      
         BImageR = Image.open("Images/buttons/LeftButton.jpeg")
         OpeningImage = Image.open("Images/pierwsi.png")
-
         list_of_paths_Guests = ["Images/Guests/Aunt_Vasilisa.jpeg", "Images/Guests/Dad_sis_Masha.jpeg", "Images/Guests/Luba_Ludmila.jpeg", "Images/Guests/BF_Boris.jpeg", "Images/Guests/BF_Katya.jpeg", "Images/Guests/Cousin_Olga.jpeg", "Images/Guests/Dad_Yaroslav.jpeg", "Images/Guests/Grandma_Marzanna.jpeg", "Images/Guests/Grandpa_Gnevomir.jpeg", "Images/Guests/Mom_Borzena.jpeg", "Images/Guests/Sis_Zlata.jpeg", "Images/Guests/Uncle_Mieszko.jpeg"]
         list_of_paths_Tables = ["Images/Table/FishyTable.jpeg", "Images/Table/MeatyTable.jpeg", "Images/Table/VeganTable.jpeg", "Images/Table/VegeTable.jpeg"]
         list_of_paths_Addons = ["Images/addons/Auntie_tea.jpeg", "Images/addons/Beer.jpeg", "Images/addons/Honey.jpeg", "Images/addons/Juices.jpeg", "Images/addons/Lemon.jpeg", "Images/addons/Salt.jpeg", "Images/addons/Sugar.jpeg", "Images/addons/Tea.jpeg", "Images/addons/Vodka.jpeg", "Images/addons/Wine.jpeg"]
         
+        guests={}
+        addons={}
+        tables={}
         #read from list Guests 1-12 and write it to variable make them in order
         for i ,path in enumerate(list_of_paths_Guests, start=1):
-            var_name = f"Guest{i}" 
-            globals()[var_name] = Image.open(path)
+             guests[f"Guest{i}"] = Image.open(path)
+
         #read from list Tables 1-4 and write it to variable make them in order
         for i ,path in enumerate(list_of_paths_Tables, start=1):
-            var_name = f"Table{i}" 
-            globals()[var_name] = Image.open(path)
+            tables[f"Table{i}"] = Image.open(path)
         #read from list addons 1-10 and write it to variable make them in order
         for i ,path in enumerate(list_of_paths_Addons, start=1):
-            var_name = f"Addon{i}" 
-            globals()[var_name] = Image.open(path)
+            addons[f"Addon{i}"] = Image.open(path)
         
             
         
         
 
         
-        #Lists of images
-        Guests_list= [Guest1,Guest2,Guest3,Guest4,Guest5,Guest6,Guest7,Guest8,Guest9,Guest10,Guest11,Guest12]
-        addons_list = [Addon1,Addon2,Addon3,Addon4,Addon5,Addon6,Addon7,Addon8,Addon9,Addon10]
-        Tables_list = [Table1,Table2,Table3,Table4]
-       #ImageTk
-        for i in range(len(Guests_list)):
-            Guests_list[i] = ImageTk.PhotoImage(Guests_list[i])
+    
+       #ImageTk for guests
+        for i in guests:
+            guests[i] = ImageTk.PhotoImage(guests[i])
 
-        for i in range(len(addons_list)):
-            addons_list[i] = ImageTk.PhotoImage(addons_list[i])
+        #ImageTk for tables
+        for i in tables:
+            tables[i] = ImageTk.PhotoImage(tables[i])
 
-        for i in range(len(Tables_list)):
-            Tables_list[i] = ImageTk.PhotoImage(Tables_list[i])
-        
-
+        #ImageTk for addons
+        for i in addons:
+            addons[i] = ImageTk.PhotoImage(addons[i])
 
         BImageB = ImageTk.PhotoImage(BImageB)
         BImageR = ImageTk.PhotoImage(BImageR)
@@ -93,17 +89,11 @@ class FeastApp:
 
 # Split the content into individual descriptions
         descriptions = content.split('- ')
-        #make sure descriptions is at least 12
-        while len(descriptions) < 13:
-            descriptions.append("")
-       
-
-
+        
 # Remove empty strings and leading/trailing whitespace
         descriptions = [desc.strip() for desc in descriptions if desc.strip()]
 
         vasilisa = descriptions[0]
-        print(vasilisa)
         masha = descriptions[1]
         ludmila = descriptions[2]
         boris = descriptions[3]
@@ -123,15 +113,15 @@ class FeastApp:
                 and get to know them.''')
             Imagesz.pack( side ="top",padx="10", pady="10")
             label2.config(text=vasilisa)
-            Imagesz.config(image=Guests_list[0])
-            Imagesz.image = Guest1
+            Imagesz.config(image=guests["Guest1"])
+            Imagesz.image = guests["Guest1"]
             
 
         def Forvard(nmbr):
             label1.config(text='''Please meet the family members 
                 and get to know them.''')
-            Imagesz.config(image=Guests_list[nmbr-1])
-            Imagesz.image = Guest2
+            Imagesz.config(image=guests.get(f"Guest{nmbr}"))
+            Imagesz.image = guests.get(f"Guest{nmbr}")
             Imagesz.pack(side ="top",padx="10", pady="10")
             label2.config(text=masha)
 
@@ -154,7 +144,7 @@ class FeastApp:
         
     def center_window(self, root):
             width,height = 980, 1080
-            screen_width,screen_height = root.winfo_screenwidth(), root.winfo_screenheight()
+            screen_width,screen_height = self.root.winfo_screenwidth(), self.root.winfo_screenheight()
             x,y = (screen_width/2) - (width/2), (screen_height/2) - (height)
             if platform == "linux" :
                 self.root.geometry(f'{width}x{height}+{int(x)}+{int(y)}')
