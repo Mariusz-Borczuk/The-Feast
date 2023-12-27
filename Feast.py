@@ -112,58 +112,38 @@ class FeastApp:
         status.pack(side="bottom", fill="x")
         
         # Create buttons
-        def Backvard(nmbr):
-            # hide the continue button            
-            ContinueButton = Button(self.root)
-            ContinueButton.pack_forget()
-            
-           
-            label1.config(text='''Please meet the family members 
-                and get to know them.''')
-            label2.config(text=descriptions[nmbr-1])
+        def update_display(nmbr):
+            # Update labels and image
+            label1.config(text="Please meet the family members\n and get to know them.")
+            label2.config(text=descriptions[nmbr - 1])
             Imagesz.config(image=guests[f"Guest{nmbr}"])
             Imagesz.image = guests[f"Guest{nmbr}"]
-            label2.pack()
-            Imagesz.pack()
-            BackvardButton.config(command=lambda: Backvard(nmbr-1))
-            BackvardButton.pack(side="left", padx=10, pady=10, anchor="w")
-            ForwardButton.config(command=lambda: Forvard(nmbr+1))
-            ForwardButton.pack(side="right", padx=10, pady=10, anchor="e")
-            if nmbr == 1:
-                BackvardButton.config(state="disabled")
-            elif nmbr == 12:
-                ForwardButton.config(state="disabled")
-            else:
-                BackvardButton.config(state="normal")
-                ForwardButton.config(state="normal")
-            
 
-        def Forvard(nmbr):
-            label1.config(text='''Please meet the family members 
-                and get to know them.''')
-            label2.config(text=descriptions[nmbr-1])
-            Imagesz.config(image=guests[f"Guest{nmbr}"])
-            Imagesz.image = guests[f"Guest{nmbr}"]
+            # Pack labels and image
             label2.pack()
             Imagesz.pack()
 
+            # Update status label
+            status.config(text=f"Status: {nmbr}/{len(descriptions)}")
+
+            # Hide the ContinueButton
             ContinueButton.config(text="")
-
             ContinueButton.pack_forget()
 
-            BackvardButton.config(command=lambda: Backvard(nmbr-1))
+            # Configure Backward Button
+            BackvardButton.config(command=lambda: update_display(nmbr - 1))
             BackvardButton.pack(side="left", padx=10, pady=10, anchor="w")
-            ForwardButton.config(command=lambda: Forvard(nmbr+1))
-            ForwardButton.pack(side="right", padx=10, pady=10, anchor="e")
 
-            if nmbr == 12:
-                ForwardButton.config(state="disabled")
-            elif nmbr == 1:
-                BackvardButton.config(state="disabled")
-            else:
-                BackvardButton.config(state="normal")
-                ForwardButton.config(state="normal")
-            
+            # Configure Forward Button
+            ForvardButton.config(command=lambda: update_display(nmbr + 1))
+            ForvardButton.pack(side="right", padx=10, pady=10, anchor="e")
+
+            # Disable Forward Button when reaching the last family member
+            ForvardButton.config(state="disabled") if nmbr == len(descriptions) else ForvardButton.config(state="normal")
+
+            # Disable Backward Button when at the first family member
+            BackvardButton.config(state="disabled") if nmbr == 1 else BackvardButton.config(state="normal")
+
         
         def Guest_select(nmbr):
             selected_person = None
@@ -201,20 +181,20 @@ class FeastApp:
                 print("Invalid selection.")
             
 
-        ForwardButton = Button(self.root, text=">>\n>>\n>>", command=lambda: Forvard(1), font=("Helvetica", 20, 'bold'), bg="blue")
-        BackvardButton = Button(self.root, text="<<\n<<\n<<",command= lambda: Backvard(), font=("Helvetica", 20, 'bold'), bg="red")
+        ForvardButton = Button(self.root, text=">>\n>>\n>>", command=lambda: update_display(1), font=("Helvetica", 20, 'bold'), bg="blue")
+        BackvardButton = Button(self.root, text="<<\n<<\n<<",command= lambda: update_display(), font=("Helvetica", 20, 'bold'), bg="red")
         
         # Exit button
         ButtonExit = Button(self.root, text="Exit", font=("Helvetica", 20, 'bold'), command=self.root.quit, bg="green").pack(side="bottom", padx=10, pady=10, anchor="s")
         ButtonSelect = Button(self.root, text="Select",command= lambda:Guest_select() , font=("Helvetica", 20, 'bold'), bg="green").pack(side="bottom", padx=10, pady=10, anchor="s")
         ButtonNext = Button(self.root, text="Next", font=("Helvetica", 20, 'bold'), command=self.nextParagraph, bg="yellow").pack(side="bottom", padx=10, pady=10, anchor="s")
-        ContinueButton = Button(self.root, text="Continue", font=("Helvetica", 20, 'bold'), command=lambda:Forvard(1), bg="yellow")
+        ContinueButton = Button(self.root, text="Continue", font=("Helvetica", 20, 'bold'), command=lambda:update_display(1), bg="yellow")
         ContinueButton.pack( side="bottom",padx=10, pady=10)
         def __del__(self):
             # Destroy the application
             self.root.destroy()
         
-    # Create definitions of methods
+# Create definitions of methods
     def nextParagraph(self):
             # Create a new paragraph
             pass
