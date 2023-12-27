@@ -3,8 +3,7 @@ import os
 from PIL import ImageTk, Image
 from platform import system
 from sys import platform, version_info
-from tkinter import PhotoImage, Button
-import time
+from tkinter import PhotoImage, Button, Text, Scrollbar
 
 class FeastApp: 
     def __init__(self):
@@ -23,76 +22,57 @@ class FeastApp:
         self.root.update_idletasks()
         self.root.resizable(False, False)
         self.root.update()
+        
 
         # Create a Labels widget
         # 1st label
         label1 = tk.Label(self.root, text="Welcome to The Feast paragraph game!", font=("Helvetica", 32),background="#BAA391")
-        label1.pack(side = "top")
-        # 2nd 
+        #change it to grid
+        label1.pack()
+        # 2nd label
                
-        label2 = tk.Label(self.root, text="Please meet the family members and get to know them." , font=("Helvetica", 16),background="#BAA391")
-        label2.pack()
 
         # Images
         
         #make buttons smaller
-        BImageB = Image.open("Images/buttons/Blue button.jpeg")
-        size = (BImageB.width // 2, BImageB.height // 2)  # Change the size as needed
-        m_bib = BImageB.copy()
-        m_bib.thumbnail(size)
-
-        sm_bib = ImageTk.PhotoImage(m_bib)
-        
+        BImageB = Image.open("Images/buttons/Blue button.jpeg")      
         BImageR = Image.open("Images/buttons/LeftButton.jpeg")
         OpeningImage = Image.open("Images/pierwsi.png")
+        list_of_paths_Guests = ["Images/Guests/Aunt_Vasilisa.jpeg", "Images/Guests/Dad_sis_Masha.jpeg", "Images/Guests/Luba_Ludmila.jpeg", "Images/Guests/BF_Boris.jpeg", "Images/Guests/BF_Katya.jpeg", "Images/Guests/Cousin_Olga.jpeg", "Images/Guests/Dad_Yaroslav.jpeg", "Images/Guests/Grandma_Marzanna.jpeg", "Images/Guests/Grandpa_Gnevomir.jpeg", "Images/Guests/Mom_Borzena.jpeg", "Images/Guests/Sis_Zlata.jpeg", "Images/Guests/Uncle_Mieszko.jpeg"]
+        list_of_paths_Tables = ["Images/Table/FishyTable.jpeg", "Images/Table/MeatyTable.jpeg", "Images/Table/VeganTable.jpeg", "Images/Table/VegeTable.jpeg"]
+        list_of_paths_Addons = ["Images/addons/Auntie_tea.jpeg", "Images/addons/Beer.jpeg", "Images/addons/Honey.jpeg", "Images/addons/Juices.jpeg", "Images/addons/Lemon.jpeg", "Images/addons/Salt.jpeg", "Images/addons/Sugar.jpeg", "Images/addons/Tea.jpeg", "Images/addons/Vodka.jpeg", "Images/addons/Wine.jpeg"]
+        
+        guests={}
+        addons={}
+        tables={}
+        #read from list Guests 1-12 and write it to variable make them in order
+        for i ,path in enumerate(list_of_paths_Guests, start=1):
+             guests[f"Guest{i}"] = Image.open(path)
 
-        Guest1 = Image.open('Images/Guests/Aunt_Vasilisa.jpeg')
-        Guest2 = Image.open('Images/Guests/Dad_sis_Masha.jpeg')
-        Guest3 = Image.open('Images/Guests/Luba_Ludmila.jpeg')
-        Guest4 = Image.open('Images/Guests/BF_Boris.jpeg')
-        Guest5 = Image.open('Images/Guests/BF_\Katya.jpeg')
-        Guest6 = Image.open('Images/Guests/Cousin_Olga.jpeg')
-        Guest7 = Image.open('Images/Guests/Dad_Yaroslav.jpeg')
-        Guest8 = Image.open('Images/Guests/Grandma_Marzanna.jpeg')
-        Guest9 = Image.open('Images/Guests/Grandpa_Gnevomir.jpeg')
-        Guest10 = Image.open('Images/Guests/Mom_Borzena.jpeg')
-        Guest11 = Image.open('Images/Guests/Sis_Zlata.jpeg')
-        Guest12 = Image.open('Images/Guests/Uncle_Mieszko.jpeg')
-        ### add-ons
-        Addon1 = Image.open('Images/addons/Auntie_tea.jpeg')
-        Addon2 = Image.open('Images/addons/Beer.jpeg')
-        Addon3 = Image.open('Images/addons/Honey.jpeg')
-        Addon4 = Image.open('Images/addons/Juices.jpeg')
-        Addon5 = Image.open('Images/addons/Lemon.jpeg')
-        Addon6 = Image.open('Images/addons/Salt.jpeg')
-        Addon7 = Image.open('Images/addons/Sugar.jpeg')
-        Addon8 = Image.open('Images/addons/Tea.jpeg')
-        Addon9 = Image.open('Images/addons/Vodka.jpeg')
-        Addon10 = Image.open('Images/addons/Wine.jpeg')
-        #Tables
-        Table1 = Image.open('Images/Table/FishyTable.jpeg')
-        Table2 = Image.open('Images/Table/MeatyTable.jpeg')
-        Table3 = Image.open('Images/Table/VeganTable.jpeg')
-        Table4 = Image.open('Images/Table/VegeTable.jpeg')
+        #read from list Tables 1-4 and write it to variable make them in order
+        for i ,path in enumerate(list_of_paths_Tables, start=1):
+            tables[f"Table{i}"] = Image.open(path)
+        #read from list addons 1-10 and write it to variable make them in order
+        for i ,path in enumerate(list_of_paths_Addons, start=1):
+            addons[f"Addon{i}"] = Image.open(path)
+        
+            
         
         
 
         
-        #Lists of images
-        Guests_list= [Guest1,Guest2,Guest3,Guest4,Guest5,Guest6,Guest7,Guest8,Guest9,Guest10,Guest11,Guest12]
-        addons_list = [Addon1,Addon2,Addon3,Addon4,Addon5,Addon6,Addon7,Addon8,Addon9,Addon10]
-        Tables_list = [Table1,Table2,Table3,Table4]
-       #ImageTk
-        for i in range(len(Guests_list)):
-            Guests_list[i] = ImageTk.PhotoImage(Guests_list[i])
+    
+       #ImageTk for guests
+        for i in guests:
+            guests[i] = ImageTk.PhotoImage(guests[i])
 
-        for i in range(len(addons_list)):
-            addons_list[i] = ImageTk.PhotoImage(addons_list[i])
+        #ImageTk for tables
+        for i in tables:
+            tables[i] = ImageTk.PhotoImage(tables[i])
 
-        for i in range(len(Tables_list)):
-            Tables_list[i] = ImageTk.PhotoImage(Tables_list[i])
-        
-
+        #ImageTk for addons
+        for i in addons:
+            addons[i] = ImageTk.PhotoImage(addons[i])
 
         BImageB = ImageTk.PhotoImage(BImageB)
         BImageR = ImageTk.PhotoImage(BImageR)
@@ -100,11 +80,10 @@ class FeastApp:
         
         Imagesz = tk.Label(image=OpeningImage)     
         Imagesz.image = OpeningImage
-        Imagesz.pack( padx="10", pady="10")
+        Imagesz.pack()
         
-        #read from Folder descriptions  string and write it to variable make them in ordervasilia masha ludmila boris katya olga yaroslav marzanna gnevomir borzena zlata mieszko
-        # Wait for a second after each assignment
-
+        label2 = tk.Label(self.root, text="Please meet the family members and get to know them." , font=("Helvetica", 16),background="#BAA391")
+        label2.pack()
         file_path = "True Descriptions.txt"  # Replace with the actual path to your text file
 
         with open(file_path, 'r') as file:
@@ -112,12 +91,9 @@ class FeastApp:
 
 # Split the content into individual descriptions
         descriptions = content.split('- ')
-
+        
 # Remove empty strings and leading/trailing whitespace
         descriptions = [desc.strip() for desc in descriptions if desc.strip()]
-
-            
-            
 
         vasilisa = descriptions[0]
         masha = descriptions[1]
@@ -131,59 +107,109 @@ class FeastApp:
         borzena = descriptions[9]
         zlata = descriptions[10]
         mieszko = descriptions[11]
-
-        print("Vasilisa: ",vasilisa)
-        print()
-        print("Masha: ",masha)
-        print()
-        print("Boris: ",boris)
-        print()
-        print("Olga: ",olga)
-        print()
-        print("Marzanna: ",marzanna)
-        print()
-        print("Borzena: ",borzena)
-        print()
-        print("Ludmila: ",ludmila)
-        print()
-        print("Katya: ",katya)
-        print()
-        print("Yaroslav: ",yaroslav)
-        print()
-        print("Gnevomir: ",gnevomir)
-        print()
-        print("Zlata: ",zlata)
-        print()
-        print("Mieszko: ",mieszko)
-
-
+     
+        status = tk.Label(self.root, text="Status: Start",font= ("Helvetica",20) , bd=1,bg="#BAA391", relief='sunken', anchor='e')
+        status.pack(side="bottom", fill="x")
         
-
         # Create buttons
-        def Backvard():
-            label2.config(text="- Vasilisa: She is your mother's sister, and she is very kind and caring. \nShe loves to cook and bake, and she always makes delicious meals for the family. \nShe is also very creative and loves to make crafts and descriptions for special occasions.")
+        def Backvard(nmbr):
+            # hide the continue button            
+            ContinueButton = Button(self.root)
+            ContinueButton.pack_forget()
             
-            Imagesz.config(image=Guest1)
-            Imagesz.image = Guest1
-            Imagesz.pack( padx="10", pady="10")
+           
+            label1.config(text='''Please meet the family members 
+                and get to know them.''')
+            label2.config(text=descriptions[nmbr-1])
+            Imagesz.config(image=guests[f"Guest{nmbr}"])
+            Imagesz.image = guests[f"Guest{nmbr}"]
+            label2.pack()
+            Imagesz.pack()
+            BackvardButton.config(command=lambda: Backvard(nmbr-1))
+            BackvardButton.pack(side="left", padx=10, pady=10, anchor="w")
+            ForwardButton.config(command=lambda: Forvard(nmbr+1))
+            ForwardButton.pack(side="right", padx=10, pady=10, anchor="e")
+            if nmbr == 1:
+                BackvardButton.config(state="disabled")
+            elif nmbr == 12:
+                ForwardButton.config(state="disabled")
+            else:
+                BackvardButton.config(state="normal")
+                ForwardButton.config(state="normal")
             
 
         def Forvard(nmbr):
-            
-            
-            label2.config(text="- Masha: She is your father's sister, and she is very adventurous and outgoing. \nShe loves to travel and explore new places, and she always has exciting stories to share. \nShe is also very athletic and enjoys playing sports and outdoor activities.")            
-            Imagesz.config(image=Guests_list[nmbr-1])
-            Imagesz.image = Guest2
-            Imagesz.pack(padx="10", pady="10")
+            label1.config(text='''Please meet the family members 
+                and get to know them.''')
+            label2.config(text=descriptions[nmbr-1])
+            Imagesz.config(image=guests[f"Guest{nmbr}"])
+            Imagesz.image = guests[f"Guest{nmbr}"]
+            label2.pack()
+            Imagesz.pack()
 
-        ButtonV = Button(self.root, text="<<",command=Backvard, font=("Helvetica", 20, 'bold'), bg="red").pack(side="left", padx="50", pady="50")
-        ButtonM = Button(self.root, text=">>", command=lambda: Forvard(2), font=("Helvetica", 20, 'bold'), bg="blue").pack(side="right", padx="50", pady="50")
-        #make checkboxes
+            ContinueButton.config(text="")
 
+            ContinueButton.pack_forget()
+
+            BackvardButton.config(command=lambda: Backvard(nmbr-1))
+            BackvardButton.pack(side="left", padx=10, pady=10, anchor="w")
+            ForwardButton.config(command=lambda: Forvard(nmbr+1))
+            ForwardButton.pack(side="right", padx=10, pady=10, anchor="e")
+
+            if nmbr == 12:
+                ForwardButton.config(state="disabled")
+            elif nmbr == 1:
+                BackvardButton.config(state="disabled")
+            else:
+                BackvardButton.config(state="normal")
+                ForwardButton.config(state="normal")
+            
+        
+        def Guest_select(nmbr):
+            selected_person = None
+            
+            if nmbr == 1:
+                selected_person = "vasilisa"
+            elif nmbr == 2:
+                selected_person = "masha"
+            elif nmbr == 3:
+                selected_person = "ludmila"
+            elif nmbr == 4:
+                selected_person = "boris"
+            elif nmbr == 5:
+                selected_person = "katya"
+            elif nmbr == 6:
+                selected_person = "olga"
+            elif nmbr == 7:
+                selected_person = "yaroslav"
+            elif nmbr == 8:
+                selected_person = "marzanna"
+            elif nmbr == 9:
+                selected_person = "gnevomir"
+            elif nmbr == 10:
+                selected_person = "borzena"
+            elif nmbr == 11:
+                selected_person = "zlata"
+            elif nmbr == 12:
+                selected_person = "mieszko"
+            
+            if selected_person:
+                # Add the selected person to the list
+                selected_people.append(selected_person)
+                print(f"Added {selected_person} to the list.")
+            else:
+                print("Invalid selection.")
+            
+
+        ForwardButton = Button(self.root, text=">>\n>>\n>>", command=lambda: Forvard(1), font=("Helvetica", 20, 'bold'), bg="blue")
+        BackvardButton = Button(self.root, text="<<\n<<\n<<",command= lambda: Backvard(), font=("Helvetica", 20, 'bold'), bg="red")
+        
         # Exit button
-        ButtonExit = Button(self.root, text="Exit", font=("Helvetica", 20, 'bold'), command=self.root.quit, bg="green").pack(side="bottom",padx="10", pady="50")
-        ButtonNext = Button(self.root, text="Next", font=("Helvetica", 20, 'bold'), command=self.nextParagraph, bg="yellow").pack( side="bottom",padx="10", pady="50")
-        ButtonSelect = Button(self.root, text="Select", font=("Helvetica", 20, 'bold'), bg="green").pack(side="bottom",padx="10", pady="10")
+        ButtonExit = Button(self.root, text="Exit", font=("Helvetica", 20, 'bold'), command=self.root.quit, bg="green").pack(side="bottom", padx=10, pady=10, anchor="s")
+        ButtonSelect = Button(self.root, text="Select",command= lambda:Guest_select() , font=("Helvetica", 20, 'bold'), bg="green").pack(side="bottom", padx=10, pady=10, anchor="s")
+        ButtonNext = Button(self.root, text="Next", font=("Helvetica", 20, 'bold'), command=self.nextParagraph, bg="yellow").pack(side="bottom", padx=10, pady=10, anchor="s")
+        ContinueButton = Button(self.root, text="Continue", font=("Helvetica", 20, 'bold'), command=lambda:Forvard(1), bg="yellow")
+        ContinueButton.pack( side="bottom",padx=10, pady=10)
         def __del__(self):
             # Destroy the application
             self.root.destroy()
@@ -194,10 +220,19 @@ class FeastApp:
             pass
         
     def center_window(self, root):
-            width,height = 980, 1080
-            screen_width,screen_height = root.winfo_screenwidth(), root.winfo_screenheight()
+            width,height = 980, 1000
+            screen_width,screen_height = self.root.winfo_screenwidth(), self.root.winfo_screenheight()
             x,y = (screen_width/2) - (width/2), (screen_height/2) - (height)
-            self.root.geometry(f'{width}x{height}+{int(x)}+{int(y)}')
+            if platform == "linux" :
+                self.root.geometry(f'{width}x{height}+{int(x)}+{int(y)}')
+            else:
+                # move the window to the center of the screen for Windows 
+                x,y = (screen_width/2) - (width/2), (screen_height/2) - (height//2.5)
+
+                self.root.geometry(f'{width}x{height}+{int(x)}+{int(y)}')
+
+
+
     
     def run(self):
             # Run the application
@@ -207,3 +242,19 @@ if __name__ == "__main__":
     app = FeastApp()
     app.center_window(app.root)
     app.run()
+
+
+
+
+#Create a Text widget
+        # text = Text(self.root, font=("Helvetica", 16), wrap="word", width=50, height=25, padx=10, pady=10)
+        # text.pack(side="left", fill="both", expand=True)
+        # text.insert("1.0", vasilisa)
+
+        # Create a Scrollbar widget
+        # scrollbar = Scrollbar(self.root)
+        # scrollbar.pack(side="right", fill="y")
+
+        # Attach Text to Scrollbar
+        # text.config(yscrollcommand=scrollbar.set)
+        # scrollbar.config(command=text.yview)
