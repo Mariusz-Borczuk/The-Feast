@@ -114,7 +114,7 @@ class FeastApp:
         # Create buttons
         def Backvard(nmbr):
             # hide the continue button            
-            ContinueButton = Button(self.root)
+            ContinueButton.config(text="")
             ContinueButton.pack_forget()
             
            
@@ -125,6 +125,8 @@ class FeastApp:
             Imagesz.image = guests[f"Guest{nmbr}"]
             label2.pack()
             Imagesz.pack()
+            status.config(text=f"Status: {nmbr}/{len(descriptions)}")
+
             BackvardButton.config(command=lambda: Backvard(nmbr-1))
             BackvardButton.pack(side="left", padx=10, pady=10, anchor="w")
             ForwardButton.config(command=lambda: Forvard(nmbr+1))
@@ -146,9 +148,9 @@ class FeastApp:
             Imagesz.image = guests[f"Guest{nmbr}"]
             label2.pack()
             Imagesz.pack()
+            status.config(text=f"Status: {nmbr}/{len(descriptions)}")
 
             ContinueButton.config(text="")
-
             ContinueButton.pack_forget()
 
             BackvardButton.config(command=lambda: Backvard(nmbr-1))
@@ -214,7 +216,7 @@ class FeastApp:
             # Destroy the application
             self.root.destroy()
         
-    # Create definitions of methods
+# Create definitions of methods
     def nextParagraph(self):
             # Create a new paragraph
             pass
