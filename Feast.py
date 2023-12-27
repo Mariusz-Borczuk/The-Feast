@@ -22,6 +22,7 @@ class FeastApp:
         self.root.update_idletasks()
         self.root.resizable(False, False)
         self.root.update()
+        
 
         # Create a Labels widget
         # 1st label
@@ -107,9 +108,16 @@ class FeastApp:
         zlata = descriptions[10]
         mieszko = descriptions[11]
      
+        status = tk.Label(self.root, text="Status: Start",font= ("Helvetica",20) , bd=1,bg="#BAA391", relief='sunken', anchor='e')
+        status.pack(side="bottom", fill="x")
         
         # Create buttons
         def Backvard(nmbr):
+            # hide the continue button            
+            ContinueButton = Button(self.root)
+            ContinueButton.pack_forget()
+            
+           
             label1.config(text='''Please meet the family members 
                 and get to know them.''')
             label2.config(text=descriptions[nmbr-1])
@@ -118,14 +126,19 @@ class FeastApp:
             label2.pack()
             Imagesz.pack()
             BackvardButton.config(command=lambda: Backvard(nmbr-1))
+            BackvardButton.pack(side="left", padx=10, pady=10, anchor="w")
             ForwardButton.config(command=lambda: Forvard(nmbr+1))
+            ForwardButton.pack(side="right", padx=10, pady=10, anchor="e")
             if nmbr == 1:
                 BackvardButton.config(state="disabled")
+            elif nmbr == 12:
+                ForwardButton.config(state="disabled")
+            else:
+                BackvardButton.config(state="normal")
+                ForwardButton.config(state="normal")
             
 
         def Forvard(nmbr):
-            
-
             label1.config(text='''Please meet the family members 
                 and get to know them.''')
             label2.config(text=descriptions[nmbr-1])
@@ -134,22 +147,69 @@ class FeastApp:
             label2.pack()
             Imagesz.pack()
 
+            ContinueButton.config(text="")
+
+            ContinueButton.pack_forget()
+
             BackvardButton.config(command=lambda: Backvard(nmbr-1))
+            BackvardButton.pack(side="left", padx=10, pady=10, anchor="w")
             ForwardButton.config(command=lambda: Forvard(nmbr+1))
+            ForwardButton.pack(side="right", padx=10, pady=10, anchor="e")
+
             if nmbr == 12:
                 ForwardButton.config(state="disabled")
-            # Configure the button commands
+            elif nmbr == 1:
+                BackvardButton.config(state="disabled")
+            else:
+                BackvardButton.config(state="normal")
+                ForwardButton.config(state="normal")
+            
         
+        def Guest_select(nmbr):
+            selected_person = None
+            
+            if nmbr == 1:
+                selected_person = "vasilisa"
+            elif nmbr == 2:
+                selected_person = "masha"
+            elif nmbr == 3:
+                selected_person = "ludmila"
+            elif nmbr == 4:
+                selected_person = "boris"
+            elif nmbr == 5:
+                selected_person = "katya"
+            elif nmbr == 6:
+                selected_person = "olga"
+            elif nmbr == 7:
+                selected_person = "yaroslav"
+            elif nmbr == 8:
+                selected_person = "marzanna"
+            elif nmbr == 9:
+                selected_person = "gnevomir"
+            elif nmbr == 10:
+                selected_person = "borzena"
+            elif nmbr == 11:
+                selected_person = "zlata"
+            elif nmbr == 12:
+                selected_person = "mieszko"
+            
+            if selected_person:
+                # Add the selected person to the list
+                selected_people.append(selected_person)
+                print(f"Added {selected_person} to the list.")
+            else:
+                print("Invalid selection.")
+            
+
+        ForwardButton = Button(self.root, text=">>\n>>\n>>", command=lambda: Forvard(1), font=("Helvetica", 20, 'bold'), bg="blue")
+        BackvardButton = Button(self.root, text="<<\n<<\n<<",command= lambda: Backvard(), font=("Helvetica", 20, 'bold'), bg="red")
         
-        
-        ForwardButton = Button(self.root, text=">>", command=lambda: Forvard(2), font=("Helvetica", 20, 'bold'), bg="blue")
-        ForwardButton.pack(side="right", padx=10, pady=10, anchor="e")
-        BackvardButton = Button(self.root, text="<<",command= lambda: Backvard(), font=("Helvetica", 20, 'bold'), bg="red")
-        BackvardButton.pack(side="left", padx=10, pady=10, anchor="w")
         # Exit button
         ButtonExit = Button(self.root, text="Exit", font=("Helvetica", 20, 'bold'), command=self.root.quit, bg="green").pack(side="bottom", padx=10, pady=10, anchor="s")
-        ButtonSelect = Button(self.root, text="Select", font=("Helvetica", 20, 'bold'), bg="green").pack(side="bottom", padx=10, pady=10, anchor="s")
+        ButtonSelect = Button(self.root, text="Select",command= lambda:Guest_select() , font=("Helvetica", 20, 'bold'), bg="green").pack(side="bottom", padx=10, pady=10, anchor="s")
         ButtonNext = Button(self.root, text="Next", font=("Helvetica", 20, 'bold'), command=self.nextParagraph, bg="yellow").pack(side="bottom", padx=10, pady=10, anchor="s")
+        ContinueButton = Button(self.root, text="Continue", font=("Helvetica", 20, 'bold'), command=lambda:Forvard(1), bg="yellow")
+        ContinueButton.pack( side="bottom",padx=10, pady=10)
         def __del__(self):
             # Destroy the application
             self.root.destroy()
@@ -160,7 +220,7 @@ class FeastApp:
             pass
         
     def center_window(self, root):
-            width,height = 980, 1080
+            width,height = 980, 1000
             screen_width,screen_height = self.root.winfo_screenwidth(), self.root.winfo_screenheight()
             x,y = (screen_width/2) - (width/2), (screen_height/2) - (height)
             if platform == "linux" :
@@ -182,3 +242,19 @@ if __name__ == "__main__":
     app = FeastApp()
     app.center_window(app.root)
     app.run()
+
+
+
+
+#Create a Text widget
+        # text = Text(self.root, font=("Helvetica", 16), wrap="word", width=50, height=25, padx=10, pady=10)
+        # text.pack(side="left", fill="both", expand=True)
+        # text.insert("1.0", vasilisa)
+
+        # Create a Scrollbar widget
+        # scrollbar = Scrollbar(self.root)
+        # scrollbar.pack(side="right", fill="y")
+
+        # Attach Text to Scrollbar
+        # text.config(yscrollcommand=scrollbar.set)
+        # scrollbar.config(command=text.yview)
