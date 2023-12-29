@@ -92,6 +92,14 @@ class FeastApp:
 # Split the content into individual descriptions
         descriptions = content.split('- ')
         
+#Variables of if the guest is selected
+        self.family_members = [
+            "Vasilisa", "Masha", "Ludmila", "Boris", "Katya", "Olga",
+            "Yaroslav", "Marzanna", "Gnevomir", "Borzena", "Zlata", "Mieszko"
+        ]
+        self.SelectGuest = {member: False for member in self.family_members}
+
+
 # Remove empty strings and leading/trailing whitespace
         descriptions = [desc.strip() for desc in descriptions if desc.strip()]
 
@@ -145,48 +153,47 @@ class FeastApp:
             BackvardButton.config(state="disabled") if nmbr == 1 else BackvardButton.config(state="normal")
 
         
-        def Guest_select(nmbr):
-            selected_person = None
+        def Guest_select():
+            current_member_index = int(status.cget("text").split(":")[1].split("/")[0]) - 1
+            current_member = self.family_members[current_member_index]
+
+            # Toggle the boolean value for the current family member
+            self.SelectGuest[current_member] = not self.SelectGuest[current_member]
+            imgpath = "Images/Oki.jpeg"
+            img2path = "Images/Nah.jpeg"
+            img = Image.open(imgpath)
+            img2 = Image.open(img2path)
+            #resize the image
+            img = img.resize((100, 100))
+            img2 = img2.resize((100, 100))
+            img = ImageTk.PhotoImage(img)
+            img2 = ImageTk.PhotoImage(img2)
+
+
+        
+            label3 = tk.Label(self.root, text=f"{current_member} is not selected", font=("Helvetica", 16),fg="red",bg="#BAA391")
+            label3.pack()
+            label4 = tk.Label(self.root, image=img2,background="#BAA391")
+            label4.image = img2
+            label4.pack()
+            label3.after(2000, lambda: label3.destroy())
+            label4.after(2000, lambda: label4.destroy())
             
-            if nmbr == 1:
-                selected_person = "vasilisa"
-            elif nmbr == 2:
-                selected_person = "masha"
-            elif nmbr == 3:
-                selected_person = "ludmila"
-            elif nmbr == 4:
-                selected_person = "boris"
-            elif nmbr == 5:
-                selected_person = "katya"
-            elif nmbr == 6:
-                selected_person = "olga"
-            elif nmbr == 7:
-                selected_person = "yaroslav"
-            elif nmbr == 8:
-                selected_person = "marzanna"
-            elif nmbr == 9:
-                selected_person = "gnevomir"
-            elif nmbr == 10:
-                selected_person = "borzena"
-            elif nmbr == 11:
-                selected_person = "zlata"
-            elif nmbr == 12:
-                selected_person = "mieszko"
-            
-            if selected_person:
-                # Add the selected person to the list
-                selected_people.append(selected_person)
-                print(f"Added {selected_person} to the list.")
-            else:
-                print("Invalid selection.")
             
 
+
+            if self.SelectGuest[current_member] == True:
+                label3.config(text=f"{current_member} is selected", fg="green")
+                label4.config(image=img)
+                label4.image = img
+                
+#
         ForvardButton = Button(self.root, text=">>\n>>\n>>", command=lambda: update_display(1), font=("Helvetica", 20, 'bold'), bg="blue")
         BackvardButton = Button(self.root, text="<<\n<<\n<<",command= lambda: update_display(), font=("Helvetica", 20, 'bold'), bg="red")
         
         # Exit button
         ButtonExit = Button(self.root, text="Exit", font=("Helvetica", 20, 'bold'), command=self.root.quit, bg="green").pack(side="bottom", padx=10, pady=10, anchor="s")
-        ButtonSelect = Button(self.root, text="Select",command= lambda:Guest_select() , font=("Helvetica", 20, 'bold'), bg="green").pack(side="bottom", padx=10, pady=10, anchor="s")
+        ButtonSelect = Button(self.root, text="Select",command= Guest_select , font=("Helvetica", 20, 'bold'), bg="green").pack(side="bottom", padx=10, pady=10, anchor="s")
         ButtonNext = Button(self.root, text="Next", font=("Helvetica", 20, 'bold'), command=self.nextParagraph, bg="yellow").pack(side="bottom", padx=10, pady=10, anchor="s")
         ContinueButton = Button(self.root, text="Continue", font=("Helvetica", 20, 'bold'), command=lambda:update_display(1), bg="yellow")
         ContinueButton.pack( side="bottom",padx=10, pady=10)
@@ -225,16 +232,3 @@ if __name__ == "__main__":
 
 
 
-
-#Create a Text widget
-        # text = Text(self.root, font=("Helvetica", 16), wrap="word", width=50, height=25, padx=10, pady=10)
-        # text.pack(side="left", fill="both", expand=True)
-        # text.insert("1.0", vasilisa)
-
-        # Create a Scrollbar widget
-        # scrollbar = Scrollbar(self.root)
-        # scrollbar.pack(side="right", fill="y")
-
-        # Attach Text to Scrollbar
-        # text.config(yscrollcommand=scrollbar.set)
-        # scrollbar.config(command=text.yview)
