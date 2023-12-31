@@ -69,13 +69,18 @@ class FeastApp:
         Imagesz.pack()
         
 # Descriptions
-        file_path = "True Descriptions.txt"  # Replace with the actual path to your text file
-
+        file_path = "True Descriptions.txt"  # char description
+        file_path2 = "Tables Description.txt"  # table description
+        #file_path3 = "Addons Description.txt"
+        # Read the content of the file
         with open(file_path, 'r') as file:
             content = file.read()
+        with open(file_path2, 'r') as file:
+            content2 = file.read()
 
         # Split the content into individual descriptions
         descriptions = content.split('- ')
+        descriptions2 = content2.split('- ')
         
 #Variables to use later Guests
         self.family_members = ["Vasilisa", "Masha", "Ludmila", "Boris", "Katya", "Olga", "Yaroslav", "Marzanna", "Gnevomir", "Borzena", "Zlata", "Mieszko"]
@@ -89,6 +94,7 @@ class FeastApp:
 
 # Remove empty strings and leading/trailing whitespace
         descriptions = [desc.strip() for desc in descriptions if desc.strip()]
+        descriptions2 = [desc.strip() for desc in descriptions2 if desc.strip()]
         # Assign each description to a variable
         vasilisa = descriptions[0]
         masha = descriptions[1]
@@ -102,67 +108,79 @@ class FeastApp:
         borzena = descriptions[9]
         zlata = descriptions[10]
         mieszko = descriptions[11]
+
+        fishy = descriptions2[0]
+        Meaty = descriptions2[1]
+        vegan = descriptions2[2]
+        vege = descriptions2[3]
         # Create a status bar
         status = tk.Label(self.root, text="Status: Start",font= ("Helvetica",20) , bd=1,bg="#BAA391", relief='sunken', anchor='e')
         status.pack(side="bottom", fill="x")
         
 # Create functions
-        def update_display(nmbr):
-            # Update labels and image
-            label1.config(text="Please meet the family members\n and get to know them.")
-            label2.config(text=descriptions[nmbr - 1])
-            Imagesz.config(image=guests[f"Guest{nmbr}"])
-            Imagesz.image = guests[f"Guest{nmbr}"]
-            # Pack labels and image
+        def update_display(nmbr, mode='F'):
+            if mode == 'F':
+                label1.config(text="Please choose the type of food.")
+                label2.config(text=descriptions2[nmbr - 1])
+                Imagesz.config(image=tables[f"Table{nmbr}"])
+                Imagesz.image = tables[f"Table{nmbr}"]
+                status.config(text=f"Status: {nmbr}/{len(descriptions2)}")
+                ButtonSelect.config(command=lambda: select_item(mode='F'))
+            else:
+                label1.config(text="Please meet the family members\n and get to know them.")
+                label2.config(text=descriptions[nmbr - 1])
+                Imagesz.config(image=guests[f"Guest{nmbr}"])
+                Imagesz.image = guests[f"Guest{nmbr}"]
+                status.config(text=f"Status: {nmbr}/{len(descriptions)}")
+                ButtonSelect.config(command=lambda: select_item(mode='G'))
+
             label2.pack()
             Imagesz.pack()
-            # Update status label
-            status.config(text=f"Status: {nmbr}/{len(descriptions)}")
-            # Hide the ContinueButton
             ContinueButton.config(text="")
             ContinueButton.pack_forget()
-            # Configure Backward Button
-            BackvardButton.config(command=lambda: update_display(nmbr - 1))
+            ButtonSelect.pack(side="bottom", padx=10, pady=10, anchor="s")
+            BackvardButton.config(command=lambda: update_display(nmbr - 1, mode))
             BackvardButton.pack(side="left", padx=10, pady=10, anchor="w")
-            # Configure Forward Button
-            ForvardButton.config(command=lambda: update_display(nmbr + 1))
+            ForvardButton.config(command=lambda: update_display(nmbr + 1, mode))
             ForvardButton.pack(side="right", padx=10, pady=10, anchor="e")
-            # Disable Forward Button when reaching the last family member
             ForvardButton.config(state="disabled") if nmbr == len(descriptions) else ForvardButton.config(state="normal")
-            # Disable Backward Button when at the first family member
             BackvardButton.config(state="disabled") if nmbr == 1 else BackvardButton.config(state="normal")
 
-        def Guest_select():
-            # Get the current family member
+        def select_item(mode='F'):
             current_index = int(status.cget("text").split(":")[1].split("/")[0]) - 1
-            current_member = self.family_members[current_index]
-            # Toggle the boolean value for the current family member
-            self.SelectGuest[current_member] = not self.SelectGuest[current_member]
             imgpath = "Images/Oki.jpeg"
             img2path = "Images/Nah.jpeg"
             img = Image.open(imgpath)
             img2 = Image.open(img2path)
-            #resize the image
             img = img.resize((100, 100))
             img2 = img2.resize((100, 100))
             img = ImageTk.PhotoImage(img)
             img2 = ImageTk.PhotoImage(img2)
-            # Update the Selection label
-            label3 = tk.Label(self.root, text=f"{current_member} is not selected", font=("Helvetica", 16),fg="red",bg="#BAA391")
+            label3 = tk.Label(self.root, font=("Helvetica", 16), fg="red", bg="#BAA391")
             label3.pack()
-            # Update the Selection label
-            label4 = tk.Label(self.root, image=img2,background="#BAA391")
+            label4 = tk.Label(self.root, image=img2, background="#BAA391")
             label4.image = img2
             label4.pack()
-            # Destroy the Selection label after 2 seconds
             label3.after(2000, lambda: label3.destroy())
             label4.after(2000, lambda: label4.destroy())
-            # Update the ContinueButton
-            if self.SelectGuest[current_member] == True:
-                label3.config(text=f"{current_member} is selected", fg="green")
-                label4.config(image=img)
-                label4.image = img
-                
+
+            if mode == 'F':
+                current_table = self.types_of_tables[current_index]
+                self.SelectTable[current_table] = not self.SelectTable[current_table]
+                label3.config(text=f"{current_table} is not selected")
+                if self.SelectTable[current_table] == True:
+                    label3.config(text=f"{current_table} is selected", fg="green")
+                    label4.config(image=img)
+                    label4.image = img
+            else:
+                current_member = self.family_members[current_index]
+                self.SelectGuest[current_member] = not self.SelectGuest[current_member]
+                label3.config(text=f"{current_member} is not selected")
+                if self.SelectGuest[current_member] == True:
+                    label3.config(text=f"{current_member} is selected", fg="green")
+                    label4.config(image=img)
+                    label4.image = img
+        
 # Buttons
         # Create buttons for navigation 
         ForvardButton = Button(self.root, text=">>\n>>\n>>", command=lambda: update_display(1), font=("Helvetica", 20, 'bold'), bg="blue")
@@ -170,10 +188,10 @@ class FeastApp:
         # Exit button
         ButtonExit = Button(self.root, text="Exit", font=("Helvetica", 20, 'bold'), command=self.root.quit, bg="green").pack(side="bottom", padx=10, pady=10, anchor="s")
         # Select button
-        ButtonSelect = Button(self.root, text="Select",command= Guest_select , font=("Helvetica", 20, 'bold'), bg="green").pack(side="bottom", padx=10, pady=10, anchor="s")
-        ButtonNext = Button(self.root, text="Next", font=("Helvetica", 20, 'bold'), command=self.nextParagraph, bg="yellow").pack(side="bottom", padx=10, pady=10, anchor="s")
+        ButtonSelect = Button(self.root, text="Select", font=("Helvetica", 20, 'bold'), command= lambda: select_item(mode='G') ,  bg="green")
+        ButtonNext = Button(self.root, text="Next", font=("Helvetica", 20, 'bold'), command=lambda: update_display(1), bg="yellow").pack(side="bottom", padx=10, pady=10, anchor="s")
         # Continue button
-        ContinueButton = Button(self.root, text="Continue", font=("Helvetica", 20, 'bold'), command=lambda:update_display(1), bg="yellow")
+        ContinueButton = Button(self.root, text="Continue", font=("Helvetica", 20, 'bold'), command=lambda:update_display(1,'G'), bg="yellow")
         ContinueButton.pack( side="bottom",padx=10, pady=10)
 
         def __del__(self):
@@ -181,12 +199,8 @@ class FeastApp:
             self.root.destroy()
         
 # Create definitions of methods
-    def nextParagraph(nmbr):
-        if nmbr == 1:
-            label1.config(text="Please choose the type of table dishes.")
-            label2.config(text=descriptions[nmbr - 1])
-            Imagesz.config(image=guests[f"Guest{nmbr}"])
-            Imagesz.image = guests[f"Guest{nmbr}"]
+        
+        
            
         
     def center_window(self, root):
