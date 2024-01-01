@@ -23,6 +23,9 @@ class FeastApp:
         self.root.resizable(False, False)
         self.root.update()
         
+        #Selected variables
+        self.selected_guests = set()
+        self.selected_tables = None
 
         # Create a label for the title
         label1 = tk.Label(self.root, text="Welcome to The Feast paragraph game!", font=("Helvetica", 32),background="#BAA391")
@@ -143,8 +146,15 @@ class FeastApp:
             BackvardButton.pack(side="left", padx=10, pady=10, anchor="w")
             ForvardButton.config(command=lambda: update_display(nmbr + 1, mode))
             ForvardButton.pack(side="right", padx=10, pady=10, anchor="e")
-            ForvardButton.config(state="disabled") if nmbr == len(descriptions) else ForvardButton.config(state="normal")
-            BackvardButton.config(state="disabled") if nmbr == 1 else BackvardButton.config(state="normal")
+            if mode == 'G':
+                ForvardButton.config(state="disabled") if nmbr == len(descriptions) else ForvardButton.config(state="normal")
+                BackvardButton.config(state="disabled") if nmbr == 1 else BackvardButton.config(state="normal")
+            elif mode == 'F':
+                ForvardButton.config(state="disabled") if nmbr == len(descriptions2) else ForvardButton.config(state="normal")
+                BackvardButton.config(state="disabled") if nmbr == 1 else BackvardButton.config(state="normal")
+            '''else:
+                ForvardButton.config(state="disabled") if nmbr == len(descriptions3) else ForvardButton.config(state="normal")
+                BackvardButton.config(state="disabled") if nmbr == 1 else BackvardButton.config(state="normal")'''
 
         def select_item(mode='F'):
             current_index = int(status.cget("text").split(":")[1].split("/")[0]) - 1
@@ -172,6 +182,11 @@ class FeastApp:
                     label3.config(text=f"{current_table} is selected", fg="green")
                     label4.config(image=img)
                     label4.image = img
+                    self.selected_tables = int(self.types_of_tables[current_table])
+                    ButtonSelect.pack_forget()
+                    DeselectButton = Button(self.root, text="Deselect", font=("Helvetica", 20, 'bold'), command=lambda: update_display(1, 'F'), bg="red")
+                    DeselectButton.pack(side="bottom", padx=10, pady=10, anchor="s")
+                    ContinueButton.pack(side="bottom", padx=10, pady=10)
             else:
                 current_member = self.family_members[current_index]
                 self.SelectGuest[current_member] = not self.SelectGuest[current_member]
@@ -200,9 +215,6 @@ class FeastApp:
         
 # Create definitions of methods
         
-        
-           
-        
     def center_window(self, root):
             width,height = 980, 1000
             screen_width,screen_height = self.root.winfo_screenwidth(), self.root.winfo_screenheight()
@@ -211,8 +223,7 @@ class FeastApp:
                 self.root.geometry(f'{width}x{height}+{int(x)}+{int(y)}')
             else:
                 # move the window to the center of the screen for Windows 
-                x,y = (screen_width/2) - (width/2), (screen_height/2) - (height//2.5)
-
+                x,y = (screen_width/2) - (width/2), (screen_height/2) - (height//1.9)
                 self.root.geometry(f'{width}x{height}+{int(x)}+{int(y)}')
     
     def run(self):
