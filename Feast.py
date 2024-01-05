@@ -9,8 +9,18 @@ class FeastApp:
     def __init__(self):
 # Create fundamental elements of the application
         self.root = tk.Tk()
+        self.inizialize_root()
+
+        self.Create_variables()
+        self.load_descriptions()
+        self.load_images()
+        self.Gui_()
+        self.center_window(self.root)
+
+
+        
+    def inizialize_root(self):
         self.root.title("Feast")
-        #change background colour to page like
         self.root.configure(background="#BAA391")
         icondir = os.path.join(os.path.dirname(__file__))
         if system() == 'Windows':
@@ -22,70 +32,28 @@ class FeastApp:
         self.root.update_idletasks()
         self.root.resizable(False, False)
         self.root.update()
-        
+
+
         #Selected variables
         self.selected_guests = set()
         self.selected_tables = None
 
-        # Create a label for the title
-        label1 = tk.Label(self.root, text="Welcome to The Feast paragraph game!", font=("Helvetica", 32),background="#BAA391")
-        label1.pack()        
-        # Create a label for instructions
-        label2 = tk.Label(self.root, text="Please meet the family members and get to know them." , font=("Helvetica", 16),background="#BAA391")
-        label2.pack()     
-
-# Images
-        
-        #make buttons smaller
-        OpeningImage = Image.open("Images/pierwsi.png")
-        list_of_paths_Guests = ["Images/Guests/Aunt_Vasilisa.jpeg", "Images/Guests/Dad_sis_Masha.jpeg", "Images/Guests/Luba_Ludmila.jpeg", "Images/Guests/BF_Boris.jpeg", "Images/Guests/BF_Katya.jpeg", "Images/Guests/Cousin_Olga.jpeg", "Images/Guests/Dad_Yaroslav.jpeg", "Images/Guests/Grandma_Marzanna.jpeg", "Images/Guests/Grandpa_Gnevomir.jpeg", "Images/Guests/Mom_Borzena.jpeg", "Images/Guests/Sis_Zlata.jpeg", "Images/Guests/Uncle_Mieszko.jpeg"]
-        list_of_paths_Tables = ["Images/Table/FishyTable.jpeg", "Images/Table/MeatyTable.jpeg", "Images/Table/VeganTable.jpeg", "Images/Table/VegeTable.jpeg"]
-        list_of_paths_Addons = ["Images/addons/Auntie_tea.jpeg", "Images/addons/Beer.jpeg", "Images/addons/Honey.jpeg", "Images/addons/Juices.jpeg", "Images/addons/Lemon.jpeg", "Images/addons/Salt.jpeg", "Images/addons/Sugar.jpeg", "Images/addons/Tea.jpeg", "Images/addons/Vodka.jpeg", "Images/addons/Wine.jpeg"]
+    def load_images(self):
+        guests_paths = ["Images/Guests/Aunt_Vasilisa.png", "Images/Guests/Dad_sis_Masha.png", "Images/Guests/Luba_Ludmila.png", "Images/Guests/BF_Boris.png", "Images/Guests/BF_Katya.png", "Images/Guests/Cousin_Olga.png", "Images/Guests/Dad_Yaroslav.png", "Images/Guests/Grandma_Marzanna.png", "Images/Guests/Grandpa_Gnevomir.png", "Images/Guests/Mom_Borzena.png", "Images/Guests/Sis_Zlata.png", "Images/Guests/Uncle_Mieszko.png"]
+        tables_paths = ["Images/Table/FishyTable.png", "Images/Table/MeatyTable.png", "Images/Table/VeganTable.png", "Images/Table/VegeTable.png"]
+        addons_paths = ["Images/addons/Auntie_tea.png", "Images/addons/Beer.png", "Images/addons/Honey.png", "Images/addons/Juices.png", "Images/addons/Lemon.png", "Images/addons/Salt.png", "Images/addons/Sugar.png", "Images/addons/Tea.png", "Images/addons/Vodka.png", "Images/addons/Wine.png"]
         # Create a dictionary of images
-        guests, addons, tables={}, {}, {}
-        
-#reading images
-        #read from list Guests 1-12 and write it to variable make them in order
-        for i ,path in enumerate(list_of_paths_Guests, start=1):
-             guests[f"Guest{i}"] = Image.open(path)
-        #read from list Tables 1-4 and write it to variable make them in order
-        for i ,path in enumerate(list_of_paths_Tables, start=1):
-            tables[f"Table{i}"] = Image.open(path)
-        #read from list addons 1-10 and write it to variable make them in order
-        for i ,path in enumerate(list_of_paths_Addons, start=1):
-            addons[f"Addon{i}"] = Image.open(path)
-                   
-#assigning images to variables   
-       #ImageTk for guests
-        for i in guests:
-            guests[i] = ImageTk.PhotoImage(guests[i])
-        #ImageTk for tables
-        for i in tables:
-            tables[i] = ImageTk.PhotoImage(tables[i])
-        #ImageTk for addons
-        for i in addons:
-            addons[i] = ImageTk.PhotoImage(addons[i])
-        #ImageTk for buttons
-        OpeningImage = ImageTk.PhotoImage(OpeningImage)
-        Imagesz = tk.Label(image=OpeningImage)     
-        Imagesz.image = OpeningImage
-        Imagesz.pack()
-        
-# Descriptions
-        file_path = "True Descriptions.txt"  # char description
-        file_path2 = "Tables Description.txt"  # table description
-        #file_path3 = "Addons Description.txt"
-        # Read the content of the file
-        with open(file_path, 'r') as file:
-            content = file.read()
-        with open(file_path2, 'r') as file:
-            content2 = file.read()
+        self.guests = {f"Guest{i}": Image.open(path) for i, path in enumerate(guests_paths, start=1)}
+        self.tables = {f"Table{i}": Image.open(path) for i, path in enumerate(tables_paths, start=1)}
+        self.addons = {f"Addon{i}": Image.open(path) for i, path in enumerate(addons_paths, start=1)}
+           
 
-        # Split the content into individual descriptions
-        descriptions = content.split('- ')
-        descriptions2 = content2.split('- ')
-        
-#Variables to use later Guests
+            # Convert images to ImageTk format
+        self.guest_images = {key: ImageTk.PhotoImage(image) for key, image in self.guests.items()}
+        self.table_images = {key: ImageTk.PhotoImage(image) for key, image in self.tables.items()}
+        self.addon_images = {key: ImageTk.PhotoImage(image) for key, image in self.addons.items()}  
+
+    def Create_variables(self):
         self.family_members = ["Vasilisa", "Masha", "Ludmila", "Boris", "Katya", "Olga", "Yaroslav", "Marzanna", "Gnevomir", "Borzena", "Zlata", "Mieszko"]
         self.SelectGuest = {member: False for member in self.family_members}
 
@@ -95,45 +63,102 @@ class FeastApp:
         self.types_of_addons = ["Auntie_tea", "Beer", "Honey", "Juices", "Lemon", "Salt", "Sugar", "Tea", "Vodka", "Wine"]
         self.SelectAddon = {addon: False for addon in self.types_of_addons}
 
-# Remove empty strings and leading/trailing whitespace
+    def load_descriptions(self):
+        file_path = "True Descriptions.txt"  # char description
+        file_path2 = "Tables Description.txt"  # table description
+        #file_path3 = "Addons Description.txt" # addons description
+        # Read the content of the file
+        with open(file_path, 'r') as file:
+            content = file.read()
+        with open(file_path2, 'r') as file:
+            content2 = file.read()
+        '''with open(file_path3, 'r') as file:
+            content3 = file.read()'''
+
+        # Split the content into individual descriptions
+        descriptions = content.split('- ')
+        descriptions2 = content2.split('- ')
+        #descriptions3 = content3.split('- ')
+        
         descriptions = [desc.strip() for desc in descriptions if desc.strip()]
         descriptions2 = [desc.strip() for desc in descriptions2 if desc.strip()]
-        
-        # Create a status bar
+        #descriptions3 = [desc.strip() for desc in descriptions3 if desc.strip()]
+        # Assign each description to a variable
+        self.guest_descriptions = {
+            self.family_members[i]: descriptions[i] for i in range(len(self.family_members))
+        }
+        self.table_descriptions = {
+            self.types_of_tables[i]: descriptions2[i] for i in range(len(self.types_of_tables))
+        }
+        '''self.addon_descriptions = {
+            self.types_of_addons[i]: descriptions3[i] for i in range(len(self.types_of_addons))
+        }'''
+
+    def Gui_(self):
+        #Labels
+        # First label for the title
+        label1 = tk.Label(self.root, text="Welcome to The Feast paragraph game!", font=("Helvetica", 32),background="#BAA391")
+        label1.pack()        
+        # Second label for the description
+        label2 = tk.Label(self.root, text="Please meet the family members and get to know them." , font=("Helvetica", 16),background="#BAA391")
+        label2.pack()   
+        # Create an entry image 
+        OpeningImage = Image.open("Images/pierwsi.png")
+        OpeningImage = ImageTk.PhotoImage(OpeningImage)
+        Imagesz = tk.Label(image=OpeningImage)     
+        Imagesz.image = OpeningImage
+        Imagesz.pack()  
+
+        #buttons
+        # Create buttons for navigation 
+        ForvardButton = Button(self.root, text=">>\n>>\n>>", command=lambda: update_display(1), font=("Helvetica", 20, 'bold'), bg="blue")
+        BackvardButton = Button(self.root, text="<<\n<<\n<<",command= lambda: update_display(), font=("Helvetica", 20, 'bold'), bg="red")
+        # Status bar
         status = tk.Label(self.root, text="Status: Start",font= ("Helvetica",20) , bd=1,bg="#BAA391", relief='sunken', anchor='e')
         status.pack(side="bottom", fill="x")
+        # Exit button
+        ButtonExit = Button(self.root, text="Exit", font=("Helvetica", 20, 'bold'), command=self.root.quit, bg="green").pack(side="bottom", padx=10, pady=10, anchor="s")
+        # Select button
+        ButtonSelect = Button(self.root, text="Select", font=("Helvetica", 20, 'bold'), command= lambda: select_item(mode='G') ,  bg="green")
+        # Next button
+        FoodButton = Button(self.root, text="Select Tables", font=("Helvetica", 20, 'bold'), command=lambda: update_display(1), bg="yellow").pack(side="bottom", padx=10, pady=10, anchor="s")
+        # Continue button
+        GuestsButton = Button(self.root, text="Select Guests", font=("Helvetica", 20, 'bold'), command=lambda:update_display(1), bg="yellow")
+        GuestsButton.pack( side="bottom",padx=10, pady=10)
+        
         
 # Create functions
-        def update_display(nmbr, mode='F'):
+        def update_display(nmbr, mode='G'):
+            var = nmbr - 1
             if mode == 'F':
                 label1.config(text="Please choose the type of food.")
-                label2.config(text=descriptions2[nmbr - 1])
-                Imagesz.config(image=tables[f"Table{nmbr}"])
-                Imagesz.image = tables[f"Table{nmbr}"]
-                status.config(text=f"Status: {nmbr}/{len(descriptions2)}")
+                label2.config(text=list(self.table_descriptions.values())[var])
+                Imagesz.config(image=self.tables[f"Table{nmbr}"])
+                Imagesz.image = self.tables[f"Table{nmbr}"]
+                status.config(text=f"Status: {nmbr}/{len(list(self.table_descriptions.values())[var])}")
                 ButtonSelect.config(command=lambda: select_item(mode='F'))
             else:
                 label1.config(text="Please meet the family members\n and get to know them.")
-                label2.config(text=descriptions[nmbr - 1])
-                Imagesz.config(image=guests[f"Guest{nmbr}"])
-                Imagesz.image = guests[f"Guest{nmbr}"]
-                status.config(text=f"Status: {nmbr}/{len(descriptions)}")
+                label2.config(text=list(self.guest_descriptions.values())[var])
+                Imagesz.config(image=self.guests[f"Guest{nmbr}"])
+                Imagesz.image = self.guests[f"Guest{nmbr}"]
+                status.config(text=f"Status: {nmbr}/{len(list(self.guest_descriptions.values())[var])}")
                 ButtonSelect.config(command=lambda: select_item(mode='G'))
 
             label2.pack()
             Imagesz.pack()
-            ContinueButton.config(text="")
-            ContinueButton.pack_forget()
+            GuestsButton.config(text="")
+            GuestsButton.pack_forget()
             ButtonSelect.pack(side="bottom", padx=10, pady=10, anchor="s")
-            BackvardButton.config(command=lambda: update_display(nmbr - 1, mode))
+            BackvardButton.config(command=lambda: update_display(var, mode))
             BackvardButton.pack(side="left", padx=10, pady=10, anchor="w")
             ForvardButton.config(command=lambda: update_display(nmbr + 1, mode))
             ForvardButton.pack(side="right", padx=10, pady=10, anchor="e")
             if mode == 'G':
-                ForvardButton.config(state="disabled") if nmbr == len(descriptions) else ForvardButton.config(state="normal")
+                ForvardButton.config(state="disabled") if nmbr == len(list(self.guest_descriptions.values())[var]) else ForvardButton.config(state="normal")
                 BackvardButton.config(state="disabled") if nmbr == 1 else BackvardButton.config(state="normal")
             elif mode == 'F':
-                ForvardButton.config(state="disabled") if nmbr == len(descriptions2) else ForvardButton.config(state="normal")
+                ForvardButton.config(state="disabled") if nmbr == len(list(self.table_descriptions.values())[var]) else ForvardButton.config(state="normal")
                 BackvardButton.config(state="disabled") if nmbr == 1 else BackvardButton.config(state="normal")
             '''else:
                 ForvardButton.config(state="disabled") if nmbr == len(descriptions3) else ForvardButton.config(state="normal")
@@ -141,8 +166,8 @@ class FeastApp:
 
         def select_item(mode='F'):
             current_index = int(status.cget("text").split(":")[1].split("/")[0]) - 1
-            imgpath = "Images/Oki.jpeg"
-            img2path = "Images/Nah.jpeg"
+            imgpath = "Images/Oki.png"
+            img2path = "Images/Nah.png"
             img = Image.open(imgpath)
             img2 = Image.open(img2path)
             img = img.resize((100, 100))
@@ -169,7 +194,7 @@ class FeastApp:
                     ButtonSelect.pack_forget()
                     DeselectButton = Button(self.root, text="Deselect", font=("Helvetica", 20, 'bold'), command=lambda: update_display(1, 'F'), bg="red")
                     DeselectButton.pack(side="bottom", padx=10, pady=10, anchor="s")
-                    ContinueButton.pack(side="bottom", padx=10, pady=10)
+                    GuestsButton.pack(side="bottom", padx=10, pady=10)
             else:
                 current_member = self.family_members[current_index]
                 self.SelectGuest[current_member] = not self.SelectGuest[current_member]
@@ -178,19 +203,7 @@ class FeastApp:
                     label3.config(text=f"{current_member} is selected", fg="green")
                     label4.config(image=img)
                     label4.image = img
-        
-# Buttons
-        # Create buttons for navigation 
-        ForvardButton = Button(self.root, text=">>\n>>\n>>", command=lambda: update_display(1), font=("Helvetica", 20, 'bold'), bg="blue")
-        BackvardButton = Button(self.root, text="<<\n<<\n<<",command= lambda: update_display(), font=("Helvetica", 20, 'bold'), bg="red")
-        # Exit button
-        ButtonExit = Button(self.root, text="Exit", font=("Helvetica", 20, 'bold'), command=self.root.quit, bg="green").pack(side="bottom", padx=10, pady=10, anchor="s")
-        # Select button
-        ButtonSelect = Button(self.root, text="Select", font=("Helvetica", 20, 'bold'), command= lambda: select_item(mode='G') ,  bg="green")
-        ButtonNext = Button(self.root, text="Next", font=("Helvetica", 20, 'bold'), command=lambda: update_display(1), bg="yellow").pack(side="bottom", padx=10, pady=10, anchor="s")
-        # Continue button
-        ContinueButton = Button(self.root, text="Continue", font=("Helvetica", 20, 'bold'), command=lambda:update_display(1,'G'), bg="yellow")
-        ContinueButton.pack( side="bottom",padx=10, pady=10)
+   
 
         def __del__(self):
             # Destroy the application
@@ -217,6 +230,5 @@ if __name__ == "__main__":
     app = FeastApp()
     app.center_window(app.root)
     app.run()
-
 
 
