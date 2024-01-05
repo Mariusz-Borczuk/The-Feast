@@ -11,11 +11,11 @@ class FeastApp:
         self.root = tk.Tk()
         self.inizialize_root()
 
+        self.load_images()
         self.Create_variables()
         self.load_descriptions()
-        self.load_images()
-        self.Gui_()
         self.center_window(self.root)
+        self.Gui_()
 
 
         
@@ -121,7 +121,7 @@ class FeastApp:
         # Select button
         ButtonSelect = Button(self.root, text="Select", font=("Helvetica", 20, 'bold'), command= lambda: select_item(mode='G') ,  bg="green")
         # Next button
-        FoodButton = Button(self.root, text="Select Tables", font=("Helvetica", 20, 'bold'), command=lambda: update_display(1), bg="yellow").pack(side="bottom", padx=10, pady=10, anchor="s")
+        FoodButton = Button(self.root, text="Select Tables", font=("Helvetica", 20, 'bold'), command=lambda: update_display(1,mode = 'F'), bg="yellow").pack(side="bottom", padx=10, pady=10, anchor="s")
         # Continue button
         GuestsButton = Button(self.root, text="Select Guests", font=("Helvetica", 20, 'bold'), command=lambda:update_display(1), bg="yellow")
         GuestsButton.pack( side="bottom",padx=10, pady=10)
@@ -130,21 +130,51 @@ class FeastApp:
 # Create functions
         def update_display(nmbr, mode='G'):
             var = nmbr - 1
+            g_status= len(self.guests.values())
+            t_status= len(self.tables.values())
+            #a_status= len(self.addons.values())
+            
             if mode == 'F':
                 label1.config(text="Please choose the type of food.")
-                label2.config(text=list(self.table_descriptions.values())[var])
-                Imagesz.config(image=self.tables[f"Table{nmbr}"])
-                Imagesz.image = self.tables[f"Table{nmbr}"]
-                status.config(text=f"Status: {nmbr}/{len(list(self.table_descriptions.values())[var])}")
+                t_descriptions = list(self.table_descriptions.values())
+                label2.config(text=t_descriptions[var])
+                t_images = list(self.table_images.values())
+                
+                Imagesz.config(image=t_images[var])
+                Imagesz.image = t_images[nmbr]
+                status.config(text=f"Status: {nmbr}/{t_status}")
                 ButtonSelect.config(command=lambda: select_item(mode='F'))
-            else:
-                label1.config(text="Please meet the family members\n and get to know them.")
-                label2.config(text=list(self.guest_descriptions.values())[var])
-                Imagesz.config(image=self.guests[f"Guest{nmbr}"])
-                Imagesz.image = self.guests[f"Guest{nmbr}"]
-                status.config(text=f"Status: {nmbr}/{len(list(self.guest_descriptions.values())[var])}")
-                ButtonSelect.config(command=lambda: select_item(mode='G'))
+            
 
+                Imagesz.config(image=t_images[var])
+                for _ in t_images:
+                    print(_)
+                print(t_images[var])
+                Imagesz.image = t_images[nmbr]
+                status.config(text=f"Status: {nmbr}/{t_status}")
+                ButtonSelect.config(command=lambda: select_item(mode='F'))
+            elif mode == 'G':
+                label1.config(text="Please meet the family members\n and get to know them.")
+                g_descriptions = list(self.guest_descriptions.values())
+                g_images = list(self.guest_images.values())
+                
+                label2.config(text=g_descriptions[var])
+                Imagesz.config(image=g_images[var])
+                Imagesz.image = g_images[nmbr]
+                status.config(text=f"Status: {nmbr}/{g_status}")
+                ButtonSelect.config(command=lambda: select_item(mode='G'))
+                
+            '''elif mode == 'A':
+                label1.config(text="Please choose the addons.")
+                a_descriptions = list(self.addon_descriptions.values())
+                a_images = list(self.addon_images.values())
+                label2.config(text=a_descriptions[var])
+                Imagesz.config(image=a_images[var])
+                Imagesz.image = a_images[nmbr]
+                status.config(text=f"Status: {nmbr}/{a_status}")
+                ButtonSelect.config(command=lambda: select_item(mode='A'))'''
+                       
+            val = nmbr+1
             label2.pack()
             Imagesz.pack()
             GuestsButton.config(text="")
@@ -152,19 +182,19 @@ class FeastApp:
             ButtonSelect.pack(side="bottom", padx=10, pady=10, anchor="s")
             BackvardButton.config(command=lambda: update_display(var, mode))
             BackvardButton.pack(side="left", padx=10, pady=10, anchor="w")
-            ForvardButton.config(command=lambda: update_display(nmbr + 1, mode))
+            ForvardButton.config(command=lambda: update_display(val, mode))
             ForvardButton.pack(side="right", padx=10, pady=10, anchor="e")
             if mode == 'G':
-                ForvardButton.config(state="disabled") if nmbr == len(list(self.guest_descriptions.values())[var]) else ForvardButton.config(state="normal")
+                ForvardButton.config(state="disabled") if var == 12 else ForvardButton.config(state="normal")
                 BackvardButton.config(state="disabled") if nmbr == 1 else BackvardButton.config(state="normal")
             elif mode == 'F':
-                ForvardButton.config(state="disabled") if nmbr == len(list(self.table_descriptions.values())[var]) else ForvardButton.config(state="normal")
+                ForvardButton.config(state="disabled") if nmbr == 4 else ForvardButton.config(state="normal")
                 BackvardButton.config(state="disabled") if nmbr == 1 else BackvardButton.config(state="normal")
             '''else:
-                ForvardButton.config(state="disabled") if nmbr == len(descriptions3) else ForvardButton.config(state="normal")
+                ForvardButton.config(state="disabled") if nmbr == a_status else ForvardButton.config(state="normal")
                 BackvardButton.config(state="disabled") if nmbr == 1 else BackvardButton.config(state="normal")'''
 
-        def select_item(mode='F'):
+        def select_item(mode='G'):
             current_index = int(status.cget("text").split(":")[1].split("/")[0]) - 1
             imgpath = "Images/Oki.png"
             img2path = "Images/Nah.png"
@@ -195,7 +225,7 @@ class FeastApp:
                     DeselectButton = Button(self.root, text="Deselect", font=("Helvetica", 20, 'bold'), command=lambda: update_display(1, 'F'), bg="red")
                     DeselectButton.pack(side="bottom", padx=10, pady=10, anchor="s")
                     GuestsButton.pack(side="bottom", padx=10, pady=10)
-            else:
+            elif mode == 'G':
                 current_member = self.family_members[current_index]
                 self.SelectGuest[current_member] = not self.SelectGuest[current_member]
                 label3.config(text=f"{current_member} is not selected")
@@ -203,6 +233,7 @@ class FeastApp:
                     label3.config(text=f"{current_member} is selected", fg="green")
                     label4.config(image=img)
                     label4.image = img
+
    
 
         def __del__(self):
