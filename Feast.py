@@ -98,24 +98,7 @@ class FeastApp:
 # Remove empty strings and leading/trailing whitespace
         descriptions = [desc.strip() for desc in descriptions if desc.strip()]
         descriptions2 = [desc.strip() for desc in descriptions2 if desc.strip()]
-        # Assign each description to a variable
-        vasilisa = descriptions[0]
-        masha = descriptions[1]
-        ludmila = descriptions[2]
-        boris = descriptions[3]
-        katya = descriptions[4]
-        olga = descriptions[5]
-        yaroslav = descriptions[6]
-        marzanna = descriptions[7]
-        gnevomir = descriptions[8]
-        borzena = descriptions[9]
-        zlata = descriptions[10]
-        mieszko = descriptions[11]
-
-        fishy = descriptions2[0]
-        Meaty = descriptions2[1]
-        vegan = descriptions2[2]
-        vege = descriptions2[3]
+        
         # Create a status bar
         status = tk.Label(self.root, text="Status: Start",font= ("Helvetica",20) , bd=1,bg="#BAA391", relief='sunken', anchor='e')
         status.pack(side="bottom", fill="x")
