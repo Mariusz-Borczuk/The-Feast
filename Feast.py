@@ -131,6 +131,7 @@ class FeastApp:
         def update_display(nmbr, mode='G'):
             var = nmbr - 1
             g_status= len(self.guests.values())
+
             t_status= len(self.tables.values())
             #a_status= len(self.addons.values())
             
@@ -139,42 +140,36 @@ class FeastApp:
                 t_descriptions = list(self.table_descriptions.values())
                 label2.config(text=t_descriptions[var])
                 t_images = list(self.table_images.values())
-                
-                Imagesz.config(image=t_images[var])
-                Imagesz.image = t_images[nmbr]
                 status.config(text=f"Status: {nmbr}/{t_status}")
+                current_index = int(status.cget("text").split(":")[1].split("/")[0])
                 ButtonSelect.config(command=lambda: select_item(mode='F'))
-            
-
-                Imagesz.config(image=t_images[var])
-                for _ in t_images:
-                    print(_)
-                print(t_images[var])
-                Imagesz.image = t_images[nmbr]
+                Imagesz.config(image=t_images[current_index-1])
+                Imagesz.image = t_images[current_index-1]                
                 status.config(text=f"Status: {nmbr}/{t_status}")
                 ButtonSelect.config(command=lambda: select_item(mode='F'))
             elif mode == 'G':
                 label1.config(text="Please meet the family members\n and get to know them.")
                 g_descriptions = list(self.guest_descriptions.values())
                 g_images = list(self.guest_images.values())
-                
-                label2.config(text=g_descriptions[var])
-                Imagesz.config(image=g_images[var])
-                Imagesz.image = g_images[nmbr]
                 status.config(text=f"Status: {nmbr}/{g_status}")
+                current_index = int(status.cget("text").split(":")[1].split("/")[0]) 
+                label2.config(text=g_descriptions[var])
+                Imagesz.config(image=g_images[current_index-1])
+                Imagesz.image = g_images[current_index-1]
+
                 ButtonSelect.config(command=lambda: select_item(mode='G'))
                 
             '''elif mode == 'A':
                 label1.config(text="Please choose the addons.")
                 a_descriptions = list(self.addon_descriptions.values())
                 a_images = list(self.addon_images.values())
-                label2.config(text=a_descriptions[var])
-                Imagesz.config(image=a_images[var])
-                Imagesz.image = a_images[nmbr]
                 status.config(text=f"Status: {nmbr}/{a_status}")
+                current_index = int(status.cget("t ext").split(":")[1].split("/")[0])
+                label2.config(text=a_descriptions[var])
+                Imagesz.config(image=a_images[current_index-1])
+                Imagesz.image = a_images[current_index-1]
                 ButtonSelect.config(command=lambda: select_item(mode='A'))'''
                        
-            val = nmbr+1
             label2.pack()
             Imagesz.pack()
             GuestsButton.config(text="")
@@ -182,13 +177,13 @@ class FeastApp:
             ButtonSelect.pack(side="bottom", padx=10, pady=10, anchor="s")
             BackvardButton.config(command=lambda: update_display(var, mode))
             BackvardButton.pack(side="left", padx=10, pady=10, anchor="w")
-            ForvardButton.config(command=lambda: update_display(val, mode))
+            ForvardButton.config(command=lambda: update_display(nmbr+1, mode=mode))
             ForvardButton.pack(side="right", padx=10, pady=10, anchor="e")
             if mode == 'G':
-                ForvardButton.config(state="disabled") if var == 12 else ForvardButton.config(state="normal")
+                ForvardButton.config(state="disabled") if nmbr == len(g_images) else ForvardButton.config(state="normal")
                 BackvardButton.config(state="disabled") if nmbr == 1 else BackvardButton.config(state="normal")
             elif mode == 'F':
-                ForvardButton.config(state="disabled") if nmbr == 4 else ForvardButton.config(state="normal")
+                ForvardButton.config(state="disabled") if nmbr == len(t_images) else ForvardButton.config(state="normal")
                 BackvardButton.config(state="disabled") if nmbr == 1 else BackvardButton.config(state="normal")
             '''else:
                 ForvardButton.config(state="disabled") if nmbr == a_status else ForvardButton.config(state="normal")
