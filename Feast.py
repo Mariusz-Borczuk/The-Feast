@@ -35,8 +35,9 @@ class FeastApp:
 
 
         #Selected variables
-        self.selected_guests = set()
+        self.selected_guests = {}
         self.selected_tables = None
+        self.selected_addons = {}
 
     def load_images(self):
         guests_paths = ["Images/Guests/Aunt_Vasilisa.png", "Images/Guests/Dad_sis_Masha.png", "Images/Guests/Luba_Ludmila.png", "Images/Guests/BF_Boris.png", "Images/Guests/BF_Katya.png", "Images/Guests/Cousin_Olga.png", "Images/Guests/Dad_Yaroslav.png", "Images/Guests/Grandma_Marzanna.png", "Images/Guests/Grandpa_Gnevomir.png", "Images/Guests/Mom_Borzena.png", "Images/Guests/Sis_Zlata.png", "Images/Guests/Uncle_Mieszko.png"]
@@ -66,23 +67,23 @@ class FeastApp:
     def load_descriptions(self):
         file_path = "True Descriptions.txt"  # char description
         file_path2 = "Tables Description.txt"  # table description
-        #file_path3 = "Addons Description.txt" # addons description
+        file_path3 = "Addons Description.txt" # addons description
         # Read the content of the file
         with open(file_path, 'r') as file:
             content = file.read()
         with open(file_path2, 'r') as file:
             content2 = file.read()
-        '''with open(file_path3, 'r') as file:
-            content3 = file.read()'''
+        with open(file_path3, 'r') as file:
+            content3 = file.read()
 
         # Split the content into individual descriptions
-        descriptions = content.split('- ')
-        descriptions2 = content2.split('- ')
-        #descriptions3 = content3.split('- ')
+        descriptions = content.split('* ')
+        descriptions2 = content2.split('* ')
+        descriptions3 = content3.split('* ')
         
         descriptions = [desc.strip() for desc in descriptions if desc.strip()]
         descriptions2 = [desc.strip() for desc in descriptions2 if desc.strip()]
-        #descriptions3 = [desc.strip() for desc in descriptions3 if desc.strip()]
+        descriptions3 = [desc.strip() for desc in descriptions3 if desc.strip()]
         # Assign each description to a variable
         self.guest_descriptions = {
             self.family_members[i]: descriptions[i] for i in range(len(self.family_members))
@@ -90,25 +91,26 @@ class FeastApp:
         self.table_descriptions = {
             self.types_of_tables[i]: descriptions2[i] for i in range(len(self.types_of_tables))
         }
-        '''self.addon_descriptions = {
+        self.addon_descriptions = {
             self.types_of_addons[i]: descriptions3[i] for i in range(len(self.types_of_addons))
-        }'''
+        }
 
     def Gui_(self):
+
         #Labels
         # First label for the title
         label1 = tk.Label(self.root, text="Welcome to The Feast paragraph game!", font=("Helvetica", 32),background="#BAA391")
         label1.pack()        
-        # Second label for the description
-        label2 = tk.Label(self.root, text="Please meet the family members and get to know them." , font=("Helvetica", 16),background="#BAA391")
-        label2.pack()   
         # Create an entry image 
         OpeningImage = Image.open("Images/pierwsi.png")
         OpeningImage = ImageTk.PhotoImage(OpeningImage)
         Imagesz = tk.Label(image=OpeningImage)     
         Imagesz.image = OpeningImage
         Imagesz.pack()  
-
+        # Second label for the description
+        label2 = tk.Label(self.root, text="Please meet the family members and get to know them." , font=("Helvetica", 14),background="#BAA391")
+        label2.pack()   
+        
         #buttons
         # Create buttons for navigation 
         ForvardButton = Button(self.root, text=">>\n>>\n>>", command=lambda: update_display(1), font=("Helvetica", 20, 'bold'), bg="blue")
@@ -117,14 +119,14 @@ class FeastApp:
         status = tk.Label(self.root, text="Status: Start",font= ("Helvetica",20) , bd=1,bg="#BAA391", relief='sunken', anchor='e')
         status.pack(side="bottom", fill="x")
         # Exit button
-        ButtonExit = Button(self.root, text="Exit", font=("Helvetica", 20, 'bold'), command=self.root.quit, bg="green").pack(side="bottom", padx=10, pady=10, anchor="s")
+        ButtonExit = Button(self.root, text="Exit", font=("Helvetica", 20, 'bold'), command=self.root.quit, bg="green").pack(side="bottom", padx=10, pady=5, anchor="s")
         # Select button
         ButtonSelect = Button(self.root, text="Select", font=("Helvetica", 20, 'bold'), command= lambda: select_item(mode='G') ,  bg="green")
         # Next button
-        FoodButton = Button(self.root, text="Select Tables", font=("Helvetica", 20, 'bold'), command=lambda: update_display(1,mode = 'F'), bg="yellow").pack(side="bottom", padx=10, pady=10, anchor="s")
+        FoodButton = Button(self.root, text="Select Tables", font=("Helvetica", 20, 'bold'), command=lambda: update_display(1,mode = 'F'), bg="yellow").pack(side="bottom", padx=10, pady=5, anchor="s")
         # Continue button
         GuestsButton = Button(self.root, text="Select Guests", font=("Helvetica", 20, 'bold'), command=lambda:update_display(1), bg="yellow")
-        GuestsButton.pack( side="bottom",padx=10, pady=10)
+        GuestsButton.pack( side="bottom",padx=10, pady=5)
         
         
 # Create functions
@@ -133,7 +135,7 @@ class FeastApp:
             g_status= len(self.guests.values())
 
             t_status= len(self.tables.values())
-            #a_status= len(self.addons.values())
+            a_status= len(self.addons.values())
             
             if mode == 'F':
                 label1.config(text="Please choose the type of food.")
@@ -159,7 +161,7 @@ class FeastApp:
 
                 ButtonSelect.config(command=lambda: select_item(mode='G'))
                 
-            '''elif mode == 'A':
+            elif mode == 'A':
                 label1.config(text="Please choose the addons.")
                 a_descriptions = list(self.addon_descriptions.values())
                 a_images = list(self.addon_images.values())
@@ -168,26 +170,27 @@ class FeastApp:
                 label2.config(text=a_descriptions[var])
                 Imagesz.config(image=a_images[current_index-1])
                 Imagesz.image = a_images[current_index-1]
-                ButtonSelect.config(command=lambda: select_item(mode='A'))'''
+                ButtonSelect.config(command=lambda: select_item(mode='A'))
                        
             label2.pack()
             Imagesz.pack()
             GuestsButton.config(text="")
+            
             GuestsButton.pack_forget()
-            ButtonSelect.pack(side="bottom", padx=10, pady=10, anchor="s")
+            ButtonSelect.pack(side="bottom", padx=10, pady=5, anchor="s")
             BackvardButton.config(command=lambda: update_display(var, mode))
-            BackvardButton.pack(side="left", padx=10, pady=10, anchor="w")
+            BackvardButton.place(relx=0.01, rely=0.5, anchor='w')
             ForvardButton.config(command=lambda: update_display(nmbr+1, mode=mode))
-            ForvardButton.pack(side="right", padx=10, pady=10, anchor="e")
+            ForvardButton.place(relx=0.99, rely=0.5, anchor='e')
             if mode == 'G':
                 ForvardButton.config(state="disabled") if nmbr == len(g_images) else ForvardButton.config(state="normal")
                 BackvardButton.config(state="disabled") if nmbr == 1 else BackvardButton.config(state="normal")
             elif mode == 'F':
                 ForvardButton.config(state="disabled") if nmbr == len(t_images) else ForvardButton.config(state="normal")
                 BackvardButton.config(state="disabled") if nmbr == 1 else BackvardButton.config(state="normal")
-            '''else:
+            else:
                 ForvardButton.config(state="disabled") if nmbr == a_status else ForvardButton.config(state="normal")
-                BackvardButton.config(state="disabled") if nmbr == 1 else BackvardButton.config(state="normal")'''
+                BackvardButton.config(state="disabled") if nmbr == 1 else BackvardButton.config(state="normal")
 
         def select_item(mode='G'):
             current_index = int(status.cget("text").split(":")[1].split("/")[0]) - 1
@@ -218,8 +221,8 @@ class FeastApp:
                     self.selected_tables = int(self.types_of_tables[current_table])
                     ButtonSelect.pack_forget()
                     DeselectButton = Button(self.root, text="Deselect", font=("Helvetica", 20, 'bold'), command=lambda: update_display(1, 'F'), bg="red")
-                    DeselectButton.pack(side="bottom", padx=10, pady=10, anchor="s")
-                    GuestsButton.pack(side="bottom", padx=10, pady=10)
+                    DeselectButton.pack(side="bottom", padx=10, pady=5, anchor="s")
+                    GuestsButton.pack(side="bottom", padx=10, pady=5)
             elif mode == 'G':
                 current_member = self.family_members[current_index]
                 self.SelectGuest[current_member] = not self.SelectGuest[current_member]
@@ -228,6 +231,17 @@ class FeastApp:
                     label3.config(text=f"{current_member} is selected", fg="green")
                     label4.config(image=img)
                     label4.image = img
+                    self.selected_guests.add(current_member)
+
+            elif mode == 'A':
+                current_addon = self.types_of_addons[current_index]
+                self.SelectAddon[current_addon] = not self.SelectAddon[current_addon]
+                label3.config(text=f"{current_addon} is not selected")
+                if self.SelectAddon[current_addon] == True:
+                    label3.config(text=f"{current_addon} is selected", fg="green")
+                    label4.config(image=img)
+                    label4.image = img
+                    self.selected_addons.add(current_addon)
 
    
 

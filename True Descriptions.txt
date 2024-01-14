@@ -1,4 +1,4 @@
-- Vasilisa: She is your mother's sister, and she is very kind and caring.
+* Vasilisa: She is your mother's sister, and she is very kind and caring.
  She loves to cook and bake, and she always makes delicious meals for the family.
  She is also very creative and loves to make crafts and decorations for special occasions.
 
@@ -10,7 +10,17 @@ For the feast, Vasilisa would be drawn to the array of hearty meaty dishes laid 
  As for drinks, Auntie's tea would be a must, perhaps even infused 
  with some of her favorite flavors from the garden.
 
-- Masha: She is your father's sister, and she is very adventurous and outgoing.
+Likes:
++ Meaty dishes
++ Auntie Vasilia's tea
++ Lemon
+Dislikes:
+- Vegetarian dishes
+- Vodka
+
+
+
+* Masha: She is your father's sister, and she is very adventurous and outgoing.
  She loves to travel and explore new places, and she always has exciting stories to share.
  She is also very athletic and enjoys playing sports and outdoor activities.
 
@@ -21,7 +31,17 @@ relishing the taste of freshly caught seafood prepared in various tantalizing wa
  Additionally, having some beer available, especially from 
  local breweries of her traveled destinations, would greatly please her adventurous palate.
 
-- Ludmila: She is your crush. She is very attractive and charming, and she likes to flirt with others.
+Likes:
++ Auntie Vasilia's tea
++ Beer 
++ Fishy dishes
+Dislikes:
+- Vodka
+- Honey
+- Vegan dishes
+
+
+* Ludmila: She is your crush. She is very attractive and charming, and she likes to flirt with others.
  She is also very intelligent and well-read, and she likes to talk about politics and philosophy.
 
 Ludmila's penchant for healthy and ethical choices leans her toward the vegan and vegetarian dishes.
@@ -29,7 +49,16 @@ Ludmila's penchant for healthy and ethical choices leans her toward the vegan an
  Providing a selection of herbal teas and juices would complement her preferences, 
  offering a refreshing touch to the feast.
 
-- Boris: He's your best male friend. Boris is a free spirit, always seeking adventure and thrills.
+Likes:
++ Vegan dishes
++ Tea
++ Vine
+Dislikes:
+- Meaty dishes
+- Vodka
+- Beer
+
+* Boris: He's your best male friend. Boris is a free spirit, always seeking adventure and thrills.
  He's incredibly spontaneous, often coming up with last-minute plans that lead to unforgettable experiences.
  Boris is fiercely loyal and protective of his friends, but he can be a bit reckless at times, 
  living life on the edge.
@@ -40,8 +69,17 @@ Boris, the thrill-seeker, would find his heart racing with the whole table of me
  To top it off, a touch of vodka might add that extra kick to the feast, 
  suiting his spontaneous nature.
 
-- Friend Katya: She is your best friend, and she is very smart and witty.
- She likes to read and learn, and she is always making jokes and comments.
+Likes:
++ Meaty dishes
++ Beer
++ Juices
+Dislikes:
+- Vegan dishes
+- Tea
+- Auntie Vasilia's tea
+
+* Friend Katya: She is your best friend, and she is very smart and witty.
+ She is able to read and loves gaining knowledge, and she is always making jokes and comments.
  She is also very brave and bold, and often challenges 
  or provokes guests who have different opinions or beliefs.
 
@@ -51,7 +89,16 @@ contrast of vegan/vegetarian dishes and meaty options.
  Offering some lemon slices and teas could add a zest to her culinary experience and 
  perhaps stimulate further discussions.
 
-- Cousin Olga: She is your father's niece, and she is very young and cheerful.
+Likes:
++ Vegetarian dishes
++ Lemon
++ Beer
+Dislikes:
+- Fishy dishes
+- Salt
+- Sugar
+
+* Cousin Olga: She is your father's niece, and she is very young and cheerful.
  She likes to dance and sing, and she is always looking for fun and adventure.
  She is also very curious and naive, and often gets into trouble or causes mischief.
 
@@ -61,7 +108,16 @@ vegetarian dishes.
  Lemon-infused drinks or fruity juices would match her cheerful personality, 
  adding a tangy twist to the feast.
 
-- Yaroslav: He is your father. He is very hard-working and responsible, 
+Likes:
++ Vegetarian dishes
++ Lemon
++ Juices
+Dislikes:
+- Meaty dishes
+- Vodka
+- Salt
+
+* Yaroslav: He is your father. He is very hard-working and responsible, 
 and he likes to take care of his family.
  He is also very strict and traditional, and he likes to enforce rules and discipline.
 
@@ -70,27 +126,57 @@ more conventional meaty options.
  He appreciates the solidity of hearty meals and might prefer tea or 
  maybe a bit of honey to sweeten his beverages while keeping things traditional.
 
-- Marzanna: She is your mother's mother. She is very wise and experienced, 
+Likes:
++ Meaty dishes
++ Vodka 
++ Honey
++ Tea
+Dislikes:
+- Vegan dishes 
+
+* Marzanna: She is your mother's mother. She is very wise and experienced, 
 and she likes to give advice to others.
  She is also very religious and conservative, and she likes to enforce 
  traditional values and beliefs.
 
-Both grandparents, sharing similar traits, would prefer the conservative 
-and traditional spread of meaty dishes, sticking to their values and beliefs.
- Wine might be a suitable addition to their meal, adding a touch of 
- familiarity and elegance to the feast.
+Marzanna, being wise, experienced, and deeply rooted in traditional values, 
+would opt for a feast filled with conservative Slavic delights. 
+A spread of hearty meat dishes, cooked in time-honored ways, would resonate 
+with her appreciation for tradition. Roasted meats, savory stews would be the stars of the feast. 
+To add a touch of elegance, a selection of fine wines might accompany the meal, a
+ligning with Marzanna's taste for refined experiences.
 
-- Gnevomir: He is your mother's father. He is very wise and experienced, 
+Likes:
++ Meaty dishes
++ Vine
++ Sugar
+Dislikes:
+- Fishy dishes
+- Honey
+- Auntie Vasilia's tea
+
+* Gnevomir: He is your mother's father. He is very wise and experienced, 
 and he likes to give advice to others.
  He is also very religious and conservative, and he likes to enforce 
  traditional values and beliefs.
 
-Both grandparents, sharing similar traits, would prefer the conservative 
-and traditional spread of meaty dishes, sticking to their values and beliefs.
- Wine might be a suitable addition to their meal, adding a touch of 
- familiarity and elegance to the feast.
+Grandpa is alcoholic beverages enthusiast and likes to mix sweetness of honey and cooked heavy meat. 
+He is know to make his own alcohol but Grandma dont allow him to bring it when they are guest.
+When he came back from the sea voyage he couldn't stand taste of fishes nor lemon that was common ingredient
+ to fight back the scurvy. 
 
-- Borzena: She is your mother. She is very caring and nurturing, 
+Likes:
++ Meaty and every other dish 
++ Vodka
++ Honey
++ Beer
++ Vine
+Dislikes:
+- Lemon
+- Juices
+- Fishy dishes
+
+* Borzena: She is your mother. She is very caring and nurturing, 
 and she likes to take care of others.
  She is also very protective, and she likes to give advice to others.
 
@@ -98,7 +184,16 @@ Your caring mother would appreciate a mix of options but would lean toward the m
 especially those she knows her family enjoys.
  She might savor a cup of tea or some honey to soothe her nurturing spirit during the gathering.
 
-- Zlata: She is your younger sister. She is very ambitious and career-oriented, 
+Likes:
++ Meaty dishes
++ Auntie Vasilia's tea
++ Honey
+Dislikes:
+- Vodka
+- Salt
+- Lemon
+
+* Zlata: She is your younger sister. She is very ambitious and family-oriented, 
 and she is always trying to one-up you.
  She is also very competitive, and she likes to argue with others.
  She is also very materialistic, and she likes to show off her wealth and possessions.
@@ -108,7 +203,16 @@ the more extravagant and meaty dishes, enjoying the opulence of the feast.
  She might also appreciate having some wine available, something to 
  showcase among the guests and perhaps flaunt her discerning taste.
 
-- Mieszko: He is your father's brother. He is very intelligent and well-read, 
+Likes:
++ Meaty dishes
++ Fishy dishes
++ Vine
+Dislikes:
+- Salt
+- Sugar
+- Lemon
+
+* Mieszko: He is your father's brother. He is very intelligent and well-read, 
 and he likes to talk about politics and philosophy.
  He is also very opinionated and stubborn, and he likes to argue with others.
 
@@ -116,4 +220,13 @@ With his love for discussing politics and philosophy, Mieszko might enjoy engagi
 in debates over the table's contrasting vegan/vegetarian and meaty offerings.
  His strong opinions might find him favoring a particular side.
  Offering some salt for seasoning could appeal to his love for intense discussions.
+
+Likes:
++ Every dish option
++ Auntie Vasilia's tea
++ Vine
+Dislikes:
+- Honey
+- Juices
+- Sugar
   

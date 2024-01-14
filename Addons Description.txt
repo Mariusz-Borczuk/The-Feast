@@ -1,4 +1,4 @@
-- Auntie Vasilia's Serene Samovar presents a Slavic tea experience,
+* Auntie Vasilia's Serene Samovar presents a Slavic tea experience,
  harmonizing chamomile, mint, and berries in a blend that whispers of cultural heritage. 
 Sip the tranquility of Slavic tradition, elegantly crafted in every cup.
 
@@ -11,4 +11,12 @@ Dislikes:
 - Boris
 - Marzanna
 
-
+* asa
+* always
+* asa
+* asa
+* asa
+* asa
+* asa
+* asa
+* asa
