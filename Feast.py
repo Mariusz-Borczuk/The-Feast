@@ -29,7 +29,7 @@ class FeastApp:
     def load_image_set(self, path, image_dict):
         image_paths = [os.path.join(path, file) for file in os.listdir(path)]
         images = {f"{os.path.splitext(os.path.basename(image))[0]}{i+1}": ImageTk.PhotoImage(Image.open(image))
-                  for i, image in enumerate(image_paths)}
+            for i, image in enumerate(image_paths)}
         image_dict.update(images)
 
     def create_variables(self):
@@ -41,14 +41,9 @@ class FeastApp:
         self.select_addon = {addon: False for addon in self.types_of_addons}
 
     def load_descriptions(self):
-        descriptions = self.read_description_file("True Descriptions.txt", self.family_members)
-        self.guest_descriptions = {self.family_members[i]: descriptions[i] for i in range(len(self.family_members))}
-
-        descriptions = self.read_description_file("Tables Description.txt", self.types_of_tables)
-        self.table_descriptions = {self.types_of_tables[i]: descriptions[i] for i in range(len(self.types_of_tables))}
-
-        descriptions = self.read_description_file("Addons Description.txt", self.types_of_addons)
-        self.addon_descriptions = {self.types_of_addons[i]: descriptions[i] for i in range(len(self.types_of_addons))}
+        self.guest_descriptions = self.read_description_file("True Descriptions.txt", self.family_members)
+        self.table_descriptions = self.read_description_file("Tables Description.txt", self.types_of_tables)
+        self.addon_descriptions = self.read_description_file("Addons Description.txt", self.types_of_addons)
 
     def read_description_file(self, file_path, items):
         with open(file_path, 'r') as file:
@@ -79,111 +74,24 @@ class FeastApp:
         guests_button = tk.Button(self.root, text="Select Guests", font=("Helvetica", 20, 'bold'), bg="yellow")
 
         def update_display(nmbr, mode='G'):
-            nonlocal guests_button, button_select
-            var = nmbr - 1
-            g_status, t_status, a_status = len(self.guest_images), len(self.table_images), len(self.addon_images)
+        nonlocal guests_button, button_select
+        var = nmbr - 1
+        g_status, t_status, a_status = len(self.guest_images), len(self.table_images), len(self.addon_images)
 
-            if mode == 'F':
-                label1.config(text="Please choose the type of food.")
-                t_descriptions = list(self.table_descriptions.values())
-                label2.config(text=t_descriptions[var])
-                t_images = list(self.table_images.values())
-                status.config(text=f"Status: {nmbr}/{t_status}")
-                current_index = int(status.cget("text").split(":")[1].split("/")[0])
-                button_select.config(command=lambda: select_item(mode='F'))
-                images_label.config(image=t_images[current_index - 1])
-                images_label.image = t_images[current_index - 1]
-                status.config(text=f"Status: {nmbr}/{t_status}")
-                button_select.config(command=lambda: select_item(mode='F'))
-            elif mode == 'G':
-                label1.config(text="Please meet the family members\n and get to know them.")
-                g_descriptions = list(self.guest_descriptions.values())
-                g_images = list(self.guest_images.values())
-                status.config(text=f"Status: {nmbr}/{g_status}")
-                current_index = int(status.cget("text").split(":")[1].split("/")[0])
-                label2.config(text=g_descriptions[var])
-                images_label.config(image=g_images[current_index - 1])
-                images_label.image = g_images[current_index - 1]
-
-                button_select.config(command=lambda: select_item(mode='G'))
-
-            elif mode == 'A':
-                label1.config(text="Please choose the addons.")
-                a_descriptions = list(self.addon_descriptions.values())
-                a_images = list(self.addon_images.values())
-                status.config(text=f"Status: {nmbr}/{a_status}")
-                current_index = int(status.cget("text").split(":")[1].split("/")[0])
-                label2.config(text=a_descriptions[var])
-                images_label.config(image=a_images[current_index - 1])
-                images_label.image = a_images[current_index - 1]
-                button_select.config(command=lambda: select_item(mode='A'))
-
-            label2.pack()
-            images_label.pack()
-            guests_button.config(text="")
-            guests_button.pack_forget()
-            button_select.pack(side="bottom", padx=10, pady=5, anchor="s")
-def load_descriptions(self, file_path):
-    with open(file_path, 'r') as file:
-        content = file.read()
-    descriptions = [desc.strip() for desc in content.split('* ') if desc.strip()]
-    self.guest_descriptions = {self.family_members[i]: descriptions[i] for i in range(len(self.family_members))}
-
-        def select_item(mode='G'):
-            nonlocal guests_button
-            current_index = int(status.cget("text").split(":")[1].split("/")[0] - 1)
-            img_path, img2_path = "Images/Oki.png", "Images/Nah.png"
-            img, img2 = Image.open(img_path).resize((100, 100)), Image.open(img2_path).resize((100, 100))
-            img, img2 = ImageTk.PhotoImage(img), ImageTk.PhotoImage(img2)
-            label3, label4 = tk.Label(self.root, font=("Helvetica", 16), fg="red", bg="#BAA391"), tk.Label(self.root, image=img2, background="#BAA391")
-            label3.pack(), label4.pack()
-            label3.after(2000, lambda: label3.destroy())
-            label4.after(2000, lambda: label4.destroy())
-
-            if mode == 'F':
-                current_table = self.types_of_tables[current_index]
-                self.select_table[current_table] = not self.select_table[current_table]
-                label3.config(text=f"{current_table} is not selected")
-                if self.select_table[current_table]:
-                    label3.config(text=f"{current_table} is selected", fg="green")
-                    label4.config(image=img)
-                    label4.image = img
-                    self.selected_tables = int(current_table)
-                    button_select.pack_forget()
-                    deselect_button = tk.Button(self.root, text="Deselect", font=("Helvetica", 20, 'bold'), command=lambda: update_display(1, 'F'), bg="red")
-                    deselect_button.pack(side="bottom", padx=10, pady=5, anchor="s")
-                    guests_button.pack(side="bottom", padx=10, pady=5)
-            elif mode == 'G':
-                current_member = self.family_members[current_index]
-                self.select_guest[current_member] = not self.select_guest[current_member]
-                label3.config(text=f"{current_member} is not selected")
-                if self.select_guest[current_member]:
-                    label3.config(text=f"{current_member} is selected", fg="green")
-                    label4.config(image=img)
-                    label4.image = img
-                    self.selected_guests.add(current_member)
-            elif mode == 'A':
-                current_addon = self.types_of_addons[current_index]
-                self.select_addon[current_addon] = not self.select_addon[current_addon]
-                label3.config(text=f"{current_addon} is not selected")
-                if self.select_addon[current_addon]:
-                    label3.config(text=f"{current_addon} is selected", fg="green")
-                    label4.config(image=img)
-                    label4.image = img
-                    self.selected_addons.add(current_addon)
-
-        self.root.mainloop()
-
-    def center_window(self):
-        width, height = 980, 1000
-        screen_width, screen_height = self.root.winfo_screenwidth(), self.root.winfo_screenheight()
-        x, y = (screen_width/2) - (width/2), (screen_height/2) - (height)
-        if platform == "linux":
-            self.root.geometry(f'{width}x{height}+{int(x)}+{int(y)}')
-        else:
-            x, y = (screen_width/2) - (width/2), (screen_height/2) - (height//1.9)
-            self.root.geometry(f'{width}x{height}+{int(x)}+{int(y)}')
-
-if __name__ == "__main__":
-    app = FeastApp()
-    app.gui()
+        if mode == 'F':
+            label1.config(text="Please choose the type of food.")
+            t_descriptions = list(self.table_descriptions.values())
+            label2.config(text=t_descriptions[var])
+            t_images = list(self.table_images.values())
+            status.config(text=f"Status: {nmbr}/{t_status}")
+            current_index = int(status.cget("text").split(":")[1].split("/")[0])
+            button_select.config(command=lambda: select_item(mode='F'))
+            images_label.config(image=t_images[current_index - 1])
+            images_label.image = t_images[current_index - 1]
+            status.config(text=f"Status: {nmbr}/{t_status}")
+            button_select.config(command=lambda: select_item(mode='F'))
+        elif mode == 'G':
+            label1.config(text="Please meet the family members\n and get to know them.")
+            g_descriptions = list(self.guest_descriptions.values())
+            g_images = list(self.guest_images.values())
+e Eleven Multil
