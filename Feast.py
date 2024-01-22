@@ -1,9 +1,10 @@
-import tkinter as tk
 import os
-from PIL import ImageTk, Image
+from pygame import mixer
+import tkinter as tk
 from platform import system
+from PIL import ImageTk, Image
 from sys import platform, version_info
-from tkinter import PhotoImage, Button, Text, Scrollbar
+from tkinter import PhotoImage, Button, Text
 
 class FeastApp: 
     def __init__(self):
@@ -115,6 +116,9 @@ class FeastApp:
         # Create buttons for navigation 
         ForvardButton = Button(self.root, text=">>\n>>\n>>", command=lambda: update_display(1), font=("Helvetica", 20, 'bold'), bg="blue")
         BackvardButton = Button(self.root, text="<<\n<<\n<<",command= lambda: update_display(), font=("Helvetica", 20, 'bold'), bg="red")
+        #Audio button
+        PlayaudioButton = Button(self.root, text="Play audio", font=("Helvetica", 20, 'bold'), command=lambda: play_audio(nmbr, mode), bg="yellow")
+
         # Status bar
         status = tk.Label(self.root, text="Status: Start",font= ("Helvetica",20) , bd=1,bg="#BAA391", relief='sunken', anchor='e')
         status.pack(side="bottom", fill="x")
@@ -130,13 +134,30 @@ class FeastApp:
         
         
 # Create functions
+        def determine_audio_path(nmbr, mode):
+            list_of_audio_paths_guests = ["V.wav","Mas.wav","Lu.wav","Br.wav","Ka.wav","Ol.wav","Ya.wav","Ma.wav","Gn.wav","Bo  .wav","Zl.wav","Mi.wav"]
+            list_of_audio_paths_tables = ["Fish.mp3", "Meat.mp3", "Vegan.mp3", "Vege.mp3"]
+            #list_of_audio_paths_addons = [" Auntie_tea desc.wav", " Beer desc.wav", " Honey desc.wav", " Juices desc.wav", " Lemon desc.wav", " Salt desc.wav", " Sugar desc.wav", " Tea desc.wav", " Vodka desc.wav", " Wine desc.wav"]
+            if mode == 'G':
+                return list_of_audio_paths_guests[nmbr-1]
+            elif mode == 'F':
+                return list_of_audio_paths_tables[nmbr-1]
+            else:
+                return list_of_audio_paths_addons[nmbr-1]
+        
+        def play_audio(nmbr, mode):
+            audio_path = determine_audio_path(nmbr, mode)
+            print(audio_path)
+            mixer.init()
+            mixer.music.load(audio_path)
+            mixer.music.play()
+            
         def update_display(nmbr, mode='G'):
             var = nmbr - 1
-            g_status= len(self.guests.values())
+            g_status = len(self.guests.values())
+            t_status = len(self.tables.values())
+            a_status = len(self.addons.values())
 
-            t_status= len(self.tables.values())
-            a_status= len(self.addons.values())
-            
             if mode == 'F':
                 label1.config(text="Please choose the type of food.")
                 t_descriptions = list(self.table_descriptions.values())
@@ -146,42 +167,52 @@ class FeastApp:
                 current_index = int(status.cget("text").split(":")[1].split("/")[0])
                 ButtonSelect.config(command=lambda: select_item(mode='F'))
                 Imagesz.config(image=t_images[current_index-1])
-                Imagesz.image = t_images[current_index-1]                
+                Imagesz.image = t_images[current_index-1]
                 status.config(text=f"Status: {nmbr}/{t_status}")
                 ButtonSelect.config(command=lambda: select_item(mode='F'))
+                PlayaudioButton.config(command=lambda: play_audio(nmbr, mode='F'))
+                PlayaudioButton.pack(side="bottom", padx=10, pady=5, anchor="s")
             elif mode == 'G':
                 label1.config(text="Please meet the family members\n and get to know them.")
                 g_descriptions = list(self.guest_descriptions.values())
                 g_images = list(self.guest_images.values())
                 status.config(text=f"Status: {nmbr}/{g_status}")
-                current_index = int(status.cget("text").split(":")[1].split("/")[0]) 
+                current_index = int(status.cget("text").split(":")[1].split("/")[0])
                 label2.config(text=g_descriptions[var])
                 Imagesz.config(image=g_images[current_index-1])
                 Imagesz.image = g_images[current_index-1]
+                PlayaudioButton.config(command=lambda: play_audio(nmbr, mode='G'))
+                PlayaudioButton.pack(side="bottom", padx=10, pady=5, anchor="s")
 
                 ButtonSelect.config(command=lambda: select_item(mode='G'))
-                
             elif mode == 'A':
                 label1.config(text="Please choose the addons.")
                 a_descriptions = list(self.addon_descriptions.values())
                 a_images = list(self.addon_images.values())
                 status.config(text=f"Status: {nmbr}/{a_status}")
-                current_index = int(status.cget("t ext").split(":")[1].split("/")[0])
+                current_index = int(status.cget("text").split(":")[1].split("/")[0])
                 label2.config(text=a_descriptions[var])
                 Imagesz.config(image=a_images[current_index-1])
                 Imagesz.image = a_images[current_index-1]
                 ButtonSelect.config(command=lambda: select_item(mode='A'))
-                       
+                PlayaudioButton.config(command=lambda: play_audio(nmbr, mode='A'))
+                PlayaudioButton.pack(side="bottom", padx=10, pady=5, anchor="s")
+
             label2.pack()
             Imagesz.pack()
             GuestsButton.config(text="")
-            
             GuestsButton.pack_forget()
-            ButtonSelect.pack(side="bottom", padx=10, pady=5, anchor="s")
+
+         
+
+
+
+
             BackvardButton.config(command=lambda: update_display(var, mode))
             BackvardButton.place(relx=0.01, rely=0.5, anchor='w')
             ForvardButton.config(command=lambda: update_display(nmbr+1, mode=mode))
             ForvardButton.place(relx=0.99, rely=0.5, anchor='e')
+
             if mode == 'G':
                 ForvardButton.config(state="disabled") if nmbr == len(g_images) else ForvardButton.config(state="normal")
                 BackvardButton.config(state="disabled") if nmbr == 1 else BackvardButton.config(state="normal")
@@ -191,6 +222,7 @@ class FeastApp:
             else:
                 ForvardButton.config(state="disabled") if nmbr == a_status else ForvardButton.config(state="normal")
                 BackvardButton.config(state="disabled") if nmbr == 1 else BackvardButton.config(state="normal")
+ 
 
         def select_item(mode='G'):
             current_index = int(status.cget("text").split(":")[1].split("/")[0]) - 1
