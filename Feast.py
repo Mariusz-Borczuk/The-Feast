@@ -126,12 +126,15 @@ class FeastApp:
         ButtonExit = Button(self.root, text="Exit", font=("Helvetica", 20, 'bold'), command=self.root.quit, bg="green").pack(side="bottom", padx=10, pady=5, anchor="s")
         # Select button
         ButtonSelect = Button(self.root, text="Select", font=("Helvetica", 20, 'bold'), command= lambda: select_item(mode='G') ,  bg="green")
-        # Next button
-        FoodButton = Button(self.root, text="Select Tables", font=("Helvetica", 20, 'bold'), command=lambda: update_display(1,mode = 'F'), bg="yellow").pack(side="bottom", padx=10, pady=5, anchor="s")
-        # Continue button
+        # Food button
+        FoodButton = Button(self.root, text="Select Tables", font=("Helvetica", 20, 'bold'), command=lambda: update_display(1,mode = 'F'), bg="yellow")
+        FoodButton.pack( side="bottom",padx=10, pady=5)
+        # Guests button
         GuestsButton = Button(self.root, text="Select Guests", font=("Helvetica", 20, 'bold'), command=lambda:update_display(1), bg="yellow")
         GuestsButton.pack( side="bottom",padx=10, pady=5)
-        
+        # Addons button
+        AddonsButton = Button(self.root, text="Select Addons", font=("Helvetica", 20, 'bold'), command=lambda:update_display(1, mode='A'), bg="yellow")
+        AddonsButton.pack( side="bottom",padx=10, pady=5)
         
 # Create functions
         def determine_audio_path(nmbr, mode):
@@ -168,10 +171,10 @@ class FeastApp:
                 ButtonSelect.config(command=lambda: select_item(mode='F'))
                 Imagesz.config(image=t_images[current_index-1])
                 Imagesz.image = t_images[current_index-1]
-                status.config(text=f"Status: {nmbr}/{t_status}")
-                ButtonSelect.config(command=lambda: select_item(mode='F'))
+
                 PlayaudioButton.config(command=lambda: play_audio(nmbr, mode='F'))
-                PlayaudioButton.pack(side="bottom", padx=10, pady=5, anchor="s")
+                # pack it next to the exit button
+                PlayaudioButton.place(relx=0.99, rely=0.95, anchor='e')
             elif mode == 'G':
                 label1.config(text="Please meet the family members\n and get to know them.")
                 g_descriptions = list(self.guest_descriptions.values())
@@ -182,7 +185,7 @@ class FeastApp:
                 Imagesz.config(image=g_images[current_index-1])
                 Imagesz.image = g_images[current_index-1]
                 PlayaudioButton.config(command=lambda: play_audio(nmbr, mode='G'))
-                PlayaudioButton.pack(side="bottom", padx=10, pady=5, anchor="s")
+                PlayaudioButton.place(relx=0.99, rely=0.95, anchor='e')
 
                 ButtonSelect.config(command=lambda: select_item(mode='G'))
             elif mode == 'A':
@@ -192,19 +195,31 @@ class FeastApp:
                 status.config(text=f"Status: {nmbr}/{a_status}")
                 current_index = int(status.cget("text").split(":")[1].split("/")[0])
                 label2.config(text=a_descriptions[var])
-                Imagesz.config(image=a_images[current_index-1])
                 Imagesz.image = a_images[current_index-1]
                 ButtonSelect.config(command=lambda: select_item(mode='A'))
                 PlayaudioButton.config(command=lambda: play_audio(nmbr, mode='A'))
-                PlayaudioButton.pack(side="bottom", padx=10, pady=5, anchor="s")
+                PlayaudioButton.place(relx=0.98, rely=0.95, anchor='e')
 
             label2.pack()
             Imagesz.pack()
-            GuestsButton.config(text="")
-            GuestsButton.pack_forget()
-
-         
-
+            if mode == 'G':
+                GuestsButton.config(text="")
+                GuestsButton.pack_forget()
+            else:
+                GuestsButton.config(text="Select Guests")
+                GuestsButton.pack(side="bottom", padx=10, pady=5)
+            if mode == 'F':
+                FoodButton.config(text="")
+                FoodButton.pack_forget()
+            else:
+                FoodButton.config(text="Select Tables")
+                FoodButton.pack(side="bottom", padx=10, pady=5)
+            if mode == 'A':
+                AddonsButton.config(text="")
+                AddonsButton.pack_forget()
+            else:
+                AddonsButton.config(text="Select Addons")
+                AddonsButton.pack(side="bottom", padx=10, pady=5)
 
 
 
