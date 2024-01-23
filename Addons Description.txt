@@ -7,10 +7,15 @@ Liked by:
 + Masha
 + Borzena
 + Mieszko
++ Cousin Olga
 Disliked by:
 - Boris
 - Marzanna
 - Gnevomir
+- Yaroslav
+- Mieszko
+- Zlata
+
 
 * Fully loaded Kegs of Beer tansport back to core of Slavic family feasts,
 where each frothy gulp encapsulates the conviviality of the times.
@@ -26,123 +31,8 @@ Liked by:
 + Gnevomir
 Disliked by:
 - Ludmila
+- Marzanna
 
-* Dive into the coastal charm of Slavic family feasts with Fully loaded 
-Platters of Fresh Catch. Seafood Symphony features succulent fish, 
-seasoned to perfection, echoing the culinary traditions of Slavic heritage. 
-Each bite is a celebration of maritime flavors and shared moments,
-a feast that resonates with the warmth of family gatherings.
-
-Liked by:
-+ Masha
-+ Zlata
-Disliked by:
-- Katya
-
-* Delight your palate with a curated array of Vegan Delights that artfully embody 
-the very essence of Slavic feasts through plant-based creations. Each meticulously 
-crafted dish not only captures the rich warmth and flavors associated with traditional 
-gatherings but also offers a culinary journey that resonates harmoniously 
-with the timeless spirit of the era. Immerse yourself in a gastronomic experience 
-where every bite tells a story of both heritage and innovation.
-
-Liked by:
-+ Ludmila
-+ Friend Katya
-Disliked by:
-- Vasilisa
-- Boris
-
-* Indulge in the Hearth's Bounty Platter, a contemporary homage to Slavic culinary 
-traditions. Feast on a variety of expertly seasoned meats—roasted lamb, 
-hearty beef stew, and grilled sausages—all infused with the rich heritage of 
-flavorful herbs and spices. This present-day celebration of family bonds 
-invites you to savor every bite, creating a delightful harmony of shared stories 
-and robust Slavic gastronomy.
-
-Liked by:
-+ Vasilisa
-+ Masha
-+ Boris
-+ Gnevomir
-+ Borzena
-+ Marzanna
-+ Zlata
-+ Mieszko
-Disliked by:
-- Ludmila
-- Cousin Olga
-
-* At our family feast, the Slavic Harmony platter epitomizes present-day culinary 
-excellence. Delight in the perfection of velvety borscht, a symphony of beetroot 
-and cabbage. Roasted root vegetables, hearty buckwheat groats, and zesty pickled 
-cucumbers compose a vibrant tableau of tradition. Join in for a savoring the warmth of 
-Slavic flavors, a celebration of shared heritage and familial unity.
-
-Liked by:
-+ Friend Katya
-+ Cousin Olga
-Disliked by:
-- Vasilisa
-- Zlata
-
-* Sour Citrus Symphony! evokes the essence of a Slavic family feast, 
-intertwining zesty lemons with a medley of wild herbs and forest berries. 
-Each lick and sip transports you to the heart of familial gatherings, a contemporary 
-celebration where the vibrant flavors mirror the warmth shared among loved ones. 
-Immerse yourself in the lively tapestry of Slavic culinary artistry with every 
-delightful drop, a present-day ode to the rich tapestry of family and bitterness.
-
-Liked by:
-+ Vasilisa
-+ Ludmila
-+ Friend Katya
-+ Cousin Olga
-Disliked by:
-- Gnevomir
-- Borzena
-- Zlata
-
-Embark on a sensory journey with our Family Feast Slavic elixir, a delightful concoction
-that pays homage to rich traditions. Immerse yourself in the warmth of the 
-Samovar Symphony, where chamomile, mint, and countless kinds of berries harmonize 
-to create a blend reminiscent of shared cultural heritage. 
-
-Liked by:
-+ Cousin Olga
-Disliked by:
-- Gnevomir
-- Mieszko
-
-* Enjoy the richness of Slavic wine, made from the finest grapes grown in the sunny 
-slopes of Moravia and Bohemia. Whether you prefer the crisp white of Veltlínské zelené, 
-the fruity red of Frankovka modrá, or the herbal liqueur of Becherovka, 
-find a wine that suits your taste and mood. Celebrate the joy of Slavic culture, 
-artfully expressed in every bottle.
-
-Liked by:
-+ Ludmila
-+ Gnevomir
-+ Marzanna
-+ Zlata
-+ Mieszko
-Disliked by:
-- Ludmila
-
-* Experience the spirit of Slavic vodka, distilled from the purest grains and water, 
-and filtered through charcoal for a smooth and clean taste. Whether you choose the 
-clear or flavored varieties, you will find a vodka that warms your heart and soul. 
-Toast to the glory of Slavic culture, masterfully embodied in every shot.
-
-Liked by:
-+ Gnevomir
-+ Yaroslav
-Disliked by:
-- Vasilisa
-- Masha
-- Ludmila
-- Cousin Olga
-- Borzena
 
 * Savor the sweetness of Slavic honey, harvested from the wildflowers and forests of the
 land. Whether you prefer the golden acacia, the dark buckwheat, or the creamy sunflower, 
@@ -154,8 +44,53 @@ Liked by:
 + Gnevomir
 + Borzena
 Disliked by:
-- Marzanna
+- Masha
+- Zlata
+- Katya
+- Ludmila
 - Mieszko
+
+
+* Step into the enchanting world of Slavic elixirs, where each sip is a celebration 
+of tradition and taste. Immerse yourself in juices crafted from the ripest berries 
+of mystical forests in Moravia and Bohemia. Experience the crisp clarity of 
+Veltlínské zelené, the fruity rhythm of Frankovka modrá, or the herbal allure of 
+Becherovka liqueur. Each bottle is an artful expression of Slavic culture, 
+a vibrant tribute to the joy and heritage that echoes in every drop. 
+Embrace the magic and savor the richness of Slavic juices, a timeless journey of flavor.
+
+Liked by:
++ Ludmila
++ Friend Katya
++ Boris
+Disliked by:
+- Vasilisa
+- Gnevomir
+- Friend Katya
+- Zlata
+- Gnevomir
+- Mieszko
+
+
+* Sour Citrus Symphony! evokes the essence of a Slavic family feast, 
+intertwining zesty lemons with a medley of wild herbs and forest berries. 
+Each lick and sip transports you to the heart of familial gatherings, a contemporary 
+celebration where the vibrant flavors mirror the warmth shared among loved ones. 
+Immerse yourself in the lively tapestry of Slavic culinary artistry with every 
+delightful drop, a present-day ode to the rich tapestry of family and bitterness.
+
+Liked by:
++ Vasilisa
++ Katya
++ Olga
++ Boris
+Disliked by:
+- Friend Katya
+- Zlata
+- Marzanna
+- Borzena
+- Givennevomir
+
 
 * Relish the flavor of Slavic salt, extracted from the ancient mines and springs of 
 the region. Whether you sprinkle it on bread and cheese, season your meat and vegetables,
@@ -164,10 +99,14 @@ satisfies your palate. Enjoy the essence of Slavic culture, tastefully expressed
 every grain.
 
 Liked by:
-+ Friend Katya
++ Marzanna
++ Mieszko
 Disliked by:
-- Cousin Olga
+- Zlata
 - Borzena
+- Olga
+- Katya
+
 
 * Enjoy the sweetness of Slavic hospitality with this sugar, made from pure beetroot 
 and honey. Sprinkle it over your pastries, cakes, and pies, or stir it into your tea 
@@ -176,9 +115,13 @@ family feast.
 
 Liked by:
 + Marzanna
++ Ludmila
++ Borzena
 Disliked by:
 - Friend Katya
+- Zlata
 - Mieszko
+
 
 * Relish the simplicity and elegance of this classic black tea, brewed from the 
 finest leaves and flowers. This tea is the perfect companion for any occasion, 
@@ -187,6 +130,47 @@ evening chat. This tea will bring you the comfort and charm of Slavic culture.
 
 Liked by:
 + Ludmila
++ Auntie Vasilia
++ Borzena
++ Mieszko
 + Yaroslav
 Disliked by:
+- Gnevomir
+- Marzanna
+- Zlata
 - Boris
+
+
+* Experience the spirit of Slavic vodka, distilled from the purest grains and water, 
+and filtered through charcoal for a smooth and clean taste. Whether you choose the 
+clear or flavored varieties, you will find a vodka that warms your heart and soul. 
+Toast to the glory of Slavic culture, masterfully embodied in every shot.
+
+Liked by:
++ Yaroslav
++ Gnevomir
++ Marzanna
++ Boris
+Disliked by:
+- Masha
+- Ludmila
+- Auntie Vasilia
+- Cousin Olga
+- Friend Katya
+- Borzena
+
+
+* Enjoy the richness of Slavic wine, made from the finest grapes grown in the sunny 
+slopes of Moravia and Bohemia. Whether you prefer the crisp white of Veltlínské zelené, 
+the fruity red of Frankovka modrá, or the herbal liqueur of Becherovka, 
+find a wine that suits your taste and mood. Celebrate the joy of Slavic culture, 
+artfully expressed in every bottle.
+
+Liked by:
++ Ludmila
++ Marzanna
++ Gnevomir
++ Zlata
++ Mieszko
+Disliked by:
+- Borzena

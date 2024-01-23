@@ -43,7 +43,7 @@ class FeastApp:
     def load_images(self):
         guests_paths = ["Images/Guests/Aunt_Vasilisa.png", "Images/Guests/Dad_sis_Masha.png", "Images/Guests/Luba_Ludmila.png", "Images/Guests/BF_Boris.png", "Images/Guests/BF_Katya.png", "Images/Guests/Cousin_Olga.png", "Images/Guests/Dad_Yaroslav.png", "Images/Guests/Grandma_Marzanna.png", "Images/Guests/Grandpa_Gnevomir.png", "Images/Guests/Mom_Borzena.png", "Images/Guests/Sis_Zlata.png", "Images/Guests/Uncle_Mieszko.png"]
         tables_paths = ["Images/Table/FishyTable.png", "Images/Table/MeatyTable.png", "Images/Table/VeganTable.png", "Images/Table/VegeTable.png"]
-        addons_paths = ["Images/addons/Auntie_tea.png", "Images/addons/Beer.png", "Images/addons/Honey.png", "Images/addons/Juices.png", "Images/addons/Lemon.png", "Images/addons/Salt.png", "Images/addons/Sugar.png", "Images/addons/Tea.png", "Images/addons/Vodka.png", "Images/addons/Wine.png"]
+        addons_paths = ["Images/Addons/Auntie_tea.png", "Images/Addons/Beer.png", "Images/Addons/Honey.png", "Images/Addons/Juices.png", "Images/Addons/Lemon.png", "Images/Addons/Salt.png", "Images/Addons/Sugar.png", "Images/Addons/Tea.png", "Images/Addons/Vodka.png", "Images/Addons/Wine.png"]
         # Create a dictionary of images
         self.guests = {f"Guest{i}": Image.open(path) for i, path in enumerate(guests_paths, start=1)}
         self.tables = {f"Table{i}": Image.open(path) for i, path in enumerate(tables_paths, start=1)}
@@ -68,7 +68,7 @@ class FeastApp:
     def load_descriptions(self):
         file_path = "True Descriptions.txt"  # char description
         file_path2 = "Tables Description.txt"  # table description
-        file_path3 = "Addons Description.txt" # addons description
+        file_path3 = "Addons Description.txt" # addon description
         # Read the content of the file
         with open(file_path, 'r') as file:
             content = file.read()
@@ -85,6 +85,7 @@ class FeastApp:
         descriptions = [desc.strip() for desc in descriptions if desc.strip()]
         descriptions2 = [desc.strip() for desc in descriptions2 if desc.strip()]
         descriptions3 = [desc.strip() for desc in descriptions3 if desc.strip()]
+        
         # Assign each description to a variable
         self.guest_descriptions = {
             self.family_members[i]: descriptions[i] for i in range(len(self.family_members))
@@ -173,7 +174,6 @@ class FeastApp:
                 Imagesz.image = t_images[current_index-1]
 
                 PlayaudioButton.config(command=lambda: play_audio(nmbr, mode='F'))
-                # pack it next to the exit button
                 PlayaudioButton.place(relx=0.99, rely=0.95, anchor='e')
             elif mode == 'G':
                 label1.config(text="Please meet the family members\n and get to know them.")
@@ -189,12 +189,13 @@ class FeastApp:
 
                 ButtonSelect.config(command=lambda: select_item(mode='G'))
             elif mode == 'A':
-                label1.config(text="Please choose the addons.")
+                label1.config(text="Please choose the addons up to 6.")
                 a_descriptions = list(self.addon_descriptions.values())
                 a_images = list(self.addon_images.values())
                 status.config(text=f"Status: {nmbr}/{a_status}")
                 current_index = int(status.cget("text").split(":")[1].split("/")[0])
                 label2.config(text=a_descriptions[var])
+                Imagesz.config(image=a_images[current_index-1])
                 Imagesz.image = a_images[current_index-1]
                 ButtonSelect.config(command=lambda: select_item(mode='A'))
                 PlayaudioButton.config(command=lambda: play_audio(nmbr, mode='A'))
