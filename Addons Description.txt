@@ -65,7 +65,6 @@ Liked by:
 Disliked by:
 - Vasilisa
 - Gnevomir
-- Friend Katya
 - Zlata
 - Mieszko
 
@@ -83,11 +82,10 @@ Liked by:
 + Olga
 + Boris
 Disliked by:
-- Friend Katya
 - Zlata
 - Marzanna
 - Borzena
-- Givennevomir
+- Gnevomir
 
 
 * Relish the flavor of Slavic salt, extracted from the ancient mines and springs of 

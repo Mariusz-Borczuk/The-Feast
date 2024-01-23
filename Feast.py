@@ -139,9 +139,9 @@ class FeastApp:
         
 # Create functions
         def determine_audio_path(nmbr, mode):
-            list_of_audio_paths_guests = ["V.wav","Mas.wav","Lu.wav","Br.wav","Ka.wav","Ol.wav","Ya.wav","Ma.wav","Gn.wav","Bo  .wav","Zl.wav","Mi.wav"]
+            list_of_audio_paths_guests = ["V.wav","Mas.wav","Lu.wav","Br.wav","Ka.wav","Ol.wav","Ya.wav","Ma.wav","Gn.wav","Bo.wav","Zl.wav","Mi.wav"]
             list_of_audio_paths_tables = ["Fish.mp3", "Meat.mp3", "Vegan.mp3", "Vege.mp3"]
-            #list_of_audio_paths_addons = [" Auntie_tea desc.wav", " Beer desc.wav", " Honey desc.wav", " Juices desc.wav", " Lemon desc.wav", " Salt desc.wav", " Sugar desc.wav", " Tea desc.wav", " Vodka desc.wav", " Wine desc.wav"]
+            list_of_audio_paths_addons = ["Vastea.mp3", "Beer.mp3", "Honey.mp3", "Juices.mp3", "Lemon.mp3", "Salt.mp3", "Sugar.mp3", "Tea.mp3", "Vodka.mp3", "Vine.mp3"]
             if mode == 'G':
                 return list_of_audio_paths_guests[nmbr-1]
             elif mode == 'F':
