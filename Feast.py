@@ -16,7 +16,11 @@ class FeastApp:
         self.Create_variables()
         self.load_descriptions()
         self.center_window(self.root)
+        #self.selecting_guests()
+        #self.selecting_tables()
+        #self.selecting_addons()
         self.Gui_()
+      
 
 
         
@@ -35,10 +39,6 @@ class FeastApp:
         self.root.update()
 
 
-        #Selected variables
-        self.selected_guests = {}
-        self.selected_tables = None
-        self.selected_addons = {}
 
     def load_images(self):
         guests_paths = ["Images/Guests/Aunt_Vasilisa.png", "Images/Guests/Dad_sis_Masha.png", "Images/Guests/Luba_Ludmila.png", "Images/Guests/BF_Boris.png", "Images/Guests/BF_Katya.png", "Images/Guests/Cousin_Olga.png", "Images/Guests/Dad_Yaroslav.png", "Images/Guests/Grandma_Marzanna.png", "Images/Guests/Grandpa_Gnevomir.png", "Images/Guests/Mom_Borzena.png", "Images/Guests/Sis_Zlata.png", "Images/Guests/Uncle_Mieszko.png"]
@@ -56,15 +56,12 @@ class FeastApp:
         self.addon_images = {key: ImageTk.PhotoImage(image) for key, image in self.addons.items()}  
 
     def Create_variables(self):
-        self.family_members = ["Vasilisa", "Masha", "Ludmila", "Boris", "Katya", "Olga", "Yaroslav", "Marzanna", "Gnevomir", "Borzena", "Zlata", "Mieszko"]
-        self.SelectGuest = {member: False for member in self.family_members}
+        self.family_members = {"Aunt Vasilia": False, "Masha": False, "Luba Ludmila": False, "Boris": False, "Katya": False, "Olga": False, "Yaroslav": False, "Marzanna": False, "Gnevomir": False, "Borzena": False, "Zlata": False, "Mieszko": False}
+        print(len(self.family_members))
+        self.types_of_tables = {"Fishy Table": False, "Meaty Table": False, "Vegan Table": False, "Vege Table": False}
 
-        self.types_of_tables = ["Fishy", "Meaty", "Vegan", "Vege"]
-        self.SelectTable = {table: False for table in self.types_of_tables}
-
-        self.types_of_addons = ["Auntie_tea", "Beer", "Honey", "Juices", "Lemon", "Salt", "Sugar", "Tea", "Vodka", "Wine"]
-        self.SelectAddon = {addon: False for addon in self.types_of_addons}
-
+        self.types_of_addons = {"Aunties_Tea": False, "Beer": False, "Honey": False, "Juices": False, "Lemon": False, "Salt": False, "Sugar": False, "Tea": False, "Vodka": False, "Wine": False}
+    
     def load_descriptions(self):
         file_path = "True Descriptions.txt"  # char description
         file_path2 = "Tables Description.txt"  # table description
@@ -88,14 +85,14 @@ class FeastApp:
         
         # Assign each description to a variable
         self.guest_descriptions = {
-            self.family_members[i]: descriptions[i] for i in range(len(self.family_members))
-        }
+            list(self.family_members.keys())[i]: descriptions[i] for i in range(len(self.family_members))
+            }
         self.table_descriptions = {
-            self.types_of_tables[i]: descriptions2[i] for i in range(len(self.types_of_tables))
-        }
+            list(self.types_of_tables.keys())[i]: descriptions2[i] for i in range(len(self.types_of_tables))
+            }
         self.addon_descriptions = {
-            self.types_of_addons[i]: descriptions3[i] for i in range(len(self.types_of_addons))
-        }
+            list(self.types_of_addons.keys())[i]: descriptions3[i] for i in range(len(self.types_of_addons))
+            }
 
     def Gui_(self):
 
@@ -115,6 +112,8 @@ class FeastApp:
         
         #buttons
         # Create buttons for navigation 
+        nmbr = 1  # Define the variable "nmbr"
+        mode = 'G'  # Define the variable "mode"
         ForvardButton = Button(self.root, text=">>\n>>\n>>", command=lambda: update_display(1), font=("Helvetica", 20, 'bold'), bg="blue")
         BackvardButton = Button(self.root, text="<<\n<<\n<<",command= lambda: update_display(), font=("Helvetica", 20, 'bold'), bg="red")
         #Audio button
@@ -127,6 +126,11 @@ class FeastApp:
         ButtonExit = Button(self.root, text="Exit", font=("Helvetica", 20, 'bold'), command=self.root.quit, bg="green").pack(side="bottom", padx=10, pady=5, anchor="s")
         # Select button
         ButtonSelect = Button(self.root, text="Select", font=("Helvetica", 20, 'bold'), command= lambda: select_item(mode='G') ,  bg="green")
+        ButtonSelect.place(relx=0.1, rely=0.9, anchor='s')     
+        # Deselect button
+        ButtonDeselect = Button(self.root, text="Deselect", font=("Helvetica", 20, 'bold'), command=lambda: deselect_button(mode='F'), bg="red")
+        ButtonDeselect.place(relx=0.1, rely=0.95, anchor='s')
+
         # Food button
         FoodButton = Button(self.root, text="Select Tables", font=("Helvetica", 20, 'bold'), command=lambda: update_display(1,mode = 'F'), bg="yellow")
         FoodButton.pack( side="bottom",padx=10, pady=5)
@@ -169,7 +173,12 @@ class FeastApp:
                 t_images = list(self.table_images.values())
                 status.config(text=f"Status: {nmbr}/{t_status}")
                 current_index = int(status.cget("text").split(":")[1].split("/")[0])
+
                 ButtonSelect.config(command=lambda: select_item(mode='F'))
+                ButtonSelect.place(relx=0.1, rely=0.9, anchor='s')
+                ButtonDeselect.config(command=lambda: deselect_button(mode='F'))
+                ButtonDeselect.place(relx=0.1, rely=0.95, anchor='s')
+                
                 Imagesz.config(image=t_images[current_index-1])
                 Imagesz.image = t_images[current_index-1]
 
@@ -186,8 +195,8 @@ class FeastApp:
                 Imagesz.image = g_images[current_index-1]
                 PlayaudioButton.config(command=lambda: play_audio(nmbr, mode='G'))
                 PlayaudioButton.place(relx=0.99, rely=0.95, anchor='e')
-
-                ButtonSelect.config(command=lambda: select_item(mode='G'))
+                ButtonSelect.config(command=lambda: select_item(mode='G')).place(relx=0.1, rely=0.9, anchor='s')
+                ButtonDeselect.config(command=lambda: deselect_button(mode='G')).place(relx=0.1, rely=0.95, anchor='s')
             elif mode == 'A':
                 label1.config(text="Please choose the addons up to 6.")
                 a_descriptions = list(self.addon_descriptions.values())
@@ -197,7 +206,8 @@ class FeastApp:
                 label2.config(text=a_descriptions[var])
                 Imagesz.config(image=a_images[current_index-1])
                 Imagesz.image = a_images[current_index-1]
-                ButtonSelect.config(command=lambda: select_item(mode='A'))
+                ButtonSelect.config(command=lambda: select_item(mode='A')).place(relx=0.1, rely=0.9, anchor='s')
+                ButtonDeselect.config(command=lambda: deselect_button(mode='A')).place(relx=0.1, rely=0.95, anchor='s')
                 PlayaudioButton.config(command=lambda: play_audio(nmbr, mode='A'))
                 PlayaudioButton.place(relx=0.98, rely=0.95, anchor='e')
 
@@ -238,10 +248,24 @@ class FeastApp:
             else:
                 ForvardButton.config(state="disabled") if nmbr == a_status else ForvardButton.config(state="normal")
                 BackvardButton.config(state="disabled") if nmbr == 1 else BackvardButton.config(state="normal")
- 
+            
+        def deselect_button(mode='F'):
+            if mode == 'F':
+                #for each value in the dictionary, CHANGE ALL VALUES TO FALSE
+                for key, value in self.types_of_tables.items():
+                    self.types_of_tables[value] = not self.types_of_tables[value]
+                    print(key, value)
+                #make button disable
+                ButtonDeselect.config(state="disabled")
+
+
+
+
+
 
         def select_item(mode='G'):
             current_index = int(status.cget("text").split(":")[1].split("/")[0]) - 1
+            # Image shown
             imgpath = "Images/Oki.png"
             img2path = "Images/Nah.png"
             img = Image.open(imgpath)
@@ -250,27 +274,52 @@ class FeastApp:
             img2 = img2.resize((100, 100))
             img = ImageTk.PhotoImage(img)
             img2 = ImageTk.PhotoImage(img2)
+            # Show the image
             label3 = tk.Label(self.root, font=("Helvetica", 16), fg="red", bg="#BAA391")
-            label3.pack()
-            label4 = tk.Label(self.root, image=img2, background="#BAA391")
-            label4.image = img2
-            label4.pack()
+            label4 = tk.Label(self.root, image=img, background="#BAA391")
+            label4.image = img
             label3.after(2000, lambda: label3.destroy())
             label4.after(2000, lambda: label4.destroy())
 
             if mode == 'F':
-                current_table = self.types_of_tables[current_index]
-                self.SelectTable[current_table] = not self.SelectTable[current_table]
-                label3.config(text=f"{current_table} is not selected")
-                if self.SelectTable[current_table] == True:
-                    label3.config(text=f"{current_table} is selected", fg="green")
-                    label4.config(image=img)
-                    label4.image = img
-                    self.selected_tables = int(self.types_of_tables[current_table])
+                #make button disable
+               
+                if self.types_of_tables[list(self.types_of_tables)[current_index]] == True:
+                        ButtonSelect.config(state="disabled")
+                #if all values are False, then the button will be 
+               
+                if ButtonSelect.winfo_exists():
                     ButtonSelect.pack_forget()
-                    DeselectButton = Button(self.root, text="Deselect", font=("Helvetica", 20, 'bold'), command=lambda: update_display(1, 'F'), bg="red")
-                    DeselectButton.pack(side="bottom", padx=10, pady=5, anchor="s")
-                    GuestsButton.pack(side="bottom", padx=10, pady=5)
+                if ButtonDeselect.winfo_exists():
+                    ButtonDeselect.pack_forget()
+                    
+
+                for key, value in self.types_of_tables.items():
+                    print(key, value)
+
+                print("----------------------------------")
+                self.types_of_tables[list(self.types_of_tables)[current_index]] = not self.types_of_tables[list(self.types_of_tables)[current_index]]
+
+               
+                
+
+                print("----------------------------------")
+                
+                for key, value in self.types_of_tables.items():
+                    print(key, value)
+
+                    
+                if  self.types_of_tables[list(self.types_of_tables)[current_index]] == True:
+                    label3.config(text=f"{list(self.types_of_tables)[current_index]} is selected", fg="green")
+                    label3.pack()                  
+                    label4.pack()
+
+                elif self.types_of_tables[list(self.types_of_tables)[current_index]] == False:
+                    label3.config(text=f"{list(self.types_of_tables)[current_index]} is not selected")
+                    label4.config(image=img2)
+                    label4.image = img2
+                    label3.pack()
+                    label4.pack()
             elif mode == 'G':
                 current_member = self.family_members[current_index]
                 self.SelectGuest[current_member] = not self.SelectGuest[current_member]
@@ -280,7 +329,11 @@ class FeastApp:
                     label4.config(image=img)
                     label4.image = img
                     self.selected_guests.add(current_member)
-
+                    if current_index < len(self.types_of_addons):
+                        current_addon = self.types_of_addons[current_index]
+                    else:
+                        # Handle the case when current_index is out of range
+                        current_addon = None
             elif mode == 'A':
                 current_addon = self.types_of_addons[current_index]
                 self.SelectAddon[current_addon] = not self.SelectAddon[current_addon]
@@ -296,6 +349,16 @@ class FeastApp:
         def __del__(self):
             # Destroy the application
             self.root.destroy()
+
+    def selecting_guests(self,nmbr):
+
+        if nmbr in self.SelectGuest:
+            self.SelectGuest[nmbr] = not self.SelectGuest[nmbr]
+            if self.SelectGuest[nmbr] == True:
+                self.selected_guests.add(nmbr)
+       
+
+        # Create a frame for the guests
         
 # Create definitions of methods
         
