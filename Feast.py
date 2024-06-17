@@ -25,8 +25,24 @@ class FeastApp:
 
         
     def inizialize_root(self):
+        # Initialize the root window with the title and Background
         self.root.title("Feast")
-        self.root.configure(background="#BAA391")
+        ##TEST
+        #self.root.configure(background="#BAA391")
+
+        # Use image as a background for the window
+       #
+        bg_image = Image.open("Images/BG2.png")
+        bg_photo = ImageTk.PhotoImage(bg_image)
+        bg_label = tk.Label(self.root, image=bg_photo)
+        bg_label.place(x=0, y=0, relwidth=1, relheight=1)
+        bg_label.image = bg_photo
+        bg_photo = ImageTk.PhotoImage(bg_image)
+        bg_label = tk.Label(self.root, image=bg_photo)
+        bg_label.place(x=0, y=0, relwidth=1, relheight=1)
+        bg_label.image = bg_photo
+        
+        # Set the icon for the application depending on the operating system
         icondir = os.path.join(os.path.dirname(__file__))
         if system() == 'Windows':
             iconfile = os.path.join(icondir, 'Icona.ico')
@@ -41,31 +57,33 @@ class FeastApp:
 
 
     def load_images(self):
+        # Define the paths to the images @Upgrade
         guests_paths = ["Images/Guests/Aunt_Vasilisa.png", "Images/Guests/Dad_sis_Masha.png", "Images/Guests/Luba_Ludmila.png", "Images/Guests/BF_Boris.png", "Images/Guests/BF_Katya.png", "Images/Guests/Cousin_Olga.png", "Images/Guests/Dad_Yaroslav.png", "Images/Guests/Grandma_Marzanna.png", "Images/Guests/Grandpa_Gnevomir.png", "Images/Guests/Mom_Borzena.png", "Images/Guests/Sis_Zlata.png", "Images/Guests/Uncle_Mieszko.png"]
         tables_paths = ["Images/Table/FishyTable.png", "Images/Table/MeatyTable.png", "Images/Table/VeganTable.png", "Images/Table/VegeTable.png"]
         addons_paths = ["Images/Addons/Auntie_tea.png", "Images/Addons/Beer.png", "Images/Addons/Honey.png", "Images/Addons/Juices.png", "Images/Addons/Lemon.png", "Images/Addons/Salt.png", "Images/Addons/Sugar.png", "Images/Addons/Tea.png", "Images/Addons/Vodka.png", "Images/Addons/Wine.png"]
+        
         # Create a dictionary of images
         self.guests = {f"Guest{i}": Image.open(path) for i, path in enumerate(guests_paths, start=1)}
         self.tables = {f"Table{i}": Image.open(path) for i, path in enumerate(tables_paths, start=1)}
         self.addons = {f"Addon{i}": Image.open(path) for i, path in enumerate(addons_paths, start=1)}
            
 
-            # Convert images to ImageTk format
+        # Convert images to ImageTk format
         self.guest_images = {key: ImageTk.PhotoImage(image) for key, image in self.guests.items()}
         self.table_images = {key: ImageTk.PhotoImage(image) for key, image in self.tables.items()}
         self.addon_images = {key: ImageTk.PhotoImage(image) for key, image in self.addons.items()}  
 
     def Create_variables(self):
+        # Create variables for the application
         self.family_members = {"Aunt Vasilia": False, "Masha": False, "Luba Ludmila": False, "Boris": False, "Katya": False, "Olga": False, "Yaroslav": False, "Marzanna": False, "Gnevomir": False, "Borzena": False, "Zlata": False, "Mieszko": False}
-        print(len(self.family_members))
         self.types_of_tables = {"Fishy Table": False, "Meaty Table": False, "Vegan Table": False, "Vege Table": False}
-
         self.types_of_addons = {"Aunties_Tea": False, "Beer": False, "Honey": False, "Juices": False, "Lemon": False, "Salt": False, "Sugar": False, "Tea": False, "Vodka": False, "Wine": False}
     
     def load_descriptions(self):
-        file_path = "True Descriptions.txt"  # char description
+        file_path  = "True Descriptions.txt"    # char description
         file_path2 = "Tables Description.txt"  # table description
-        file_path3 = "Addons Description.txt" # addon description
+        file_path3 = "Addons Description.txt"  # addon description
+       
         # Read the content of the file
         with open(file_path, 'r') as file:
             content = file.read()
@@ -96,37 +114,46 @@ class FeastApp:
 
     def Gui_(self):
 
-        #Labels
+        ##Labels
         # First label for the title
         label1 = tk.Label(self.root, text="Welcome to The Feast paragraph game!", font=("Helvetica", 32),background="#BAA391")
-        label1.pack()        
-        # Create an entry image 
+                #Audio here
+        label1.pack() 
+
+        # Create an entry image on top of the Background
         OpeningImage = Image.open("Images/pierwsi.png")
         OpeningImage = ImageTk.PhotoImage(OpeningImage)
         Imagesz = tk.Label(image=OpeningImage)     
         Imagesz.image = OpeningImage
         Imagesz.pack()  
+
         # Second label for the description
         label2 = tk.Label(self.root, text="Please meet the family members and get to know them." , font=("Helvetica", 14),background="#BAA391")
         label2.pack()   
         
-        #buttons
+        ##Buttons
         # Create buttons for navigation 
         nmbr = 1  # Define the variable "nmbr"
         mode = 'G'  # Define the variable "mode"
+        
+        # Navigation buttons
         ForvardButton = Button(self.root, text=">>\n>>\n>>", command=lambda: update_display(1), font=("Helvetica", 20, 'bold'), bg="blue")
         BackvardButton = Button(self.root, text="<<\n<<\n<<",command= lambda: update_display(), font=("Helvetica", 20, 'bold'), bg="red")
+       
         #Audio button
         PlayaudioButton = Button(self.root, text="Play audio", font=("Helvetica", 20, 'bold'), command=lambda: play_audio(nmbr, mode), bg="yellow")
 
         # Status bar
         status = tk.Label(self.root, text="Status: Start",font= ("Helvetica",20) , bd=1,bg="#BAA391", relief='sunken', anchor='e')
         status.pack(side="bottom", fill="x")
+        
         # Exit button
         ButtonExit = Button(self.root, text="Exit", font=("Helvetica", 20, 'bold'), command=self.root.quit, bg="green").pack(side="bottom", padx=10, pady=5, anchor="s")
+        
         # Select button
         ButtonSelect = Button(self.root, text="Select", font=("Helvetica", 20, 'bold'), command= lambda: select_item(mode='G') ,  bg="green")
         ButtonSelect.place(relx=0.1, rely=0.9, anchor='s')     
+        
         # Deselect button
         ButtonDeselect = Button(self.root, text="Deselect", font=("Helvetica", 20, 'bold'), command=lambda: deselect_button(mode='F'), bg="red")
         ButtonDeselect.place(relx=0.1, rely=0.95, anchor='s')
@@ -134,18 +161,22 @@ class FeastApp:
         # Food button
         FoodButton = Button(self.root, text="Select Tables", font=("Helvetica", 20, 'bold'), command=lambda: update_display(1,mode = 'F'), bg="yellow")
         FoodButton.pack( side="bottom",padx=10, pady=5)
+        
         # Guests button
         GuestsButton = Button(self.root, text="Select Guests", font=("Helvetica", 20, 'bold'), command=lambda:update_display(1), bg="yellow")
         GuestsButton.pack( side="bottom",padx=10, pady=5)
+        
         # Addons button
         AddonsButton = Button(self.root, text="Select Addons", font=("Helvetica", 20, 'bold'), command=lambda:update_display(1, mode='A'), bg="yellow")
         AddonsButton.pack( side="bottom",padx=10, pady=5)
         
 # Create functions
         def determine_audio_path(nmbr, mode):
-            list_of_audio_paths_guests = ["V.wav","Mas.wav","Lu.wav","Br.wav","Ka.wav","Ol.wav","Ya.wav","Ma.wav","Gn.wav","Bo.wav","Zl.wav","Mi.wav"]
-            list_of_audio_paths_tables = ["Fish.mp3", "Meat.mp3", "Vegan.mp3", "Vege.mp3"]
-            list_of_audio_paths_addons = ["Vastea.mp3", "Beer.mp3", "Honey.mp3", "Juices.mp3", "Lemon.mp3", "Salt.mp3", "Sugar.mp3", "Tea.mp3", "Vodka.mp3", "Vine.mp3"]
+            list_of_audio_paths_guests = ["Audio/V.wav","Audio/Mas.wav","Audio/Lu.wav","Audio/Br.wav","Audio/Ka.wav","Audio/Ol.wav","Audio/Ya.wav","Audio/Ma.wav","Audio/Gn.wav","Audio/Bo.wav","Audio/Zl.wav","Audio/Mi.wav"]
+            list_of_audio_paths_tables = ["Audio/Fish.mp3", "Audio/Meat.mp3", "Audio/Vegan.mp3", "Audio/Vege.mp3"]
+            list_of_audio_paths_addons = ["Audio/Vastea.mp3", "Audio/Beer.mp3", "Audio/Honey.mp3", "Audio/Juices.mp3", "Audio/Lemon.mp3", "Audio/Salt.mp3", "Audio/Sugar.mp3", "Audio/Tea.mp3", "Audio/Vodka.mp3", "Audio/Vine.mp3"]
+           
+           # Return the path to the audio file 
             if mode == 'G':
                 return list_of_audio_paths_guests[nmbr-1]
             elif mode == 'F':
@@ -154,6 +185,7 @@ class FeastApp:
                 return list_of_audio_paths_addons[nmbr-1]
         
         def play_audio(nmbr, mode):
+            # Play the audio file @change to my own player 
             audio_path = determine_audio_path(nmbr, mode)
             print(audio_path)
             mixer.init()
@@ -161,6 +193,7 @@ class FeastApp:
             mixer.music.play()
             
         def update_display(nmbr, mode='G'):
+            # Update the display of the application through every iteration of pages
             var = nmbr - 1
             g_status = len(self.guests.values())
             t_status = len(self.tables.values())
@@ -168,6 +201,9 @@ class FeastApp:
 
             if mode == 'F':
                 label1.config(text="Please choose the type of food.")
+                #Audio here @Add
+                
+                # Get the description VAL and images
                 t_descriptions = list(self.table_descriptions.values())
                 label2.config(text=t_descriptions[var])
                 t_images = list(self.table_images.values())
@@ -186,6 +222,7 @@ class FeastApp:
                 PlayaudioButton.place(relx=0.99, rely=0.95, anchor='e')
             elif mode == 'G':
                 label1.config(text="Please meet the family members\n and get to know them.")
+                #Audio here
                 g_descriptions = list(self.guest_descriptions.values())
                 g_images = list(self.guest_images.values())
                 status.config(text=f"Status: {nmbr}/{g_status}")
@@ -195,10 +232,14 @@ class FeastApp:
                 Imagesz.image = g_images[current_index-1]
                 PlayaudioButton.config(command=lambda: play_audio(nmbr, mode='G'))
                 PlayaudioButton.place(relx=0.99, rely=0.95, anchor='e')
-                ButtonSelect.config(command=lambda: select_item(mode='G')).place(relx=0.1, rely=0.9, anchor='s')
-                ButtonDeselect.config(command=lambda: deselect_button(mode='G')).place(relx=0.1, rely=0.95, anchor='s')
+                ButtonSelect.config(command=lambda: select_item(mode='G'))
+                ButtonSelect.place(relx=0.1, rely=0.9, anchor='s')
+                ButtonDeselect.config(command=lambda: deselect_button(mode='G'))
+                ButtonDeselect.place(relx=0.1, rely=0.95, anchor='s')
             elif mode == 'A':
                 label1.config(text="Please choose the addons up to 6.")
+                #Audio here @make
+
                 a_descriptions = list(self.addon_descriptions.values())
                 a_images = list(self.addon_images.values())
                 status.config(text=f"Status: {nmbr}/{a_status}")
@@ -206,13 +247,14 @@ class FeastApp:
                 label2.config(text=a_descriptions[var])
                 Imagesz.config(image=a_images[current_index-1])
                 Imagesz.image = a_images[current_index-1]
-                ButtonSelect.config(command=lambda: select_item(mode='A')).place(relx=0.1, rely=0.9, anchor='s')
-                ButtonDeselect.config(command=lambda: deselect_button(mode='A')).place(relx=0.1, rely=0.95, anchor='s')
+                ButtonSelect.config(command=lambda: select_item(mode='A'))
+                ButtonSelect    .place(relx=0.1, rely=0.9, anchor='s')
+                ButtonDeselect.config(command=lambda: deselect_button(mode='A'))
+                ButtonDeselect.place(relx=0.1, rely=0.95, anchor='s')
                 PlayaudioButton.config(command=lambda: play_audio(nmbr, mode='A'))
                 PlayaudioButton.place(relx=0.98, rely=0.95, anchor='e')
-
-            label2.pack()
-            Imagesz.pack()
+                label2.pack()
+                Imagesz.pack()
             if mode == 'G':
                 GuestsButton.config(text="")
                 GuestsButton.pack_forget()
@@ -363,7 +405,7 @@ class FeastApp:
 # Create definitions of methods
         
     def center_window(self, root):
-            width,height = 980, 1000
+            width,height = 980, 1080
             screen_width,screen_height = self.root.winfo_screenwidth(), self.root.winfo_screenheight()
             x,y = (screen_width/2) - (width/2), (screen_height/2) - (height)
             if platform == "linux" :
