@@ -5,6 +5,7 @@ from platform import system
 from PIL import ImageTk, Image
 from sys import platform, version_info
 from tkinter import PhotoImage, Button, Text
+from Guest import Guest
 
 class FeastApp: 
     def __init__(self):
@@ -73,45 +74,6 @@ class FeastApp:
         self.table_images = {key: ImageTk.PhotoImage(image) for key, image in self.tables.items()}
         self.addon_images = {key: ImageTk.PhotoImage(image) for key, image in self.addons.items()}  
 
-    def Create_variables(self):
-        # Create variables for the application
-        self.family_members = {"Aunt Vasilia": False, "Masha": False, "Luba Ludmila": False, "Boris": False, "Katya": False, "Olga": False, "Yaroslav": False, "Marzanna": False, "Gnevomir": False, "Borzena": False, "Zlata": False, "Mieszko": False}
-        self.types_of_tables = {"Fishy Table": False, "Meaty Table": False, "Vegan Table": False, "Vege Table": False}
-        self.types_of_addons = {"Aunties_Tea": False, "Beer": False, "Honey": False, "Juices": False, "Lemon": False, "Salt": False, "Sugar": False, "Tea": False, "Vodka": False, "Wine": False}
-    
-    def load_descriptions(self):
-        file_path  = "True Descriptions.txt"    # char description
-        file_path2 = "Tables Description.txt"  # table description
-        file_path3 = "Addons Description.txt"  # addon description
-       
-        # Read the content of the file
-        with open(file_path, 'r') as file:
-            content = file.read()
-        with open(file_path2, 'r') as file:
-            content2 = file.read()
-        with open(file_path3, 'r') as file:
-            content3 = file.read()
-
-        # Split the content into individual descriptions
-        descriptions = content.split('* ')
-        descriptions2 = content2.split('* ')
-        descriptions3 = content3.split('* ')
-        
-        descriptions = [desc.strip() for desc in descriptions if desc.strip()]
-        descriptions2 = [desc.strip() for desc in descriptions2 if desc.strip()]
-        descriptions3 = [desc.strip() for desc in descriptions3 if desc.strip()]
-        
-        # Assign each description to a variable
-        self.guest_descriptions = {
-            list(self.family_members.keys())[i]: descriptions[i] for i in range(len(self.family_members))
-            }
-        self.table_descriptions = {
-            list(self.types_of_tables.keys())[i]: descriptions2[i] for i in range(len(self.types_of_tables))
-            }
-        self.addon_descriptions = {
-            list(self.types_of_addons.keys())[i]: descriptions3[i] for i in range(len(self.types_of_addons))
-            }
-
     def Gui_(self):
 
         ##Labels
@@ -127,9 +89,13 @@ class FeastApp:
         Imagesz.image = OpeningImage
         Imagesz.pack()  
 
+        # Title for the description
+        Title = tk.Label(self.root, text="Description", font=("Helvetica", 20),background="#BAA391")
+        Title.pack()
+
         # Second label for the description
-        label2 = tk.Label(self.root, text="Please meet the family members and get to know them." , font=("Helvetica", 14),background="#BAA391")
-        label2.pack()   
+        Body = tk.Label(self.root, text="Please meet the family members and get to know them." , font=("Helvetica", 14),background="#BAA391")
+        Body.pack()   
         
         ##Buttons
         # Create buttons for navigation 
@@ -203,10 +169,13 @@ class FeastApp:
                 label1.config(text="Please choose the type of food.")
                 #Audio here @Add
                 
-                # Get the description VAL and images
+                # Get the descriptions and images
                 t_descriptions = list(self.table_descriptions.values())
-                label2.config(text=t_descriptions[var])
                 t_images = list(self.table_images.values())
+                
+                # Assign the description and image to the corresponding variables
+                Title
+                Body.config(text=t_descriptions[var])
                 status.config(text=f"Status: {nmbr}/{t_status}")
                 current_index = int(status.cget("text").split(":")[1].split("/")[0])
 
@@ -222,12 +191,14 @@ class FeastApp:
                 PlayaudioButton.place(relx=0.99, rely=0.95, anchor='e')
             elif mode == 'G':
                 label1.config(text="Please meet the family members\n and get to know them.")
-                #Audio here
+                #Audio here @Add
+                
+                # Get the descriptions and images
                 g_descriptions = list(self.guest_descriptions.values())
                 g_images = list(self.guest_images.values())
                 status.config(text=f"Status: {nmbr}/{g_status}")
                 current_index = int(status.cget("text").split(":")[1].split("/")[0])
-                label2.config(text=g_descriptions[var])
+                Body.config(text=g_descriptions[var])
                 Imagesz.config(image=g_images[current_index-1])
                 Imagesz.image = g_images[current_index-1]
                 PlayaudioButton.config(command=lambda: play_audio(nmbr, mode='G'))
@@ -238,13 +209,14 @@ class FeastApp:
                 ButtonDeselect.place(relx=0.1, rely=0.95, anchor='s')
             elif mode == 'A':
                 label1.config(text="Please choose the addons up to 6.")
-                #Audio here @make
+                #Audio here @Add
 
+                # Get the descriptions and images
                 a_descriptions = list(self.addon_descriptions.values())
                 a_images = list(self.addon_images.values())
                 status.config(text=f"Status: {nmbr}/{a_status}")
                 current_index = int(status.cget("text").split(":")[1].split("/")[0])
-                label2.config(text=a_descriptions[var])
+                Body.config(text=a_descriptions[var])
                 Imagesz.config(image=a_images[current_index-1])
                 Imagesz.image = a_images[current_index-1]
                 ButtonSelect.config(command=lambda: select_item(mode='A'))
@@ -253,7 +225,7 @@ class FeastApp:
                 ButtonDeselect.place(relx=0.1, rely=0.95, anchor='s')
                 PlayaudioButton.config(command=lambda: play_audio(nmbr, mode='A'))
                 PlayaudioButton.place(relx=0.98, rely=0.95, anchor='e')
-                label2.pack()
+                Body.pack()
                 Imagesz.pack()
             if mode == 'G':
                 GuestsButton.config(text="")
