@@ -1,11 +1,11 @@
 import os
-from pygame import mixer
+import Guest2
 import tkinter as tk
+from pygame import mixer
 from platform import system
 from PIL import ImageTk, Image
 from sys import platform, version_info
 from tkinter import PhotoImage, Button, Text
-from Guest import Guest
 
 class FeastApp: 
     def __init__(self):
@@ -25,14 +25,13 @@ class FeastApp:
 
 
         
-    def inizialize_root(self):
+    def inizialize_root(self): #Initialize is perfect
         # Initialize the root window with the title and Background
         self.root.title("Feast")
         ##TEST
         #self.root.configure(background="#BAA391")
 
         # Use image as a background for the window
-       #
         bg_image = Image.open("Images/BG2.png")
         bg_photo = ImageTk.PhotoImage(bg_image)
         bg_label = tk.Label(self.root, image=bg_photo)
@@ -55,24 +54,39 @@ class FeastApp:
         self.root.resizable(False, False)
         self.root.update()
 
+    def load_images(self): #Load is pretty
+        try:
+            # Define the paths to the images //@Upgrade
+            guests_paths = ["Images/Guests/Aunt_Vasilisa.png", "Images/Guests/Dad_sis_Masha.png", "Images/Guests/Luba_Ludmila.png", "Images/Guests/BF_Boris.png", "Images/Guests/BF_Katya.png", "Images/Guests/Cousin_Olga.png", "Images/Guests/Dad_Yaroslav.png", "Images/Guests/Grandma_Marzanna.png", "Images/Guests/Grandpa_Gnevomir.png", "Images/Guests/Mom_Borzena.png", "Images/Guests/Sis_Zlata.png", "Images/Guests/Uncle_Mieszko.png"]
+            tables_paths = ["Images/Table/FishyTable.png", "Images/Table/MeatyTable.png", "Images/Table/VeganTable.png", "Images/Table/VegeTable.png"]
+            addons_paths = ["Images/Addons/Auntie_tea.png", "Images/Addons/Beer.png", "Images/Addons/Honey.png", "Images/Addons/Juices.png", "Images/Addons/Lemon.png", "Images/Addons/Salt.png", "Images/Addons/Sugar.png", "Images/Addons/Tea.png", "Images/Addons/Vodka.png", "Images/Addons/Wine.png"]
+
+            # Create a dictionary of images
+            self.guests = {f"Guest{i}": Image.open(path) for i, path in enumerate(guests_paths, start=1)}
+            self.tables = {f"Table{i}": Image.open(path) for i, path in enumerate(tables_paths, start=1)}
+            self.addons = {f"Addon{i}": Image.open(path) for i, path in enumerate(addons_paths, start=1)}
 
 
-    def load_images(self):
-        # Define the paths to the images @Upgrade
-        guests_paths = ["Images/Guests/Aunt_Vasilisa.png", "Images/Guests/Dad_sis_Masha.png", "Images/Guests/Luba_Ludmila.png", "Images/Guests/BF_Boris.png", "Images/Guests/BF_Katya.png", "Images/Guests/Cousin_Olga.png", "Images/Guests/Dad_Yaroslav.png", "Images/Guests/Grandma_Marzanna.png", "Images/Guests/Grandpa_Gnevomir.png", "Images/Guests/Mom_Borzena.png", "Images/Guests/Sis_Zlata.png", "Images/Guests/Uncle_Mieszko.png"]
-        tables_paths = ["Images/Table/FishyTable.png", "Images/Table/MeatyTable.png", "Images/Table/VeganTable.png", "Images/Table/VegeTable.png"]
-        addons_paths = ["Images/Addons/Auntie_tea.png", "Images/Addons/Beer.png", "Images/Addons/Honey.png", "Images/Addons/Juices.png", "Images/Addons/Lemon.png", "Images/Addons/Salt.png", "Images/Addons/Sugar.png", "Images/Addons/Tea.png", "Images/Addons/Vodka.png", "Images/Addons/Wine.png"]
+            # Convert images to ImageTk format
+            self.guest_images = {key: ImageTk.PhotoImage(image) for key, image in self.guests.items()}
+            self.table_images = {key: ImageTk.PhotoImage(image) for key, image in self.tables.items()}
+            self.addon_images = {key: ImageTk.PhotoImage(image) for key, image in self.addons.items()}  
         
-        # Create a dictionary of images
-        self.guests = {f"Guest{i}": Image.open(path) for i, path in enumerate(guests_paths, start=1)}
-        self.tables = {f"Table{i}": Image.open(path) for i, path in enumerate(tables_paths, start=1)}
-        self.addons = {f"Addon{i}": Image.open(path) for i, path in enumerate(addons_paths, start=1)}
-           
+        except IOError as e:
+            # Handle file not found or other IO errors
+            print(f"Error loading images: {e}")
+            # Optionally, set default images or handle error state
 
-        # Convert images to ImageTk format
-        self.guest_images = {key: ImageTk.PhotoImage(image) for key, image in self.guests.items()}
-        self.table_images = {key: ImageTk.PhotoImage(image) for key, image in self.tables.items()}
-        self.addon_images = {key: ImageTk.PhotoImage(image) for key, image in self.addons.items()}  
+        except Exception as e:
+            # Handle any other unexpected exceptions
+            print(f"Unexpected error loading images: {e}")
+            # Optionally, set default images or handle error state
+    
+    def Create_variables(self): #
+        
+        if __name__ == "__main__":
+        
+          Guest.Guest.main()
 
     def Gui_(self):
 
