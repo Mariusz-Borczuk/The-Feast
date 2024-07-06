@@ -10,19 +10,20 @@ Project Description
 - [ ] Script code an obcject on arc where it checks if option is selected and creates 011101 code that choses next arc events  
 - [ ] with special ending unlock skin, music, 1 location, 1 entity, one scripted lore with ritual, wallpaper, reward at start screen with stars  
 - [ ] Music selecter  
-- [ ] Guest: Name, isPicked, Status, location, title(changes as the ending), description  
-- [ ] Food: type  
 - [ ] locations: table, forest, beach, cave, home, oldmans  
 - [ ] time :morning form prep, afternoon for feast, midnight for fun, dawn for result  
-- [ ] Addons: isPicked, full  
 - [ ] Enemy as Witcher, witch, old man, bies, wild animal( bear, wolfs), utopiec  
 - [ ] #add to little descriptions some spice  
 - [ ] ## for more info about block  
 - [ ] @add @change @upgrade  
+- [ ] ctrl + alt + m  -bookmark  
 
 ### In Progress
 
+- [ ] Addons: isPicked, full  
 
 ### Done ✓
 
+- [x] Food: type  
+- [x] Guest: Name, isPicked, Status, location, title(changes as the ending), description  
 
