@@ -25,6 +25,7 @@ class Addon:
     title = "Addon"
     description = "This is an addon"
 
+    
     # Class-level attributes to hold titles and descriptions
     titles = []
     descriptions = []

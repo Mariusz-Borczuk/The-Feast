@@ -1,8 +1,8 @@
 import os
-
-import pygame
-
 import Guest
+import Table
+import Addon
+import pygame
 import traceback
 import tkinter as tk
 from pygame import mixer
@@ -17,7 +17,6 @@ class FeastApp:
         # Create fundamental elements of the application
         self.root = tk.Tk()
         self.inizialize_root()
-        self.load_images()
 
         # @change
         self.create_variables()
@@ -50,48 +49,16 @@ class FeastApp:
         self.root.resizable(False, False)
         self.root.update()
 
-    def load_images(self):  # Load is pretty
-        """ Loading images //can e initialized to object as a built in attribute"""
-        try:
-
-            guests_paths = ["Images/Guests/Aunt_Vasilisa.png", "Images/Guests/Dad_sis_Masha.png",
-                            "Images/Guests/Luba_Ludmila.png", "Images/Guests/BF_Boris.png",
-                            "Images/Guests/BF_Katya.png", "Images/Guests/Cousin_Olga.png",
-                            "Images/Guests/Dad_Yaroslav.png", "Images/Guests/Grandma_Marzanna.png",
-                            "Images/Guests/Grandpa_Gnevomir.png", "Images/Guests/Mom_Borzena.png",
-                            "Images/Guests/Sis_Zlata.png", "Images/Guests/Uncle_Mieszko.png"]
-            tables_paths = ["Images/Table/FishyTable.png", "Images/Table/MeatyTable.png", "Images/Table/VeganTable.png",
-                            "Images/Table/VegeTable.png"]
-            addons_paths = ["Images/Addons/Auntie_tea.png", "Images/Addons/Beer.png", "Images/Addons/Honey.png",
-                            "Images/Addons/Juices.png", "Images/Addons/Lemon.png", "Images/Addons/Salt.png",
-                            "Images/Addons/Sugar.png", "Images/Addons/Tea.png", "Images/Addons/Vodka.png",
-                            "Images/Addons/Wine.png"]
-
-            # Create a dictionary of images
-            self.guests = {f"Guest{i}": Image.open(path) for i, path in enumerate(guests_paths, start=1)}
-            self.tables = {f"Table{i}": Image.open(path) for i, path in enumerate(tables_paths, start=1)}
-            self.addons = {f"Addon{i}": Image.open(path) for i, path in enumerate(addons_paths, start=1)}
-
-            # Convert images to ImageTk format
-            self.guest_images = {key: ImageTk.PhotoImage(image) for key, image in self.guests.items()}
-            self.table_images = {key: ImageTk.PhotoImage(image) for key, image in self.tables.items()}
-            self.addon_images = {key: ImageTk.PhotoImage(image) for key, image in self.addons.items()}
-
-        except IOError as e:
-            # Handle file not found or other IO errors
-            print(f"Error loading images: {e}")
-            # Optionally, set default images or handle error state
-
-        except Exception as e:
-            # Handle any other unexpected exceptions
-            print(f"Unexpected error loading images: {e}")
-            # Optionally, set default images or handle error state
-
     @staticmethod
     def create_variables():  #
-        """ Initialises variables feom other files."""
+        """ Initialises variables from other files."""
         # Loading Guests
-        pass
+        guests: [] = Guest.Guest.get_all_guests()
+        print(guests[0].name)
+        # Loading Tables
+        tables: [] = Table.Table.get_all_food()
+        # Loading Addons
+        addons: [] = Addon.Addon.get_all_addons()
 
     def gui(self):
         """ Graphical Interface of the game"""
@@ -148,9 +115,9 @@ class FeastApp:
         select_button.place(relx=0.1, rely=0.9, anchor='s')
 
         # Deselect button
-        deselect_button = Button(self.root, text="Deselect", font=("Helvetica", 20, 'bold'),
-                                 command=lambda: deselect_button(mode='F'), bg="red")
-        deselect_button.place(relx=0.1, rely=0.95, anchor='s')
+        # deselect_button = Button(self.root, text="Deselect", font=("Helvetica", 20, 'bold'),
+        #                        command=lambda: deselect_button(mode='F'), bg="red")
+        # deselect_button.place(relx=0.1, rely=0.95, anchor='s')
 
         # Food button
         foods_button = Button(self.root, text="Select Tables", font=("Helvetica", 20, 'bold'),
@@ -214,8 +181,6 @@ class FeastApp:
             :type nmbr: int
             :param mode: The mode determining the category of the audio file ('G' for guests, 'F' for tables, 'A' or others for addons).
             :type mode: str
-            :param wait: If True, wait for the audio to finish playing before returning.
-            :type wait: bool
             """
             mixer.init()
             try:
@@ -239,7 +204,7 @@ class FeastApp:
             Updates the display of the application through every iteration of pages.
 
             This function dynamically updates the UI components based on the current mode and
-            page number. It handles the display of descriptions, images, and titles for different
+            page number. It handles the display of descriptions, images, and fronter for different
             modes ('G' for guests, 'F' for food/tables, and 'A' for addons), and configures
             navigation and action buttons accordingly.
 
@@ -271,30 +236,30 @@ class FeastApp:
 
             var = nmbr - 1
             status_labels = {
-                'G': len(self.guests.values()),
-                'F': len(self.tables.values()),
-                'A': len(self.addons.values())
+                'G': len(self.guests),
+                'F': len(self.tables),
+                'A': len(self.addons)
             }
 
             descriptions = {
-                'G': list(self.guest_descriptions.values()),
-                'F': list(self.table_descriptions.values()),
-                'A': list(self.addon_descriptions.values())
+                'G': list(self.guests.description),
+                'F': list(self.tables.description),
+                'A': list(self.addons.description)
             }
 
             images = {
-                'G': list(self.guest_images.values()),
-                'F': list(self.table_images.values()),
-                'A': list(self.addon_images.values())
+                'G': list(self.guest.image),
+                'F': list(self.table.image),
+                'A': list(self.addon.image)
             }
 
-            titles = {
+            fronter = {
                 'G': "Please meet the family members\n and get to know them.",
                 'F': "Please choose the type of food.",
                 'A': "Please choose the addons up to 6."
             }
 
-            huge_title.config(text=titles[mode])
+            huge_title.config(text=fronter[mode])
 
             # Update labels and images
             status_label.config(text=f"Status: {nmbr}/{status_labels[mode]}")
@@ -305,11 +270,11 @@ class FeastApp:
 
             # Configure buttons
             select_button.config(command=lambda: select_item(mode=mode))
-            #deselect_button.config(command=lambda: deselect_item(mode=mode))
+            # deselect_button.config(command=lambda: deselect_item(mode=mode))
             play_audio_button.config(command=lambda: play_audio(nmbr, mode=mode))
 
             select_button.place(relx=0.1, rely=0.9, anchor='s')
-            deselect_button.place(relx=0.1, rely=0.95, anchor='s')
+            # deselect_button.place(relx=0.1, rely=0.95, anchor='s')
             play_audio_button.place(relx=0.99, rely=0.95, anchor='e')
 
             # Show or hide buttons based on mode
@@ -347,7 +312,9 @@ class FeastApp:
         #         deselect_button.config(state="disabled")
 
         def select_item(mode: str = 'G'):
-            """ Selecting the image and showing it was done via showing image"""
+            """ Selecting the image and showing it was done via showing image
+            :type mode: object
+            """
             current_index = int(status_label.cget("text").split(":")[1].split("/")[0]) - 1
             # Image shown
             imgpath = "Images/Oki.png"
@@ -374,8 +341,8 @@ class FeastApp:
 
                 if select_button.winfo_exists():
                     select_button.pack_forget()
-                if deselect_button.winfo_exists():
-                    deselect_button.pack_forget()
+                # if deselect_button.winfo_exists():
+                # deselect_button.pack_forget()
 
                 for key, value in self.types_of_tables.items():
                     print(key, value)
@@ -428,17 +395,6 @@ class FeastApp:
         # Destroy the application
         #   self.root.destroy()
 
-    def selecting_guests(self, nmbr):
-
-        if nmbr in self.SelectGuest:
-            self.SelectGuest[nmbr] = not self.SelectGuest[nmbr]
-            if self.SelectGuest[nmbr]:
-                self.selected_guests.add(nmbr)
-
-        # Create a frame for the guests
-
-    # Create definitions of methods
-
     @staticmethod
     def center_window(root):
         """
@@ -476,6 +432,6 @@ class FeastApp:
 
 if __name__ == "__main__":
     app = FeastApp()
-    Guest.Guest.get_all_guests()
+
     app.center_window(app.root)
     app.run()
