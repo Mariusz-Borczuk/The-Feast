@@ -1,0 +1,59 @@
+Game Title: The Feast
+
+Overview: “The Feast” is a narrative-driven game divided into several arcs,
+ each representing different times of the day and significant events. 
+ The game is designed to immerse players in a prehistorical Slavic atmosphere, 
+ with each arc contributing to the overall story and experience.
+
+
+Game "The Feast" is devided into small arcs: Predhodnik, Mir, Feast, Drijemka, Predponoc, Ponoc, Omen, Brzask
+
+Morning time:
+    "Predhodnik" - preparation act for feast.
+     * This arc focuses on the early morning activities and preparations for the upcoming feast. 
+     Players engage in tasks such as gathering ingredients, setting up the feast area,
+     and performing morning rituals to honor the ancestors and gods.
+
+    "Mir" - freetime before the feast. 
+    * During this arc, players have free time to explore the surroundings, 
+    interact with other characters, and participate in communal activities. 
+    This period emphasizes the importance of community and the peaceful moments before the main event.
+
+Afternoon time: 
+    "Feast" itself.
+    * The central event of the game, where players partake in a grand communal meal. 
+    This arc highlights traditional Slavic dishes, rituals of gratitude, 
+    and the strengthening of social bonds through shared food and stories.
+    
+    "Drijemka" - aftertime for the guests.
+    * After the feast, characters take a midday rest. This arc allows players to engage in quiet, 
+    reflective activities such as napping, weaving, or carving, 
+    connecting with nature and recharging for the evening.
+
+Night time:
+    "Predponoc"-  preperations for the night.
+    * As the day transitions to night, guests prepare for the evening. 
+    This arc includes securing the area, lighting protective fires, and performing evening prayers or chants. 
+    It sets the stage for the more mystical events to come.
+    
+    "Ponoc" - the noon and the whispers of the unknown. 
+    * The night is filled with mythological and supernatural occurrences.
+    Guests encounter spirits, perform divinations, and engage in secretive rituals under the moonlight. 
+    This arc is rich with mystery and ancient lore.
+
+
+Special event:
+    "Omen" - element of suprise.
+    * This event can occur randomly during almost any other arc. 
+    An unexpected event, interpreted as a sign from the gods or spirits,
+    adds an element of unpredictability and excitement. 
+    It could be a natural phenomenon, a sudden illness, or a mysterious visitor.
+
+
+New dawn:
+    "Brzask" - summary of what have happened and the ending  
+    * The final arc, where guests reflect on the events of the previous day and night. 
+    Morning rituals are performed to welcome the new day, 
+    and the game concludes with a summary of what    has happened and the lessons learned.
+
+
